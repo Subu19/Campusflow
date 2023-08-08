@@ -10,6 +10,14 @@ import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import com.campusflow.campusflow.HelloApplication;
 import com.campusflow.campusflow.database.Database;
+import org.json.simple.*;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
 public class HelloController {
 
     @FXML
@@ -75,7 +83,19 @@ public class HelloController {
         settingsTab.setVisible(true);
         //check if there is database info stored in the config file.
         if(Database.checkDatabaseDetails()){
+            JSONParser jsonParser = new JSONParser();
+            try(FileReader reader = new FileReader("./src/main/resources/config/config.json")){
+                Object obj = jsonParser.parse(reader);
+                JSONObject json = (JSONObject) obj;
+                host.setText((String) json.get("host"));
+                port.setText((String) json.get("port").toString());
+                database.setText((String) json.get("database"));
+                dbuser.setText((String) json.get("username"));
+                dbpass.setText((String) json.get("password"));
 
+            } catch (IOException | ParseException e) {
+                e.printStackTrace();
+            }
         }else{
 
         }
