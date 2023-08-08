@@ -62,7 +62,7 @@
       </Pane>
       <AnchorPane layoutX="218.0" layoutY="119.0" prefHeight="612.0" prefWidth="1021.0" style="-fx-background-color: #006494;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="118.0">
          <children>
-            <TabPane fx:id="settingsTab" layoutX="-5.0" layoutY="-3.0" prefHeight="616.0" prefWidth="1035.0" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="settingsTab" layoutX="-5.0" layoutY="-3.0" prefHeight="616.0" prefWidth="1035.0" tabClosingPolicy="UNAVAILABLE" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <tabs>
                   <Tab text="DATABASE">
                      <content>
