@@ -27,5 +27,8 @@ public class Dashboard{
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
+
+        //stage.get
+
     }
 }

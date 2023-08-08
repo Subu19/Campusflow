@@ -14,7 +14,7 @@
    <children>
       <ImageView fitHeight="150.0" fitWidth="303.0" layoutX="108.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="C:\Users\Subu\IdeaProjects\CampusFlow\src\main\resources\images\logowithtext.png" />
+            <Image url="@../../../images/logowithtext.png" />
          </image>
       </ImageView>
       <PasswordField fx:id="PASSWORD" layoutX="108.0" layoutY="297.0" prefHeight="50.0" prefWidth="303.0">
