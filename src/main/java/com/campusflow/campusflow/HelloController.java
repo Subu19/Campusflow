@@ -24,15 +24,56 @@ public class HelloController {
     @FXML
     private Label feedback;
 
-    @FXML
-    private Button settingsbtn;
-
+    //
+    //Settings TAB Menu
+    //
     @FXML
     private TabPane settingsTab;
 
     @FXML
+    private Button settingsbtn;
+    @FXML
     void onSettings(ActionEvent event) {
-       settingsTab.setVisible(true);
+        studentsTab.setVisible(false);
+        teachersTab.setVisible(false);
+        //
+        //TRUE
+        settingsTab.setVisible(true);
+
+    }
+
+    //
+    // Students TAB Menu
+    //
+    @FXML
+    private TabPane studentsTab;
+
+    @FXML
+    private Button studentsbtn;
+
+    @FXML
+    void onStudents(ActionEvent event) {
+        settingsTab.setVisible(false);
+        teachersTab.setVisible(false);
+        //
+        //TRUE
+        studentsTab.setVisible(true);
+
+    }
+
+    //
+    //Teachers TAB Menu
+    //
+    @FXML
+    private TabPane teachersTab;
+
+    @FXML
+    void onTeachers(ActionEvent event) {
+        settingsTab.setVisible(false);
+        studentsTab.setVisible(false);
+        //
+        // TRUE
+        teachersTab.setVisible(true);
 
     }
 
