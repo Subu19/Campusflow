@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import com.campusflow.campusflow.HelloApplication;
-
+import com.campusflow.campusflow.database.Database;
 public class HelloController {
 
     @FXML
@@ -29,10 +29,47 @@ public class HelloController {
 
     @FXML
     private TabPane settingsTab;
+    //database variables
+    @FXML
+    private TextField database;
+
+    @FXML
+    private TextField dbpass;
+
+    @FXML
+    private TextField dbuser;
+
+    @FXML
+    private TextField host;
+
+    @FXML
+    private TextField port;
+
+    //database submission
+    @FXML
+    void onSubmitDB(ActionEvent event) {
+        if(!dbpass.getText().isEmpty() && !dbuser.getText().isEmpty() && !database.getText().isEmpty() && !host.getText().isEmpty() && !port.getText().isEmpty() ){
+            if(Database.postDatabaseDetails(host.getText(),database.getText(),dbuser.getText(),dbpass.getText(),port.getText())){
+                System.out.println("Saved!");
+            }else{
+                System.out.println(("Couldnt save!"));
+            }
+        }else{
+            System.out.println("Empty fields");
+        }
+    }
+
 
     @FXML
     void onSettings(ActionEvent event) {
-       settingsTab.setVisible(true);
+        //show settings
+        settingsTab.setVisible(true);
+        //check if there is database info stored in the config file.
+        if(Database.checkDatabaseDetails()){
+
+        }else{
+
+        }
 
     }
 
