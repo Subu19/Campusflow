@@ -24,11 +24,15 @@ public class HelloController {
     @FXML
     private Label feedback;
 
+    //
+    //Settings TAB Menu
+    //
+    @FXML
+    private TabPane settingsTab;
+
     @FXML
     private Button settingsbtn;
 
-    @FXML
-    private TabPane settingsTab;
     //database variables
     @FXML
     private TextField database;
@@ -62,6 +66,11 @@ public class HelloController {
 
     @FXML
     void onSettings(ActionEvent event) {
+        studentsTab.setVisible(false);
+        teachersTab.setVisible(false);
+        //
+        //TRUE
+        settingsTab.setVisible(true);
         //show settings
         settingsTab.setVisible(true);
         //check if there is database info stored in the config file.
@@ -70,6 +79,41 @@ public class HelloController {
         }else{
 
         }
+
+    }
+
+    //
+    // Students TAB Menu
+    //
+    @FXML
+    private TabPane studentsTab;
+
+    @FXML
+    private Button studentsbtn;
+
+    @FXML
+    void onStudents(ActionEvent event) {
+        settingsTab.setVisible(false);
+        teachersTab.setVisible(false);
+        //
+        //TRUE
+        studentsTab.setVisible(true);
+
+    }
+
+    //
+    //Teachers TAB Menu
+    //
+    @FXML
+    private TabPane teachersTab;
+
+    @FXML
+    void onTeachers(ActionEvent event) {
+        settingsTab.setVisible(false);
+        studentsTab.setVisible(false);
+        //
+        // TRUE
+        teachersTab.setVisible(true);
 
     }
 
