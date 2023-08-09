@@ -59,6 +59,11 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
+            <Button fx:id="settingsbtn1" layoutX="14.0" layoutY="372.0" mnemonicParsing="false" onAction="#onSettings" prefHeight="25.0" prefWidth="176.0" style="-fx-background-color: none;" text="Notice" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
       <AnchorPane layoutX="218.0" layoutY="119.0" prefHeight="612.0" prefWidth="1021.0" style="-fx-background-color: #006494;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="118.0">

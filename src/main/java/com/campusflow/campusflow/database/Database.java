@@ -60,8 +60,9 @@ public class Database{
             String sql = "Select * from "+table;
             PreparedStatement statement = con.prepareStatement(sql);
             ResultSet result = statement.executeQuery();
-            if(result.next())
+            if(result.getFetchSize()>=0)
                 check = true;
+
         }catch (SQLException e){
             e.printStackTrace();
         }
