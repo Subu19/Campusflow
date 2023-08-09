@@ -43,16 +43,70 @@ public class Database{
     }
     public static String getConnection(String host, String database,String user,String pass,String port){
         try{
-            Class.forName("com.mysql.jdbc.Driver");
+//            Class.forName("com.mysql.jdbc.Driver");
             String url ="jdbc:mysql://localhost:"+port+"/"+database;
             con = DriverManager.getConnection(url,user,pass);
             System.out.println("Successfully connected!!");
             connected=true;
             return "connected";
-        }catch(SQLException |ClassNotFoundException e){
+        }catch(SQLException e){
             e.printStackTrace();
             return e.toString();
         }
+    }
+    public static boolean checkTable(String table){
+        boolean check = false;
+        try{
+            String sql = "Select * from "+table;
+            PreparedStatement statement = con.prepareStatement(sql);
+            ResultSet result = statement.executeQuery();
+            if(result.next())
+                check = true;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return check;
+    }
+
+    //////====================home===================//////////
+    public static String addDepartment(String id, String name, String hod){
+        String feedback = "";
+        //first check if the table exists or not
+        if(connected){
+            if(checkTable("department")){
+                //table found, lets insert data
+                try{
+                    String sql = "INSERT INTO department VALUES("+Integer.parseInt(id)+",'"+name+"',"+Integer.parseInt(hod)+")";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+                    feedback= "Success";
+                }catch (SQLException e){
+                    feedback = e.toString();
+                }
+
+            }else{
+                //create table
+                System.out.println("Creating Table!");
+                try{
+                    String sql = "CREATE TABLE department(did int, name varchar(20), hod int, CONSTRAINT pk_did PRIMARY KEY (did))";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+                    System.out.println("table created!");
+                    //now insert data!
+                    String sql2 = "INSERT INTO department VALUES("+Integer.parseInt(id)+",'"+name+"',"+Integer.parseInt(hod)+")";
+                    PreparedStatement statement2 = con.prepareStatement(sql2);
+                    statement2.executeUpdate();
+                    System.out.println("Data Inserted!");
+                    feedback = "Success";
+                }catch (SQLException e){
+                    feedback = e.toString();
+                }
+
+            };
+        }else{
+            feedback = "Database Not Connected!";
+        }
+        return feedback;
     }
 }
 

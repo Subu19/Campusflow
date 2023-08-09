@@ -22,6 +22,10 @@ import java.util.Objects;
 public class HelloController {
 
     @FXML
+    private Label alertLabel;
+
+
+    @FXML
     private PasswordField PASSWORD;
 
     @FXML
@@ -33,8 +37,12 @@ public class HelloController {
     @FXML
     private Label feedback;
 
+    @FXML
+    void onCloseAlert(ActionEvent event) {
+        alertLabel.getParent().setVisible(false);
+    }
     //
-    //Settings TAB Menu
+    /////////////////////////////////Settings TAB Menu //////////////////////////////////////////
     //
     @FXML
     private TabPane settingsTab;
@@ -88,6 +96,11 @@ public class HelloController {
         //TRUE
         settingsTab.setVisible(true);
         //check if there is database info stored in the config file.
+        checkAndConnect();
+
+    }
+    ///////////////////////////////////// DATABASE///////////////////////////////////////
+    private void checkAndConnect(){
         if(Database.checkDatabaseDetails()){
             JSONParser jsonParser = new JSONParser();
             try(FileReader reader = new FileReader("./src/main/resources/config/config.json")){
@@ -109,7 +122,6 @@ public class HelloController {
         }else{
             databaseAlert.setText("Something went wrong!");
         }
-
     }
     private void requestConnection(){
         String checkConnection = Database.getConnection(host.getText(),database.getText(),dbuser.getText(),dbpass.getText(),port.getText());
@@ -120,7 +132,7 @@ public class HelloController {
         }
     }
     //
-    // Students TAB Menu
+    ///////////////////////////////////////// Students TAB Menu///////////////////////////////////
     //
     @FXML
     private TabPane studentsTab;
@@ -140,7 +152,7 @@ public class HelloController {
     }
 
     //
-    //Teachers TAB Menu
+    //////////////////////////////////Teachers TAB Menu//////////////////////////////////////////////
     //
     @FXML
     private TabPane teachersTab;
@@ -169,8 +181,6 @@ public class HelloController {
             HelloApplication.loggedin = true;
             Dashboard dashboard = new Dashboard(mainwindow);
 
-
-
         }else{
             feedback.setText("Failed! Try again!");
             feedback.setTextFill(Color.RED);
@@ -192,5 +202,29 @@ public class HelloController {
         studentsTab.setVisible(false);
         settingsTab.setVisible(false);
         homeTab.setVisible(true);
+    }
+    @FXML
+    private TextField dptHOD;
+
+    @FXML
+    private TextField dptId;
+
+    @FXML
+    private TextField dptName;
+
+    @FXML
+    void onAddDepartment(ActionEvent event) {
+        //if department values are valid try and save it in the database
+        if(!dptId.getText().isEmpty() && !dptName.getText().isEmpty()){
+            String push = Database.addDepartment(dptId.getText(), dptName.getText(), dptHOD.getText());
+            if(Objects.equals(push, "Success")){
+               Alert.show(alertLabel,"Update Done!");
+               dptName.setText("");
+               dptId.setText("");
+               dptHOD.setText("");
+            }else{
+                Alert.show(alertLabel,push);
+            }
+        }
     }
 }
