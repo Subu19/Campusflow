@@ -108,5 +108,121 @@ public class Database{
         }
         return feedback;
     }
+    public static String addFaculty(String id, String name, String did){
+        String feedback = "";
+        //first check if the table exists or not
+        if(connected){
+            if(checkTable("faculty")){
+                //table found, lets insert data
+                try{
+                    String sql = "INSERT INTO faculty VALUES("+Integer.parseInt(id)+",'"+name+"',"+Integer.parseInt(did)+")";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+                    feedback= "Success";
+                }catch (SQLException e){
+                    feedback = e.toString();
+                }
+
+            }else{
+                //create table
+                System.out.println("Creating Table!");
+                try{
+                    String sql = "CREATE TABLE faculty(fid int, name varchar(20), did int, CONSTRAINT pk_fid PRIMARY KEY (fid))";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+                    System.out.println("table created!");
+                    //now insert data!
+                    String sql2 = "INSERT INTO faculty VALUES("+Integer.parseInt(id)+",'"+name+"',"+Integer.parseInt(did)+")";
+                    PreparedStatement statement2 = con.prepareStatement(sql2);
+                    statement2.executeUpdate();
+                    System.out.println("Data Inserted!");
+                    feedback = "Success";
+                }catch (SQLException e){
+                    feedback = e.toString();
+                }
+            };
+        }else{
+            feedback = "Database Not Connected!";
+        }
+        return feedback;
+    }
+    public static String addBatch(String id, String year, String fid, String semester){
+        String feedback = "";
+        //first check if the table exists or not
+        if(connected){
+            if(checkTable("batch")){
+                //table found, lets insert data
+                try{
+                    String sql = "INSERT INTO batch VALUES("+Integer.parseInt(id)+",'"+year+"',"+Integer.parseInt(fid)+",'"+semester+"')";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+                    feedback= "Success";
+                }catch (SQLException e){
+                    feedback = e.toString();
+                }
+
+            }else{
+                //create table
+                System.out.println("Creating Table!");
+                try{
+                    String sql = "CREATE TABLE batch(id int, year varchar(20), fid int, semester varchar(10), CONSTRAINT pk_bid PRIMARY KEY (id))";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+                    System.out.println("table created!");
+                    //now insert data!
+                    String sql2 = "INSERT INTO batch VALUES("+Integer.parseInt(id)+",'"+year+"',"+Integer.parseInt(fid)+",'"+semester+"')";
+                    PreparedStatement statement2 = con.prepareStatement(sql2);
+                    statement2.executeUpdate();
+                    System.out.println("Data Inserted!");
+                    feedback = "Success";
+                }catch (SQLException e){
+                    feedback = e.toString();
+                }
+            };
+        }else{
+            feedback = "Database Not Connected!";
+        }
+        return feedback;
+    }
+    public static String addStudent(String firstname,String middlename, String lastname, String adderss,
+                                    String contact, String email, String entrance,
+                                    String fid,String bid, String pid, String sid){
+        String feedback = "";
+        //first check if the table exists or not
+        if(connected){
+            if(checkTable("students")){
+                //table found, lets insert data
+                try{
+                    String sql = "INSERT INTO students VALUES('"+firstname+"','"+middlename+"','"+lastname+"','"+adderss+"',"+contact+",'"+email+"',"+entrance+","+fid+","+bid+","+pid+","+sid+")";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+                    feedback= "Success";
+                }catch (SQLException e){
+                    feedback = e.toString();
+                }
+
+            }else{
+                //create table
+                System.out.println("Creating Table!");
+                try{
+                    String sql = "CREATE TABLE students (first_name varchar(20),middle_name varchar(20),last_name varchar(20),address varchar(50),contact long, email varchar(50),entrance_score float, fid int, bid int, pid int, sid int, CONSTRAINT pk_sid PRIMARY KEY (sid))";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+                    System.out.println("table created!");
+                    //now insert data!
+                    String sql2 = "INSERT INTO students VALUES('"+firstname+"','"+middlename+"','"+lastname+"','"+adderss+"',"+contact+",'"+email+"',"+entrance+","+fid+","+bid+","+pid+","+sid+")";
+                    PreparedStatement statement2 = con.prepareStatement(sql2);
+                    statement2.executeUpdate();
+                    System.out.println("Data Inserted!");
+                    feedback = "Success";
+                }catch (SQLException e){
+                    feedback = e.toString();
+                }
+            };
+        }else{
+            feedback = "Database Not Connected!";
+        }
+        return feedback;
+    }
 }
 
