@@ -8,6 +8,7 @@ import org.json.simple.*;
 import com.campusflow.campusflow.database.DbSchema;
 public class Database{
     static Connection con=null;
+    static boolean connected = false;
     Database(){}
 
     public static boolean checkDatabaseDetails(){
@@ -40,39 +41,18 @@ public class Database{
         }
 
     }
-    public Connection getConnection(){
+    public static String getConnection(String host, String database,String user,String pass,String port){
         try{
             Class.forName("com.mysql.jdbc.Driver");
-            String url ="jdbc:mysql://localhost:3306/subu";
-            String user = "subu";
-            String pass="1234";
+            String url ="jdbc:mysql://localhost:"+port+"/"+database;
             con = DriverManager.getConnection(url,user,pass);
-
+            System.out.println("Successfully connected!!");
+            connected=true;
+            return "connected";
         }catch(SQLException |ClassNotFoundException e){
             e.printStackTrace();
+            return e.toString();
         }
-        System.out.println("Successfully connected!!");
-        return con;
     }
-
-//    public static void main(String [] args){
-//        Database test = new Database();
-//        try{
-//            String sql = "Select * from employee";
-//
-//            PreparedStatement statement = test.con.prepareStatement(sql);
-//            ResultSet result = statement.executeQuery();
-//            while(result.next()){
-//                String name = result.getString("name");
-//                System.out.print(name);
-//            }
-//            test.con.close();
-//
-//        }catch(SQLException e){
-//            e.printStackTrace();
-//        }
-//
-//
-//    }
 }
 

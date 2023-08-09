@@ -24,7 +24,7 @@
       </Pane>
       <Pane layoutX="10.0" layoutY="118.0" prefHeight="569.0" prefWidth="200.0" style="-fx-background-color: #003554;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="118.0">
          <children>
-            <Button layoutX="14.0" layoutY="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="176.0" style="-fx-background-color: none;" text="Dashboard" textFill="WHITE">
+            <Button layoutX="14.0" layoutY="22.0" mnemonicParsing="false" onAction="#onHome" prefHeight="25.0" prefWidth="176.0" style="-fx-background-color: none;" text="Home" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -142,6 +142,77 @@
                            </children>
                         </Pane>
                      </content></Tab>
+              </tabs>
+            </TabPane>
+            <TabPane fx:id="homeTab" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <tabs>
+                <Tab text="Dashboard">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </Tab>
+                <Tab text="Add Department">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextField layoutX="41.0" layoutY="67.0" />
+                              <TextField layoutX="41.0" layoutY="215.0" prefHeight="25.0" prefWidth="176.0" />
+                              <TextField layoutX="41.0" layoutY="140.0" prefHeight="25.0" prefWidth="223.0" />
+                              <Label layoutX="41.0" layoutY="43.0" text="Department ID:" textFill="WHITE">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="41.0" layoutY="113.0" text="Department Name:" textFill="WHITE">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="41.0" layoutY="188.0" text="Department HOD(Teacher ID):" textFill="WHITE">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Button layoutX="41.0" layoutY="292.0" mnemonicParsing="false" text="Add">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="Add Faculty">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextField layoutX="41.0" layoutY="214.0" />
+                              <TextField layoutX="41.0" layoutY="68.0" prefHeight="25.0" prefWidth="176.0" />
+                              <TextField layoutX="41.0" layoutY="138.0" prefHeight="25.0" prefWidth="223.0" />
+                              <Label layoutX="41.0" layoutY="43.0" text="Faculty ID:" textFill="WHITE">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="41.0" layoutY="112.0" text="Faculty Name:" textFill="WHITE">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="41.0" layoutY="186.0" text="Department ID:" textFill="WHITE">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Button layoutX="41.0" layoutY="292.0" mnemonicParsing="false" text="Add">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
               </tabs>
             </TabPane>
          </children>
