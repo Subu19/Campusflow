@@ -39,7 +39,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button layoutX="14.0" layoutY="172.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="176.0" style="-fx-background-color: none;" text="Attendence" textFill="WHITE">
+            <Button layoutX="14.0" layoutY="172.0" mnemonicParsing="false" onAction="#onAttendence" prefHeight="25.0" prefWidth="176.0" style="-fx-background-color: none;" text="Attendence" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>

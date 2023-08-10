@@ -2,7 +2,6 @@ package com.campusflow.campusflow.database;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import com.google.gson.Gson;
 import java.sql.*;
 import org.json.simple.*;
 import com.campusflow.campusflow.database.DbSchema;

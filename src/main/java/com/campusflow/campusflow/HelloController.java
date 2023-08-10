@@ -346,4 +346,13 @@ public class HelloController {
         }
     }
 
+    ///////////////////////////// ATTENDENCE /////////////////////////
+
+    @FXML
+    void onAttendence(ActionEvent event) throws IOException {
+        System.out.println("triggered");
+        Attendence attendence = new Attendence();
+        attendence.run();
+    }
+
 }
