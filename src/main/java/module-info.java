@@ -10,5 +10,6 @@ module com.campusflow.campusflow {
     requires com.google.zxing;
     requires zxing.javase;
     opens com.campusflow.campusflow to javafx.fxml;
+    opens com.campusflow.campusflow.EntityClass to javafx.base;
     exports com.campusflow.campusflow;
 }

@@ -72,7 +72,7 @@ public class AttendenceController {
                         }
                     }
                     try {
-                        Thread.sleep(100); // Sleep for 100 milliseconds
+                        Thread.sleep(50); // Sleep for 100 milliseconds
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                     }
