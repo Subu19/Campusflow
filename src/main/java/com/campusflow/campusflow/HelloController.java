@@ -127,7 +127,7 @@ public class HelloController {
                 throw new RuntimeException(e);
             }
         }else{
-            databaseAlert.setText("Something went wrong!");
+            databaseAlert.setText("Database info not found!");
         }
     }
     private void requestConnection(){
