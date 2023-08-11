@@ -20,6 +20,9 @@ import org.json.simple.parser.ParseException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class HelloController {
@@ -286,12 +289,28 @@ public class HelloController {
     private TabPane homeTab;
 
     @FXML
+    private Label studentCount;
+    @FXML
     void onHome(ActionEvent event) throws InterruptedException {
         teachersTab.setVisible(false);
         studentsTab.setVisible(false);
         settingsTab.setVisible(false);
         batchTab.setVisible(false);
         homeTab.setVisible(true);
+
+        initDashboard();
+    }
+    private void initDashboard(){
+        try{
+            String sql = "SELECT COUNT(sid) from students";
+            PreparedStatement statement = Database.con.prepareStatement(sql);
+            ResultSet result = statement.executeQuery();
+            result.next();
+            String count = result.getString("COUNT(sid)");
+            studentCount.setText(count);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }
     @FXML
     private TextField dptHOD;
