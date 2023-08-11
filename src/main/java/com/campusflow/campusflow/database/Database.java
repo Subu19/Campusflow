@@ -3,7 +3,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
+
+import Encryption.Encryption;
 import org.json.simple.*;
+
 import com.campusflow.campusflow.database.DbSchema;
 public class Database{
     public static Connection con=null;
@@ -27,7 +30,11 @@ public class Database{
         dbObject.put("host",host);
         dbObject.put("port", Integer.parseInt(port));
         dbObject.put("username",user);
-        dbObject.put("password", pass);
+        try {
+            dbObject.put("password", Encryption.encrypt(pass));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         dbObject.put("database",database);
         try{
             FileWriter writer = new FileWriter("./src/main/resources/config/config.json");

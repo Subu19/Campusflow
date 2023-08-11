@@ -1,5 +1,6 @@
 package com.campusflow.campusflow;
 
+import Encryption.Encryption;
 import com.campusflow.campusflow.EntityClass.Student;
 import com.campusflow.campusflow.tableview.StudentView;
 import javafx.event.ActionEvent;
@@ -115,13 +116,15 @@ public class HelloController {
                 port.setText((String) json.get("port").toString());
                 database.setText((String) json.get("database"));
                 dbuser.setText((String) json.get("username"));
-                dbpass.setText((String) json.get("password"));
+                dbpass.setText((String) Encryption.decrypt((String) json.get("password")));
                 databaseSubmitBtn.setText("Update");
 
                 databaseAlert.setText("Above information is being used for database connection!");
                 requestConnection();
             } catch (IOException | ParseException e) {
                 e.printStackTrace();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
         }else{
             databaseAlert.setText("Something went wrong!");
