@@ -9,6 +9,8 @@ module com.campusflow.campusflow {
     requires webcam.capture;
     requires com.google.zxing;
     requires zxing.javase;
+    requires java.mail;
+    requires activation;
     opens com.campusflow.campusflow to javafx.fxml;
     opens com.campusflow.campusflow.EntityClass to javafx.base;
     exports com.campusflow.campusflow;

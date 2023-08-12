@@ -1,13 +1,21 @@
 package com.campusflow.campusflow.database;
+
+import Encryption.Encryption;
+import com.campusflow.campusflow.EmailSender;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.WriterException;
+import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
+import org.json.simple.JSONObject;
+
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 
-import Encryption.Encryption;
-import org.json.simple.*;
+import static com.campusflow.campusflow.qrGenerator.generator.generateQRCode;
 
-import com.campusflow.campusflow.database.DbSchema;
 public class Database{
     public static Connection con=null;
     static boolean connected = false;
@@ -193,7 +201,7 @@ public class Database{
     }
     public static String addStudent(String firstname,String middlename, String lastname, String adderss,
                                     String contact, String email, String entrance,
-                                    String fid,String bid, String pid, String sid){
+                                    String fid,String bid, String pid, String sid) throws IOException, WriterException {
         String feedback = "";
         //first check if the table exists or not
         if(connected){
@@ -207,6 +215,34 @@ public class Database{
                 }catch (SQLException e){
                     feedback = e.toString();
                 }
+                ////////////////////QR//////////////////////////
+
+                // The data that the QR code will contain
+                String data = "gay";
+
+                // The path where the image will get saved
+                String path = "C:\\JAVA_project\\OTHERS\\Campusflow\\src\\main\\resources\\Qr.png";
+
+                // Encoding charset
+                String charset = "UTF-8";
+
+                Map<EncodeHintType, ErrorCorrectionLevel> hashMap
+                        = new HashMap<EncodeHintType,
+                                                ErrorCorrectionLevel>();
+
+                hashMap.put(EncodeHintType.ERROR_CORRECTION,
+                        ErrorCorrectionLevel.L);
+
+                generateQRCode(data, path, charset, hashMap, 200, 200);
+                System.out.println("QR Code Generated!!! ");
+
+                //////////////Email Qr code/////////////////////
+                EmailSender sendmail  = new EmailSender();
+                String to= email;
+                String subject= "welcome from College";
+                String text="This is your QR code for Attendance";
+                String imagePath= "C:\\JAVA_project\\OTHERS\\Campusflow\\src\\main\\resources\\Qr.png";
+                sendmail.sendEmail(to,subject, text,imagePath);
 
             }else{
                 //create table

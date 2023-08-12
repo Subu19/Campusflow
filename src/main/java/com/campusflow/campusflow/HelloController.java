@@ -3,6 +3,7 @@ package com.campusflow.campusflow;
 import Encryption.Encryption;
 import com.campusflow.campusflow.EntityClass.Student;
 import com.campusflow.campusflow.tableview.StudentView;
+import com.google.zxing.WriterException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -224,7 +225,7 @@ public class HelloController {
 
     }
     @FXML
-    void onAddStudent(ActionEvent event) {
+    void onAddStudent(ActionEvent event) throws IOException, WriterException {
         //if department values are valid try and save it in the database
         if(!s_address.getText().isEmpty() && !s_pid.getText().isEmpty() && !s_bid.getText().isEmpty() && !sid.getText().isEmpty() && !s_contact.getText().isEmpty()
                 && !s_email.getText().isEmpty() && !s_entrancescore.getText().isEmpty() && !s_fid.getText().isEmpty() && !s_firstname.getText().isEmpty() && !s_lastname.getText().isEmpty()
@@ -258,6 +259,8 @@ public class HelloController {
         teachersTab.setVisible(true);
 
     }
+
+
 
     @FXML
     void onLogin(ActionEvent event) throws InterruptedException {
@@ -407,5 +410,4 @@ public class HelloController {
         Attendence attendence = new Attendence();
         attendence.run();
     }
-
 }
