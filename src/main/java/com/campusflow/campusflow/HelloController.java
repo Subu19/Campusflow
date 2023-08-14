@@ -389,8 +389,8 @@ public class HelloController {
     @FXML
     void onAddBatch(ActionEvent event) {
         //if Faculty values are valid try and save it in the database
-        if(!bId.getText().isEmpty() && !b_year.getText().isEmpty() && !b_fId.getText().isEmpty() && !b_semester.getText().isEmpty()){
-            String push = Database.addBatch(bId.getText(), b_year.getText(), b_fId.getText(),b_semester.getText());
+        if(!b_year.getText().isEmpty() && !b_fId.getText().isEmpty() && !b_semester.getText().isEmpty()){
+            String push = Database.addBatch(b_year.getText(), b_fId.getText(),b_semester.getText());
             if(Objects.equals(push, "Success")){
                 Alert.show(alertLabel,"Update Done!");
                 fDid.setText("");

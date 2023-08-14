@@ -1,5 +1,6 @@
 package com.campusflow.campusflow;
 
+import com.campusflow.campusflow.database.Database;
 import com.github.sarxos.webcam.Webcam;
 import com.github.sarxos.webcam.WebcamPanel;
 
@@ -22,6 +23,7 @@ import javax.swing.SwingUtilities;
 import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 
+import java.time.LocalDate;
 
 public class AttendenceController {
     private volatile boolean stopThread = false;
@@ -37,7 +39,7 @@ public class AttendenceController {
 
     @FXML
     void startAttendence(ActionEvent event) {
-        webcam = Webcam.getWebcams().get(0);
+        webcam = Webcam.getWebcams().get(1);
         Dimension size = WebcamResolution.QVGA.getSize();
         webcam.setViewSize(size);
         SwingUtilities.invokeLater(() -> {
@@ -62,17 +64,19 @@ public class AttendenceController {
                         BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
 
                         try {
+
                             result = new MultiFormatReader().decode(bitmap);
                             System.out.println(result.getText());
                             if(result !=null){
-                                updateValue(result.getText());
+                                updateValue(Database.addAttendence(result.getText()));
+                                Thread.sleep(2000);
                             }
                         } catch (NotFoundException e) {
                             //e.printStackTrace();
                         }
                     }
                     try {
-                        Thread.sleep(50); // Sleep for 100 milliseconds
+                        Thread.sleep(50); // Sleep for 50 milliseconds
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                     }

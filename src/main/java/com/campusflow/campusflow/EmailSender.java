@@ -18,8 +18,8 @@ public class EmailSender {
 
         // Assuming you are sending email from through Gmail's SMTP
         String host = "smtp.gmail.com";
-        String username = "pram5karki@gmail.com";
-        String password = "opiltaqmvvupjwci"; // This should be secured!
+        String username = "campusflows@gmail.com";
+        String password = "sthajdthjhsyhivf"; // This should be secured!
 
         Properties properties = new Properties();
         properties.put("mail.smtp.host", host);

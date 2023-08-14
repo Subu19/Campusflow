@@ -6,11 +6,14 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.WriterException;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +24,41 @@ public class Database{
     static boolean connected = false;
     Database(){}
 
+    public static String addAttendence(String data){
+        try{
+        JSONParser jsonParser = new JSONParser();
+        Object rawJson = jsonParser.parse(data);
+        JSONObject json = (JSONObject) rawJson;
+        String sid = json.get("sid").toString();
+        String bid = json.get("bid").toString();
+        String date = LocalDate.now().toString();
+        String semester = json.get("semester").toString();
+
+            String checkAttendence = "SELECT * FROM `"+bid+"attendence` WHERE sid="+sid+" AND date = '"+date+"';";
+            PreparedStatement checkStatement = con.prepareStatement(checkAttendence);
+            ResultSet result = checkStatement.executeQuery();
+            result.next();
+
+            System.out.println(result.getFetchSize());
+            if(result.next()){
+                return "Your attendence has already been done; ID:" +sid;
+
+            }else{
+                String sql = "Insert into "+bid+"attendence(sid,date,remarks,ofSemester)"+" values("+sid+",'"+date+"',1, '"+semester+"');";
+                PreparedStatement statement = con.prepareStatement(sql);
+                statement.executeUpdate();
+                return "Added attendence for student ID:" +sid;
+
+            }
+
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return "Failed to add attendence";
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static boolean checkDatabaseDetails(){
         try(FileReader reader = new FileReader("./src/main/resources/config/config.json")){
             System.out.println("file found");
@@ -161,16 +199,28 @@ public class Database{
         }
         return feedback;
     }
-    public static String addBatch(String id, String year, String fid, String semester){
+
+    public static String addBatch( String year, String fid, String semester){
         String feedback = "";
         //first check if the table exists or not
         if(connected){
             if(checkTable("batch")){
                 //table found, lets insert data
                 try{
-                    String sql = "INSERT INTO batch VALUES("+Integer.parseInt(id)+",'"+year+"',"+Integer.parseInt(fid)+",'"+semester+"')";
-                    PreparedStatement statement = con.prepareStatement(sql);
+                    String sql = "INSERT INTO batch(year, fid, semester) VALUES('"+year+"',"+Integer.parseInt(fid)+",'"+semester+"')";
+                    PreparedStatement statement = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
                     statement.executeUpdate();
+
+                    //create attendence
+                    ResultSet keys = statement.getGeneratedKeys();
+                    keys.next();
+                    System.out.println(keys.getInt(1));
+                    String sql2 = "CREATE TABLE "+keys.getInt(1)+"attendence(aid int AUTO_INCREMENT PRIMARY KEY, sid int, date date, remarks boolean, ofSemester varchar(10))";
+                    PreparedStatement statement2 = con.prepareStatement(sql2);
+                    statement2.executeUpdate();
+
+                    System.out.println("table created!");
+
                     feedback= "Success";
                 }catch (SQLException e){
                     feedback = e.toString();
@@ -180,15 +230,27 @@ public class Database{
                 //create table
                 System.out.println("Creating Table!");
                 try{
-                    String sql = "CREATE TABLE batch(bid int, year varchar(20), fid int, semester varchar(10), CONSTRAINT pk_bid PRIMARY KEY (bid))";
+                    String sql = "CREATE TABLE batch(bid int AUTO_INCREMENT PRIMARY KEY, year varchar(20), fid int, semester varchar(10))";
                     PreparedStatement statement = con.prepareStatement(sql);
                     statement.executeUpdate();
                     System.out.println("table created!");
+
+
+
                     //now insert data!
-                    String sql2 = "INSERT INTO batch VALUES("+Integer.parseInt(id)+",'"+year+"',"+Integer.parseInt(fid)+",'"+semester+"')";
-                    PreparedStatement statement2 = con.prepareStatement(sql2);
+                    String sql2 = "INSERT INTO batch(year, fid, semester) VALUES('"+year+"',"+Integer.parseInt(fid)+",'"+semester+"')";
+                    PreparedStatement statement2 = con.prepareStatement(sql2,Statement.RETURN_GENERATED_KEYS);
                     statement2.executeUpdate();
                     System.out.println("Data Inserted!");
+
+                    //create attendence
+                    ResultSet keys = statement2.getGeneratedKeys();
+                    keys.next();
+                    String sql3 = "CREATE TABLE "+keys.getInt(1)+"attendence(aid int AUTO_INCREMENT PRIMARY KEY, sid int, date date, remarks boolean, ofSemester varchar(10))";
+                    PreparedStatement statement3 = con.prepareStatement(sql3);
+                    statement3.executeUpdate();
+
+
                     feedback = "Success";
                 }catch (SQLException e){
                     feedback = e.toString();
@@ -218,10 +280,20 @@ public class Database{
                 ////////////////////QR//////////////////////////
 
                 // The data that the QR code will contain
-                String data = "gay";
+                String sem = "";
+                try{
+                    String sql = "SELECT semester from batch where bid ="+bid;
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    ResultSet result = statement.executeQuery();
+                    result.next();
+                    sem = result.getString("semester");
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+                String data = "{\"sid\":"+sid+"\"bid\":"+bid+",\"semester\":\""+sem+"\"}";
 
                 // The path where the image will get saved
-                String path = "C:\\JAVA_project\\OTHERS\\Campusflow\\src\\main\\resources\\Qr.png";
+                String path = "./src/main/resources/images/QR.png";
 
                 // Encoding charset
                 String charset = "UTF-8";
@@ -241,8 +313,7 @@ public class Database{
                 String to= email;
                 String subject= "welcome from College";
                 String text="This is your QR code for Attendance";
-                String imagePath= "C:\\JAVA_project\\OTHERS\\Campusflow\\src\\main\\resources\\Qr.png";
-                sendmail.sendEmail(to,subject, text,imagePath);
+                sendmail.sendEmail(to,subject, text,path);
 
             }else{
                 //create table
