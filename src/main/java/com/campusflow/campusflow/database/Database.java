@@ -219,7 +219,10 @@ public class Database{
                     PreparedStatement statement2 = con.prepareStatement(sql2);
                     statement2.executeUpdate();
 
-                    System.out.println("table created!");
+                    //create marksheet
+                    String sql4 = "CREATE TABLE "+keys.getInt(1)+"marksheet(mid int AUTO_INCREMENT PRIMARY KEY, sid int, semester varchar(10),term varchar(15), subId int, marks float)";
+                    PreparedStatement statement4 = con.prepareStatement(sql4);
+                    statement4.executeUpdate();
 
                     feedback= "Success";
                 }catch (SQLException e){
@@ -250,6 +253,10 @@ public class Database{
                     PreparedStatement statement3 = con.prepareStatement(sql3);
                     statement3.executeUpdate();
 
+                    //create marksheet
+                    String sql4 = "CREATE TABLE "+keys.getInt(1)+"marksheet(mid int AUTO_INCREMENT PRIMARY KEY, sid int, semester varchar(10),term varchar(15), subId int, marks float)";
+                    PreparedStatement statement4 = con.prepareStatement(sql4);
+                    statement4.executeUpdate();
 
                     feedback = "Success";
                 }catch (SQLException e){
@@ -338,5 +345,122 @@ public class Database{
         }
         return feedback;
     }
+
+    public static String addTeacher(String firstname,String middlename, String lastname, String adderss,
+                                    String contact, String email,
+                                    String fid, String sid){
+        String feedback = "";
+        //first check if the table exists or not
+        if(connected){
+            if(checkTable("teachers")){
+                //table found, lets insert data
+                try{
+                    String sql = "INSERT INTO teachers(first_name, middle_name, last_name, address, contact, email, fid, subjectId) VALUES('"+firstname+"','"+middlename+"','"+lastname+"','"+adderss+"',"+contact+",'"+email+"',"+fid+","+sid+")";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+                    feedback= "Success";
+                }catch (SQLException e){
+                    feedback = e.toString();
+                }
+
+            }else{
+                //create table
+                System.out.println("Creating Table!");
+                try{
+                    String sql = "CREATE TABLE teachers (tid int AUTO_INCREMENT PRIMARY KEY , first_name varchar(20),middle_name varchar(20),last_name varchar(20),address varchar(50),contact long, email varchar(50),fid int, subjectId int)";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+                    System.out.println("table created!");
+                    //now insert data!
+                    String sql2 = "INSERT INTO teachers(first_name, middle_name, last_name, address, contact, email, fid, subjectId) VALUES('"+firstname+"','"+middlename+"','"+lastname+"','"+adderss+"',"+contact+",'"+email+"',"+fid+","+sid+")";
+                    PreparedStatement statement2 = con.prepareStatement(sql2);
+                    statement2.executeUpdate();
+                    System.out.println("Data Inserted!");
+                    feedback = "Success";
+                }catch (SQLException e){
+                    feedback = e.toString();
+                }
+            };
+        }else{
+            feedback = "Database Not Connected!";
+        }
+        return feedback;
+    }
+    public static String addSubject(String name, String semester){
+        String feedback = "";
+        //first check if the table exists or not
+        if(connected){
+            if(checkTable("subjects")){
+                //table found, lets insert data
+                try{
+                    String sql = "INSERT INTO subjects(sub_name, semester) VALUES('"+name+"','"+semester+"')";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+                    feedback= "Success";
+                }catch (SQLException e){
+                    feedback = e.toString();
+                }
+
+            }else{
+                //create table
+                System.out.println("Creating Table!");
+                try{
+                    String sql = "CREATE TABLE subjects (subId int AUTO_INCREMENT PRIMARY KEY , sub_name varchar(20), semester varchar(10))";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+                    System.out.println("table created!");
+                    //now insert data!
+                    String sql2 = "INSERT INTO subjects(sub_name, semester) VALUES('"+name+"','"+semester+"')";
+                    PreparedStatement statement2 = con.prepareStatement(sql2);
+                    statement2.executeUpdate();
+                    System.out.println("Data Inserted!");
+                    feedback = "Success";
+                }catch (SQLException e){
+                    feedback = e.toString();
+                }
+            };
+        }else{
+            feedback = "Database Not Connected!";
+        }
+        return feedback;
+    }
+
+    public static String addMarks(String subID, String semester, String marks, String sid, String terminal){
+        String feedback= "";
+        if(connected){
+            try{
+                //get batch number
+                String sql = "SELECT bid from students where sid ="+sid+";";
+                PreparedStatement statement = con.prepareStatement(sql);
+                ResultSet result = statement.executeQuery();
+                if(result.next()){
+                    Integer bid = result.getInt("bid");
+
+                    //add marks to batch marksheet
+                    String checkMarks = "SELECT * FROM `"+bid+"marksheet` WHERE sid="+sid+" AND semester = '"+semester+"';";
+                    PreparedStatement checkStatement = con.prepareStatement(checkMarks);
+                    ResultSet result2 = checkStatement.executeQuery();
+                    result2.next();
+
+                    System.out.println(result.getFetchSize());
+                    if(result2.next()){
+                        return "Marks has already been added of this terminal of student ID:" +sid;
+                    }else{
+                        String sql3 = "Insert into "+bid+"marksheet(subId,semester,marks,sid, term)"+" values("+subID+",'"+semester+"',"+marks+", "+sid+",'"+terminal+"');";
+                        PreparedStatement statement3 = con.prepareStatement(sql3);
+                        statement3.executeUpdate();
+                        return "Added marks for student ID:" +sid;
+                    }
+                }
+            }catch (SQLException e){
+                feedback = e.toString();
+            }
+        }else{
+            feedback = "Database Not Connected!";
+        }
+        return feedback;
+    }
+
+
 }
 

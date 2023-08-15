@@ -2,6 +2,7 @@ package com.campusflow.campusflow;
 
 import Encryption.Encryption;
 import com.campusflow.campusflow.EntityClass.Student;
+import com.campusflow.campusflow.tableview.MarksStudentSearch;
 import com.campusflow.campusflow.tableview.StudentView;
 import com.google.zxing.WriterException;
 import javafx.event.ActionEvent;
@@ -27,7 +28,8 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class HelloController {
-
+    private String[] semesters = {"I","II","III","IV","V","VI","VII","VIII"};
+    private String[] terminals = {"1st Term", "2ndTerm", "3rd Term", "Pre-board"};
     @FXML
     private Label alertLabel;
 
@@ -100,6 +102,8 @@ public class HelloController {
         teachersTab.setVisible(false);
         homeTab.setVisible(false);
         batchTab.setVisible(false);
+        subjectTab.setVisible(false);
+        marksheetTab.setVisible(false);
 
         //
         //TRUE
@@ -216,6 +220,8 @@ public class HelloController {
         teachersTab.setVisible(false);
         homeTab.setVisible(false);
         batchTab.setVisible(false);
+        subjectTab.setVisible(false);
+        marksheetTab.setVisible(false);
 
         //
         //TRUE
@@ -242,11 +248,86 @@ public class HelloController {
             }
         }
     }
-    //
+    /////////////////////////////////SUBJECTS////////////////////////////////////////////////////////
+    @FXML
+    private TextField subjectName;
+
+    @FXML
+    private TextField subSemester;
+    @FXML
+    private TabPane subjectTab;
+
+    @FXML
+    void onAddSubject(ActionEvent event){
+        if(!subjectName.getText().isEmpty() && !subSemester.getText().isEmpty()){
+            String push = Database.addSubject(subjectName.getText(), subSemester.getText());
+            if(Objects.equals(push, "Success")){
+                Alert.show(alertLabel,"Update Done!");
+                dptName.setText("");
+                dptId.setText("");
+                dptHOD.setText("");
+            }else{
+                Alert.show(alertLabel,push);
+            }
+        }else{
+            Alert.show(alertLabel, "Fields are empty!");
+        }
+    }
+    @FXML
+    void onSubjects(ActionEvent event) {
+        settingsTab.setVisible(false);
+        studentsTab.setVisible(false);
+        homeTab.setVisible(false);
+        batchTab.setVisible(false);
+        teachersTab.setVisible(false);
+        marksheetTab.setVisible(false);
+
+        // TRUE
+        subjectTab.setVisible(true);
+
+    }
     //////////////////////////////////Teachers TAB Menu//////////////////////////////////////////////
     //
     @FXML
     private TabPane teachersTab;
+    @FXML
+    private TextField tAddress;
+
+    @FXML
+    private TextField tContact;
+
+    @FXML
+    private TextField tEmail;
+
+    @FXML
+    private TextField tFaculty;
+
+    @FXML
+    private TextField tFirstName;
+
+    @FXML
+    private TextField tLastName;
+
+    @FXML
+    private TextField tMiddleName;
+
+    @FXML
+    private TextField tSubject;
+    @FXML
+    void onAddTeacher(ActionEvent event) {
+        if(!tFirstName.getText().isEmpty() && !tMiddleName.getText().isEmpty() && !tLastName.getText().isEmpty() && !tAddress.getText().isEmpty() && !tContact.getText().isEmpty()
+                && !tEmail.getText().isEmpty() && !tFaculty.getText().isEmpty() && !tSubject.getText().isEmpty()){
+            String push = Database.addTeacher(tFirstName.getText(),tMiddleName.getText(),tLastName.getText(),tAddress.getText(),tContact.getText(),tEmail.getText(),tFaculty.getText(),tSubject.getText());
+            if(Objects.equals(push, "Success")){
+                Alert.show(alertLabel,"Update Done!");
+                dptName.setText("");
+                dptId.setText("");
+                dptHOD.setText("");
+            }else{
+                Alert.show(alertLabel,push);
+            }
+        }
+    }
 
     @FXML
     void onTeachers(ActionEvent event) {
@@ -254,11 +335,14 @@ public class HelloController {
         studentsTab.setVisible(false);
         homeTab.setVisible(false);
         batchTab.setVisible(false);
+        subjectTab.setVisible(false);
+        marksheetTab.setVisible(false);
 
         // TRUE
         teachersTab.setVisible(true);
 
     }
+
 
 
 
@@ -299,8 +383,10 @@ public class HelloController {
         studentsTab.setVisible(false);
         settingsTab.setVisible(false);
         batchTab.setVisible(false);
-        homeTab.setVisible(true);
+        marksheetTab.setVisible(false);
 
+        homeTab.setVisible(true);
+        subjectTab.setVisible(false);
         initDashboard();
     }
     private void initDashboard(){
@@ -383,6 +469,8 @@ public class HelloController {
         studentsTab.setVisible(false);
         settingsTab.setVisible(false);
         homeTab.setVisible(false);
+        subjectTab.setVisible(false);
+        marksheetTab.setVisible(false);
         batchTab.setVisible(true);
     }
 
@@ -409,5 +497,73 @@ public class HelloController {
         System.out.println("triggered");
         Attendence attendence = new Attendence();
         attendence.run();
+    }
+    ///////////////////////////////////// MARKS ///////////////////////////////////////
+    @FXML
+    private TextField mStdID;
+
+    @FXML
+    private TextField mStdMarks;
+
+    @FXML
+    private TableColumn<Student,String> mStudentBatch;
+
+    @FXML
+    private TableColumn<Student, Integer> mStudentID;
+
+    @FXML
+    private TableColumn<Student, String> mStudentName;
+
+    @FXML
+    private TableView<Student> mStudentSearchTable;
+
+    @FXML
+    private TableColumn<Student, String> mStudentSemester;
+
+    @FXML
+    private TextField mSubID;
+
+    @FXML
+    private TabPane marksheetTab;
+    @FXML
+    private ChoiceBox<String> mTermList;
+
+    @FXML
+    private ChoiceBox<String> mSemList;
+
+    @FXML
+    void onAddSubjectMarks(ActionEvent event) {
+        if(!mStdID.getText().isEmpty() && !mStdMarks.getText().isEmpty() && !mSubID.getText().isEmpty() && !mSemList.getValue().isEmpty() && !mTermList.getValue().isEmpty()){
+            String push =Database.addMarks(mSubID.getText(), mSemList.getValue(),mStdMarks.getText(),mStdID.getText(),mTermList.getValue());
+            if(Objects.equals(push, "Success")){
+                Alert.show(alertLabel,"Update Done!");
+            }else{
+                Alert.show(alertLabel,push);
+            }
+        }else{
+            Alert.show(alertLabel,"Please fill the form properly!");
+        }
+    }
+
+    @FXML
+    void onMarks(ActionEvent event) throws InterruptedException{
+        teachersTab.setVisible(false);
+        studentsTab.setVisible(false);
+        settingsTab.setVisible(false);
+        homeTab.setVisible(false);
+        subjectTab.setVisible(false);
+        batchTab.setVisible(false);
+        marksheetTab.setVisible(true);
+
+        mSemList.getItems().clear();
+        mTermList.getItems().clear();
+        mSemList.getItems().addAll(semesters);
+        mTermList.getItems().addAll(terminals);
+    }
+    @FXML
+    void onMSearchStudent(ActionEvent event) {
+        if(!mStdID.getText().isEmpty()){
+            MarksStudentSearch studentSearch = new MarksStudentSearch(mStdID.getText(),mStudentSearchTable,mStudentID,mStudentName, mStudentBatch,mStudentSemester);
+        }
     }
 }
