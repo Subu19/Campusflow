@@ -2,6 +2,7 @@ package com.campusflow.campusflow;
 
 import Encryption.Encryption;
 import com.campusflow.campusflow.EntityClass.Student;
+import com.campusflow.campusflow.database.Notice;
 import com.campusflow.campusflow.tableview.MarksStudentSearch;
 import com.campusflow.campusflow.tableview.StudentView;
 import com.google.zxing.WriterException;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Objects;
 
 public class HelloController {
@@ -104,6 +106,7 @@ public class HelloController {
         batchTab.setVisible(false);
         subjectTab.setVisible(false);
         marksheetTab.setVisible(false);
+        noticeTab.setVisible(false);
 
         //
         //TRUE
@@ -222,6 +225,7 @@ public class HelloController {
         batchTab.setVisible(false);
         subjectTab.setVisible(false);
         marksheetTab.setVisible(false);
+        noticeTab.setVisible(false);
 
         //
         //TRUE
@@ -281,6 +285,7 @@ public class HelloController {
         batchTab.setVisible(false);
         teachersTab.setVisible(false);
         marksheetTab.setVisible(false);
+        noticeTab.setVisible(false);
 
         // TRUE
         subjectTab.setVisible(true);
@@ -337,6 +342,7 @@ public class HelloController {
         batchTab.setVisible(false);
         subjectTab.setVisible(false);
         marksheetTab.setVisible(false);
+        noticeTab.setVisible(false);
 
         // TRUE
         teachersTab.setVisible(true);
@@ -384,6 +390,7 @@ public class HelloController {
         settingsTab.setVisible(false);
         batchTab.setVisible(false);
         marksheetTab.setVisible(false);
+        noticeTab.setVisible(false);
 
         homeTab.setVisible(true);
         subjectTab.setVisible(false);
@@ -471,7 +478,10 @@ public class HelloController {
         homeTab.setVisible(false);
         subjectTab.setVisible(false);
         marksheetTab.setVisible(false);
+        noticeTab.setVisible(false);
+
         batchTab.setVisible(true);
+
     }
 
     @FXML
@@ -553,6 +563,8 @@ public class HelloController {
         homeTab.setVisible(false);
         subjectTab.setVisible(false);
         batchTab.setVisible(false);
+        noticeTab.setVisible(false);
+
         marksheetTab.setVisible(true);
 
         mSemList.getItems().clear();
@@ -564,6 +576,81 @@ public class HelloController {
     void onMSearchStudent(ActionEvent event) {
         if(!mStdID.getText().isEmpty()){
             MarksStudentSearch studentSearch = new MarksStudentSearch(mStdID.getText(),mStudentSearchTable,mStudentID,mStudentName, mStudentBatch,mStudentSemester);
+        }
+    }
+
+    ///////////////////////////// NOTICE /////////////////////////
+    @FXML
+    private TextArea announcementField;
+
+    @FXML
+    private Label announcementLabel;
+
+    @FXML
+    private Button announcementbtn;
+    @FXML
+    private TabPane noticeTab;
+
+    @FXML
+    private Button noticebtn;
+    @FXML
+    private TextField selectiveBatch;
+
+    @FXML
+    private TextArea selectiveField;
+
+    @FXML
+    private Label selectiveNotice;
+
+    @FXML
+    private TextField selectiveSemester;
+
+    @FXML
+    private Button selectivebtn;
+
+    @FXML
+    void onNotice(ActionEvent event) {
+
+        teachersTab.setVisible(false);
+        studentsTab.setVisible(false);
+        settingsTab.setVisible(false);
+        homeTab.setVisible(false);
+        subjectTab.setVisible(false);
+        batchTab.setVisible(false);
+        marksheetTab.setVisible(false);
+
+        noticeTab.setVisible(true);
+    }
+
+   @FXML
+   void onSelectiveannouncement(ActionEvent e){
+       int batchId ;
+       String semester;
+       batchId= Integer.parseInt(selectiveBatch.getText());
+      // semester= selectiveSemester.getText();
+
+       List<String> batchSemesterStudentEmails = Notice.getStudentEmailsByBatchAndSemester(Integer.parseInt(String.valueOf(batchId)));
+
+       System.out.println("All Student Emails:");
+       for (String email : batchSemesterStudentEmails) {
+           System.out.println(email);
+       }
+
+   }
+    @FXML
+    void onAnnouncement(ActionEvent event) {
+        String text;
+        EmailSender sendmail  = new EmailSender();
+        text=announcementField.getText();
+
+
+        String subject= "Notice from Campus Flow";
+        List<String> studentEmails = Notice.getStudentEmails();
+
+        for (String email : studentEmails) {
+            System.out.println("Student Email: " + email);
+            String to= email;
+            sendmail.sendEmail(to,subject, text);
         }
     }
 }

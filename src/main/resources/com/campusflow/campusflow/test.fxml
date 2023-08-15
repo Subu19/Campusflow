@@ -7,6 +7,7 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -62,7 +63,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="settingsbtn1" layoutX="14.0" layoutY="372.0" mnemonicParsing="false" onAction="#onSettings" prefHeight="25.0" prefWidth="176.0" style="-fx-background-color: none;" text="Notice" textFill="WHITE">
+            <Button fx:id="noticebtn" layoutX="14.0" layoutY="372.0" mnemonicParsing="false" onAction="#onNotice" prefHeight="25.0" prefWidth="176.0" style="-fx-background-color: none;" text="Notice" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -595,6 +596,48 @@
                                     <Font name="System Bold" size="15.0" />
                                  </font>
                               </Button>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+            <TabPane fx:id="noticeTab" prefHeight="612.0" prefWidth="1021.0" tabClosingPolicy="UNAVAILABLE" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <tabs>
+                  <Tab text="Announcement">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextArea fx:id="announcementField" layoutX="234.0" layoutY="130.0" prefHeight="200.0" prefWidth="557.0" />
+                              <Label fx:id="announcementLabel" layoutX="71.0" layoutY="133.0" prefHeight="192.0" prefWidth="150.0" text="Notice" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="53.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="announcementbtn" contentDisplay="CENTER" layoutX="454.0" layoutY="424.0" mnemonicParsing="false" onAction="#onAnnouncement" prefHeight="66.0" prefWidth="143.0" text="Announce">
+                                 <font>
+                                    <Font name="Arial" size="19.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Selective">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TextField fx:id="selectiveBatch" layoutX="178.0" layoutY="65.0" prefHeight="27.0" prefWidth="150.0" promptText="BATCH" />
+                              <TextArea fx:id="selectiveField" layoutX="171.0" layoutY="210.0" prefHeight="200.0" prefWidth="200.0" />
+                              <Button fx:id="selectivebtn" layoutX="180.0" layoutY="432.0" mnemonicParsing="false" onAction="#onSelectiveannouncement" text="Button" />
+                              <Label layoutX="65.0" layoutY="65.0" prefHeight="27.0" prefWidth="62.0" text="Batch" textFill="#f7f7f7" />
+                              <Label fx:id="selectiveNotice" layoutX="68.0" layoutY="213.0" prefHeight="74.0" prefWidth="94.0" text="NOTICE" textFill="WHITE">
+                                 <font>
+                                    <Font name="Arial" size="23.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="65.0" layoutY="115.0" prefHeight="27.0" prefWidth="62.0" text="Semester" textFill="#fcfcfc" />
+                              <TextField fx:id="selectiveSemester" layoutX="176.0" layoutY="115.0" prefHeight="27.0" prefWidth="150.0" promptText="SEMESTER" />
                            </children>
                         </AnchorPane>
                      </content>
