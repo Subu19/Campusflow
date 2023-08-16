@@ -9,7 +9,6 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="614.0" prefWidth="518.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.campusflow.campusflow.HelloController">
    <children>
       <ImageView fitHeight="150.0" fitWidth="303.0" layoutX="108.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">

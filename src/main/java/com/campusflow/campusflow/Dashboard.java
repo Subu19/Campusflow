@@ -29,7 +29,7 @@ public class Dashboard{
     private void openDashboard(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("test.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-//        scene.getStylesheets().add(getClass().getResource("test.css").toExternalForm());
+//        scene.getStylesheets().add(getClass().getResource("./src/main/resources/css/test.css").toExternalForm());
         stage.setTitle("Admin Dashboard");
         stage.setScene(scene);
         stage.setMaximized(true);
