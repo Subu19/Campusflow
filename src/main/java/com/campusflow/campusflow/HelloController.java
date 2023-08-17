@@ -1,14 +1,18 @@
 package com.campusflow.campusflow;
 
 import Encryption.Encryption;
+import com.campusflow.campusflow.EntityClass.AttendenceStudent;
 import com.campusflow.campusflow.EntityClass.Student;
 import com.campusflow.campusflow.database.Notice;
+import com.campusflow.campusflow.tableview.AttendenceView;
 import com.campusflow.campusflow.tableview.MarksStudentSearch;
 import com.campusflow.campusflow.tableview.StudentView;
 import com.google.zxing.WriterException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
@@ -147,9 +151,7 @@ public class HelloController {
         }
     }
 
-    //
     ///////////////////////////////////////// StudentsTABMenu///////////////////////////////////
-    //
     @FXML
     private TabPane studentsTab;
 
@@ -272,14 +274,12 @@ public class HelloController {
             Alert.show(alertLabel, "Fields are empty!");
         }
     }
-
     @FXML
     void onSubjects(ActionEvent event) {
         onMainButton(event);
         subjectTab.setVisible(true);
 
     }
-
     ////////////////////////////////// TeachersTAB//////////////////////////////////
     //
     @FXML
@@ -468,13 +468,53 @@ public class HelloController {
     }
 
     ///////////////////////////// ATTENDENCE /////////////////////////
+    @FXML
+    private TableColumn<AttendenceStudent, String> aDateComumn;
 
     @FXML
+    private TableColumn<AttendenceStudent, String> aFacultyColumn;
+
+    @FXML
+    private TableColumn<AttendenceStudent, String> aNameColumn;
+
+    @FXML
+    private TableColumn<AttendenceStudent, String> aSemester;
+
+    @FXML
+    private TableColumn<AttendenceStudent, Integer> aSidColumn;
+
+    @FXML
+    private TableColumn<AttendenceStudent, String> aTimeColumn;
+    @FXML
+    private TableView<AttendenceStudent> attendenceTable;
+    @FXML
+    private TabPane attendenceTab;
+    @FXML
+    private DatePicker aDatePicker;
+    @FXML
+    private TextField aBatchID;
+    AttendenceView attendenceView;
+    @FXML
     void onAttendence(ActionEvent event) throws IOException {
-        System.out.println("triggered");
+
+        onMainButton(event);
+        attendenceTab.setVisible(true);
+        attendenceView = new AttendenceView(attendenceTable,aDateComumn,aFacultyColumn,aNameColumn,aSemester,aSidColumn,aTimeColumn);
+
+    }
+    @FXML
+    void startAttendence(ActionEvent event) throws IOException{
         Attendence attendence = new Attendence();
         attendence.run();
     }
+    @FXML
+    void onChangeAttendenceDate(ActionEvent event) {
+        if(!aDatePicker.getValue().toString().isEmpty() && !aBatchID.getText().isEmpty()){
+            attendenceView.updateTable(aBatchID.getText(),aDatePicker.getValue().toString());
+        }
+    }
+
+
 
     ///////////////////////////////////// MARKS
     ///////////////////////////////////// ///////////////////////////////////////
@@ -537,10 +577,12 @@ public class HelloController {
     }
 
     @FXML
-    void onMSearchStudent(ActionEvent event) {
+    void onMSearchStudent(KeyEvent event) {
+        System.out.println("hmm");
         if (!mStdID.getText().isEmpty()) {
-            MarksStudentSearch studentSearch = new MarksStudentSearch(mStdID.getText(), mStudentSearchTable, mStudentID,
+            MarksStudentSearch studentSearch = new MarksStudentSearch(mStdID, mStudentSearchTable, mStudentID,
                     mStudentName, mStudentBatch, mStudentSemester);
+
         }
     }
 
@@ -651,6 +693,9 @@ public class HelloController {
 
         marksheetTab.setVisible(false);
         marksbtn.setStyle("-fx-background-color: none;-fx-font-weight: bold;-fx-text-fill: white;-fx-font-size: 20px;");
+
+        attendenceTab.setVisible(false);
+        attendencebtn.setStyle("-fx-background-color: none;-fx-font-weight: bold;-fx-text-fill: white;-fx-font-size: 20px;");
 
         noticeTab.setVisible(false);
         noticebtn.setStyle("-fx-background-color: none;-fx-font-weight: bold;-fx-text-fill: white;-fx-font-size: 20px;");

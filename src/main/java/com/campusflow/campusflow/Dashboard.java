@@ -48,6 +48,7 @@ public class Dashboard{
                 if(Objects.equals(checkConnection, "connected")){
                    System.out.println("Connected to database.");
                 }else{
+
                     System.out.println(checkConnection);
                 }
             } catch (IOException | ParseException e) {
