@@ -20,6 +20,9 @@ import org.json.simple.*;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javax.mail.Address;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -227,7 +230,7 @@ public class HelloController {
     }
 
     @FXML
-    void onAddStudent(ActionEvent event) throws IOException, WriterException {
+    void onAddStudent(ActionEvent event) throws IOException, WriterException, AddressException {
         // if department values are valid try and save it in the database
         if (!s_address.getText().isEmpty() && !s_pid.getText().isEmpty() && !s_bid.getText().isEmpty()
                 && !sid.getText().isEmpty() && !s_contact.getText().isEmpty()
@@ -587,8 +590,7 @@ public class HelloController {
         batchId = Integer.parseInt(selectiveBatch.getText());
         // semester= selectiveSemester.getText();
 
-        List<String> batchSemesterStudentEmails = Notice
-                .getStudentEmailsByBatchAndSemester(Integer.parseInt(String.valueOf(batchId)));
+        List<String> batchSemesterStudentEmails = Notice.getStudentEmailsByBatchAndSemester(Integer.parseInt(String.valueOf(batchId)));
 
         System.out.println("All Student Emails:");
         for (String email : batchSemesterStudentEmails) {
@@ -599,19 +601,24 @@ public class HelloController {
 
     @FXML
     void onAnnouncement(ActionEvent event) {
-        String text;
-        EmailSender sendmail = new EmailSender();
-        text = announcementField.getText();
-
+        String text = announcementField.getText();
         String subject = "Notice from Campus Flow";
         List<String> studentEmails = Notice.getStudentEmails();
 
-        for (String email : studentEmails) {
-            System.out.println("Student Email: " + email);
-            String to = email;
-            sendmail.sendEmail(to, subject, text);
+        Address[] toAddresses = new InternetAddress[studentEmails.size()];
+        for (int i = 0; i < studentEmails.size(); i++) {
+            try {
+                toAddresses[i] = new InternetAddress(studentEmails.get(i));
+            } catch (AddressException e) {
+                e.printStackTrace();
+            }
         }
+
+        EmailSender.sendEmail(toAddresses, subject, text);
     }
+
+
+
 
     ///////////////////////////////////////////// select
     ///////////////////////////////////////////// tab////////////////////////////////

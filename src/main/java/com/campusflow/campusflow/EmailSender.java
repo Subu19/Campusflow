@@ -13,40 +13,49 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 public class EmailSender {
-    // Static properties for the SMTP connection
     private static final String HOST = "smtp.gmail.com";
     private static final String USERNAME = "campusflows@gmail.com";
     private static final String PASSWORD = "sthajdthjhsyhivf"; // This is secured!
 
-    public static void sendEmail(String to, String subject, String text) {
-        sendEmail(to, subject, text, null); // Null for imagePath indicates no attachment
+    private static Session session;
+
+    // Initialize the session once
+    static {
+        initialize();
     }
 
-    public static void sendEmail(String to, String subject, String text, String imagePath) {
-        Properties properties = new Properties();
-        properties.put("mail.smtp.host", HOST);
-        properties.put("mail.smtp.port", "465");
-        properties.put("mail.smtp.ssl.enable", "true");
-        properties.put("mail.smtp.auth", "true");
+    private static void initialize() {
+        if (session == null) {
+            Properties properties = new Properties();
+            properties.put("mail.smtp.host", HOST);
+            properties.put("mail.smtp.port", "465");
+            properties.put("mail.smtp.ssl.enable", "true");
+            properties.put("mail.smtp.auth", "true");
 
-        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
-            protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(USERNAME, PASSWORD);
-            }
-        });
+            session = Session.getInstance(properties, new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                    return new PasswordAuthentication(USERNAME, PASSWORD);
+                }
+            });
 
-        session.setDebug(true);
+            session.setDebug(true);
+        }
+    }
 
+    public static void sendEmail(Address[] toAddresses, String subject, String text) {
+        sendEmail(toAddresses, subject, text, null);
+    }
+
+    public static void sendEmail(Address[] toAddresses, String subject, String text, String imagePath) {
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(USERNAME));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setRecipients(Message.RecipientType.TO, toAddresses);
             message.setSubject(subject);
 
             if (imagePath == null) {
                 message.setText(text);
-            }
-            else {
+            } else {
                 BodyPart messageBodyPart = new MimeBodyPart();
                 messageBodyPart.setText(text);
 
