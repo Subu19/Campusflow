@@ -34,27 +34,29 @@ public class Database{
         JSONObject json = (JSONObject) rawJson;
         String sid = json.get("sid").toString();
         String bid = json.get("bid").toString();
+        String token = json.get("token").toString();
         String date = LocalDate.now().toString();
         String semester = json.get("semester").toString();
+            if(Tokens.list.contains(token)){
+                String checkAttendence = "SELECT * FROM `"+bid+"attendence` WHERE sid="+sid+" AND date = '"+date+"';";
+                PreparedStatement checkStatement = con.prepareStatement(checkAttendence);
+                ResultSet result = checkStatement.executeQuery();
+                result.next();
 
-            String checkAttendence = "SELECT * FROM `"+bid+"attendence` WHERE sid="+sid+" AND date = '"+date+"';";
-            PreparedStatement checkStatement = con.prepareStatement(checkAttendence);
-            ResultSet result = checkStatement.executeQuery();
-            result.next();
+                System.out.println(result.getFetchSize());
+                if(result.next()){
+                    return "Your attendence has already been done; ID:" +sid;
 
-            System.out.println(result.getFetchSize());
-            if(result.next()){
-                return "Your attendence has already been done; ID:" +sid;
+                }else{
+                    String sql = "Insert into "+bid+"attendence(sid,date,remarks,ofSemester)"+" values("+sid+",'"+date+"',1, '"+semester+"');";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+                    return "Added attendence for student ID:" +sid;
 
+                }
             }else{
-                String sql = "Insert into "+bid+"attendence(sid,date,remarks,ofSemester)"+" values("+sid+",'"+date+"',1, '"+semester+"');";
-                PreparedStatement statement = con.prepareStatement(sql);
-                statement.executeUpdate();
-                return "Added attendence for student ID:" +sid;
-
+                return "QR Code has Expired!";
             }
-
-
         }catch (SQLException e){
             e.printStackTrace();
             return "Failed to add attendence";
@@ -273,7 +275,7 @@ public class Database{
     }
     public static String addStudent(String firstname,String middlename, String lastname, String adderss,
                                     String contact, String email, String entrance,
-                                    String fid,String bid, String pid, String sid) throws IOException, WriterException, AddressException {
+                                    String fid,String bid, String pid, String sid) throws AddressException {
         String feedback = "";
         //first check if the table exists or not
         if(connected){
@@ -283,48 +285,14 @@ public class Database{
                     String sql = "INSERT INTO students VALUES('"+firstname+"','"+middlename+"','"+lastname+"','"+adderss+"',"+contact+",'"+email+"',"+entrance+","+fid+","+bid+","+pid+","+sid+")";
                     PreparedStatement statement = con.prepareStatement(sql);
                     statement.executeUpdate();
+
+                    //generate login
+                    addLogin(sid,bid,firstname,email);
                     feedback= "Success";
-                }catch (SQLException e){
+
+                }catch (Exception e){
                     feedback = e.toString();
                 }
-                ////////////////////QR//////////////////////////
-
-                // The data that the QR code will contain
-                String sem = "";
-                try{
-                    String sql = "SELECT semester from batch where bid ="+bid;
-                    PreparedStatement statement = con.prepareStatement(sql);
-                    ResultSet result = statement.executeQuery();
-                    result.next();
-                    sem = result.getString("semester");
-                }catch (SQLException e){
-                    e.printStackTrace();
-                }
-                String data = "{\"sid\":"+sid+"\"bid\":"+bid+",\"semester\":\""+sem+"\"}";
-
-                // The path where the image will get saved
-                String path = "./src/main/resources/images/QR.png";
-
-                // Encoding charset
-                String charset = "UTF-8";
-
-                Map<EncodeHintType, ErrorCorrectionLevel> hashMap
-                        = new HashMap<EncodeHintType, ErrorCorrectionLevel>();
-
-                hashMap.put(EncodeHintType.ERROR_CORRECTION,ErrorCorrectionLevel.L);
-
-                generateQRCode(data, path, charset, hashMap, 200, 200);
-                System.out.println("QR Code Generated!!! ");
-
-                //////////////Email Qr code/////////////////////
-                EmailSender sendmail  = new EmailSender();
-                String to= email;
-                String subject= String.valueOf(new String[]{"welcome " + firstname +" "+ middlename+" "+lastname});
-                String text="This is your QR code for Attendance";
-                Address[] toAddresses = new Address[] { new InternetAddress(to) };
-
-                // Use the sendEmails method from the EmailSender class
-                EmailSender.sendEmail(toAddresses, subject, text, path);
 
             }else{
                 //create table
@@ -339,8 +307,12 @@ public class Database{
                     PreparedStatement statement2 = con.prepareStatement(sql2);
                     statement2.executeUpdate();
                     System.out.println("Data Inserted!");
+
+                    //generate login
+                    addLogin(sid,bid,firstname,email);
                     feedback = "Success";
-                }catch (SQLException e){
+
+                }catch (Exception e){
                     feedback = e.toString();
                 }
             };
@@ -348,6 +320,56 @@ public class Database{
             feedback = "Database Not Connected!";
         }
         return feedback;
+    }
+    private static void addLogin(String sid, String batch, String name,String email) throws Exception {
+
+            if (connected) {
+                if (checkTable("login")) {
+                    //table exists, insert date
+                    insertLogin(sid,batch,name,email);
+
+                } else {
+                    //create logins table
+                    String sql = "CREATE TABLE login(lid int AUTO_INCREMENT PRIMARY KEY, sid int,username varchar(50), password varchar(50));";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+                    //insert new logins
+                    insertLogin(sid,batch,name,email);
+                }
+            }
+
+    }
+    private static void insertLogin (String sid, String batch, String name,String email) throws Exception {
+        String username;
+        String password;
+        String year;
+        String faculty;
+
+        //gather require batch year and faculty name for the student input
+        String getInfoSql = "Select batch.year, faculty.faculty_name from batch inner join faculty on faculty.fid = batch.fid where batch.bid =" + batch + ";";
+        PreparedStatement statement = con.prepareStatement(getInfoSql);
+        ResultSet info = statement.executeQuery();
+        info.next();
+        year = info.getString("year");
+        faculty = info.getString("faculty_name");
+
+        //generate username and password for new student
+        username = name+sid+faculty+year;
+        password = Encryption.generateRandomPassword(8);
+        String Epassword = Encryption.encrypt(password);
+
+        // lets insert new login
+        String sql = "INSERT INTO login(sid, username, password) VALUES(" + sid + ", '" + username + "','" + Epassword + "')";
+        PreparedStatement insertStatement = con.prepareStatement(sql);
+        insertStatement.executeUpdate();
+
+        //send Email to student
+        EmailSender sendmail  = new EmailSender();
+        String subject= "Welcome to Our University, "+name;
+        String text="Your addmission has been done and we would like to welcome you to our wonderful Campus.\n\nHope you will have a great time with new friends and teachers. \n\n Your Student account logins for CampusFlow is listed below: \n Username:"+username+"\n Password: "+password+"\n\n Thank you!";
+        Address[] toAddresses = new Address[] { new InternetAddress(email) };
+        EmailSender.sendEmail(toAddresses, subject, text);
+
     }
 
     public static String addTeacher(String firstname,String middlename, String lastname, String adderss,

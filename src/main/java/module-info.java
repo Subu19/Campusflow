@@ -11,6 +11,7 @@ module com.campusflow.campusflow {
     requires zxing.javase;
     requires java.mail;
     requires activation;
+    requires jdk.httpserver;
     opens com.campusflow.campusflow to javafx.fxml;
     opens com.campusflow.campusflow.EntityClass to javafx.base;
     exports com.campusflow.campusflow;

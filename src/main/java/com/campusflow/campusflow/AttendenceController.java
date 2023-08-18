@@ -39,7 +39,7 @@ public class AttendenceController {
 
     @FXML
     void startAttendence(ActionEvent event) {
-        webcam = Webcam.getWebcams().get(0);
+        webcam = Webcam.getWebcams().get(1);
         Dimension size = WebcamResolution.QVGA.getSize();
         webcam.setViewSize(size);
         SwingUtilities.invokeLater(() -> {
