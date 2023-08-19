@@ -85,9 +85,4 @@ public class StudentView {
 
         tableView.setItems(studentData());
     }
-
-
-
-
-
 }

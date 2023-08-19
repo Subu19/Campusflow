@@ -12,6 +12,7 @@ module com.campusflow.campusflow {
     requires java.mail;
     requires activation;
     requires jdk.httpserver;
+    //requires mail;
     opens com.campusflow.campusflow to javafx.fxml;
     opens com.campusflow.campusflow.EntityClass to javafx.base;
     exports com.campusflow.campusflow;

@@ -366,7 +366,8 @@ public class Database{
         //send Email to student
         EmailSender sendmail  = new EmailSender();
         String subject= "Welcome to Our University, "+name;
-        String text="Your addmission has been done and we would like to welcome you to our wonderful Campus.\n\nHope you will have a great time with new friends and teachers. \n\n Your Student account logins for CampusFlow is listed below: \n Username:"+username+"\n Password: "+password+"\n\n Thank you!";
+        String url= "campusflow.subasacharya.com.np";
+        String text="Your addmission has been done and we would like to welcome you to our wonderful Campus.\n\nHope you will have a great time with new friends and teachers. \n\n Your Student account logins for CampusFlow is listed below: \n Username:"+username+"\n Password: "+password+"\n URL: "+url+" \n\n Thank you!";
         Address[] toAddresses = new Address[] { new InternetAddress(email) };
         EmailSender.sendEmail(toAddresses, subject, text);
 
@@ -488,5 +489,53 @@ public class Database{
     }
 
 
+
+    public static String addParent(String firstname,String middlename, String lastname, String address,
+                                    String contact, String email,String pid) throws AddressException {
+        String feedback = "";
+        //first check if the table exists or not
+        if(connected){
+            if(checkTable("parents")){
+                //table found, lets insert data
+                try{
+                    String sql = "INSERT INTO parents VALUES('"+firstname+"','"+middlename+"','"+lastname+"','"+address+"',"+contact+",'"+email+"','"+pid+"')";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+
+                    //generate login
+                   //addPLogin(pid,firstname,email);
+                    feedback= "Success";
+
+                }catch (Exception e){
+                    feedback = e.toString();
+                }
+
+            }else{
+                //create table
+                System.out.println("Creating Table!");
+                try{
+                    String sql = "CREATE TABLE parents (first_name varchar(20),middle_name varchar(20),last_name varchar(20),address varchar(50),contact long, email varchar(50), pid int, CONSTRAINT pk_sid PRIMARY KEY (pid))";
+                    PreparedStatement statement = con.prepareStatement(sql);
+                    statement.executeUpdate();
+                    System.out.println("table created!");
+                    //now insert data!
+                    String sql2 = "INSERT INTO parents VALUES('"+firstname+"','"+middlename+"','"+lastname+"','"+address+"',"+contact+",'"+email+"','"+pid+"')";
+                    PreparedStatement statement2 = con.prepareStatement(sql2);
+                    statement2.executeUpdate();
+                    System.out.println("Data Inserted!");
+
+                    //generate login
+                    //addLogin(pid,firstname,email);
+                    feedback = "Success";
+
+                }catch (Exception e){
+                    feedback = e.toString();
+                }
+            };
+        }else{
+            feedback = "Database Not Connected!";
+        }
+        return feedback;
+    }
 }
 

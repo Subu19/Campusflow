@@ -25,7 +25,7 @@ public class Encryption {
         return new String(decryptedBytes, StandardCharsets.UTF_8);
     }
     public static String generateRandomPassword(int length) {
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         SecureRandom random = new SecureRandom();
 
         StringBuilder password = new StringBuilder();

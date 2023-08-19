@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.campusflow.campusflow.EmailSender; // Import the EmailSender class
 import static com.campusflow.campusflow.database.Database.con;
 import static com.campusflow.campusflow.database.Database.connected;
 

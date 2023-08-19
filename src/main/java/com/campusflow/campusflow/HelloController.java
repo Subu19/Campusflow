@@ -659,6 +659,55 @@ public class HelloController {
         EmailSender.sendEmail(toAddresses, subject, text);
     }
 
+    //////////////////////////// Parents ///////////////////////////
+
+    @FXML
+    private TabPane parentsTab;
+
+    @FXML
+    private TextField p_address;
+
+    @FXML
+    private TextField p_contact;
+
+    @FXML
+    private TextField p_email;
+
+    @FXML
+    private TextField p_firstname;
+
+    @FXML
+    private TextField p_lastname;
+
+    @FXML
+    private TextField p_middlename;
+
+    @FXML
+    private TextField p_ID;
+
+    @FXML
+    void onParents(ActionEvent event){
+        onMainButton(event);
+        parentsTab.setVisible(true);
+    }
+
+
+    @FXML
+    void onAddParent(ActionEvent event) throws IOException, WriterException, AddressException {
+        // if department values are valid try and save it in the database
+        if (!p_address.getText().isEmpty() && !p_ID.getText().isEmpty()
+                && !p_contact.getText().isEmpty()
+                && !p_email.getText().isEmpty() && !p_firstname.getText().isEmpty() && !p_lastname.getText().isEmpty()) {
+            String push = Database.addParent(p_firstname.getText(), p_middlename.getText(), p_lastname.getText(),
+                    p_address.getText(), p_contact.getText(), p_email.getText(), p_ID.getText());
+            if (Objects.equals(push, "Success")) {
+                Alert.show(alertLabel, "Update Done!");
+            } else {
+                Alert.show(alertLabel, push);
+            }
+        }
+    }
+
 
 
 
@@ -670,6 +719,8 @@ public class HelloController {
     private Button teachersbtn;
     @FXML
     private Button attendencebtn;
+    @FXML
+    private Button parentsbtn;
     @FXML
     private Button batchbtn;
     @FXML
@@ -706,6 +757,10 @@ public class HelloController {
 
         noticeTab.setVisible(false);
         noticebtn.setStyle("-fx-background-color: none;-fx-font-weight: bold;-fx-text-fill: white;-fx-font-size: 20px;");
+
+        parentsTab.setVisible(false);
+        parentsbtn.setStyle("-fx-background-color: none;-fx-font-weight: bold;-fx-text-fill: white;-fx-font-size: 20px;");
+
 
         Button clickedButton = (Button) event.getSource();
         clickedButton.setStyle(
