@@ -10,6 +10,9 @@ import com.campusflow.campusflow.tableview.StudentView;
 import com.google.zxing.WriterException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
@@ -33,8 +36,11 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
+import java.util.Vector;
 
 public class HelloController {
     private String[] semesters = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII" };
@@ -364,22 +370,151 @@ public class HelloController {
 
     @FXML
     private Label studentCount;
+    @FXML
+    private Label teacherCount;
+
+    @FXML
+    private Label departmentCount;
+    @FXML
+    private Label facultyCount;
+
+    @FXML
+    private BarChart<String, Integer> testGraph;
+    @FXML
+    private AreaChart<String, Integer> attendenceGraph;
+    @FXML
+    private ChoiceBox<String> resultTerminals;
+    @FXML
+    private ChoiceBox<String> resultSemester;
+    @FXML
+    private TextField aGraphBatchId;
+    void showResultCompare(){
+//        XYChart.Series<String,Integer> series1 = new XYChart.Series();
+//        series1.setName("BIT");
+//        series1.getData().add(new XYChart.Data<>("2020",20));
+//        series1.getData().add(new XYChart.Data<>("2021",90));
+//        series1.getData().add(new XYChart.Data<>("2022",90));
+//        series1.getData().add(new XYChart.Data<>("2023",90));
+//        XYChart.Series<String,Integer> series2 = new XYChart.Series();
+//        series2.setName("BCA");
+//        series2.getData().add(new XYChart.Data<>("2020",40));
+//        series2.getData().add(new XYChart.Data<>("2021",70));
+//        series2.getData().add(new XYChart.Data<>("2022",70));
+//        series2.getData().add(new XYChart.Data<>("2023",70));
+//        XYChart.Series<String,Integer> series3 = new XYChart.Series();
+//        series3.setName("BE");
+//        series3.getData().add(new XYChart.Data<>("2020",40));
+//        series3.getData().add(new XYChart.Data<>("2021",70));
+//        series3.getData().add(new XYChart.Data<>("2022",70));
+//        series3.getData().add(new XYChart.Data<>("2023",70));
+//        testGraph.getData().addAll(series1,series2,series3);
+
+    }
 
     @FXML
     void onHome(ActionEvent event) throws InterruptedException {
         onMainButton(event);
         homeTab.setVisible(true);
         initDashboard();
+//        showResultCompare();
+        resultTerminals.getItems().clear();
+        resultTerminals.getItems().addAll(terminals);
+        resultSemester.getItems().clear();
+        resultSemester.getItems().addAll(semesters);
+    }
+    @FXML
+    void onUpdateAttendenceraph(ActionEvent event) throws InterruptedException, SQLException {
+        attendenceGraph.getData().clear();
+        String batch = aGraphBatchId.getText().toString();
+        if(!batch.isEmpty()){
+
+            XYChart.Series<String,Integer> series = new XYChart.Series();
+            String getBatch = "SELECT semester from batch where bid="+batch+";";
+            PreparedStatement getBatchStatement = Database.con.prepareStatement(getBatch);
+            ResultSet semester = getBatchStatement.executeQuery();
+            semester.next();
+            String sem = semester.getString("semester");
+
+            for (int i = 5; i >=0 ; i--) {
+                String sql = "SELECT COUNT(*) as present FROM `"+batch+"attendence` WHERE date = '"+LocalDate.now().minus(i,ChronoUnit.DAYS)+"' and ofSemester='"+sem+"'";
+                System.out.println(sql);
+                PreparedStatement statement = Database.con.prepareStatement(sql);
+                ResultSet result = statement.executeQuery();
+                result.next();
+                int count = result.getInt("present");
+                series.getData().add(new XYChart.Data<>(String.valueOf(LocalDate.now().minus(i, ChronoUnit.DAYS)),count));
+            }
+            attendenceGraph.getData().add(series);
+        }else{
+            Alert.show(alertLabel,"Empty ID");
+        }
+    }
+    @FXML
+    void onUpdateResultGraph(ActionEvent event) throws InterruptedException, SQLException{
+        String term = resultTerminals.getValue();
+        String semester = resultSemester.getValue();
+        Vector<XYChart.Series<String,Integer>> seriesCollection = new Vector<>();
+        testGraph.getData().clear();
+        if(!term.isEmpty() && !semester.isEmpty()){
+            Integer date = LocalDate.now().getYear();
+            for (int i = date-1; i <= date; i++) {
+                String getBatches = "SELECT bid,year,semester,faculty_name from batch Inner join faculty on batch.fid=faculty.fid where year = '"+i+"';";
+                PreparedStatement statement = Database.con.prepareStatement(getBatches);
+                ResultSet batches = statement.executeQuery();
+
+                XYChart.Series<String,Integer> series = new XYChart.Series();
+                series.setName(String.valueOf(i));
+
+                while (batches.next()){
+
+                    String getPassed= "SELECT COUNT(*) as passedStudents from(SELECT sid,COUNT(*) as passedSubjects\n" +
+                            "from 8marksheet WHERE marks>=30\n" +
+                            "and semester = '"+semester+"' and term ='"+term+"'\n" +
+                            "GROUP BY sid) \n" +
+                            "AS pass_count where passedSubjects = 3;";
+                    PreparedStatement passedStatement = Database.con.prepareStatement(getPassed);
+                    ResultSet count = passedStatement.executeQuery();
+                    count.next();
+
+                    Integer passedCount = count.getInt("passedStudents");
+                    series.getData().add(new XYChart.Data<>(batches.getString("faculty_name"),passedCount));
+                }
+                seriesCollection.add(series);
+            }
+            testGraph.getData().addAll(seriesCollection);
+        }
     }
 
     private void initDashboard() {
         try {
-            String sql = "SELECT COUNT(sid) from students";
+            String sql = "SELECT COUNT(*) from students";
             PreparedStatement statement = Database.con.prepareStatement(sql);
             ResultSet result = statement.executeQuery();
             result.next();
-            String count = result.getString("COUNT(sid)");
+            String count = result.getString("COUNT(*)");
             studentCount.setText(count);
+
+            String sql2 = "SELECT COUNT(*) from teachers";
+            PreparedStatement statement2 = Database.con.prepareStatement(sql2);
+            ResultSet result2 = statement2.executeQuery();
+            result2.next();
+            String count2 = result2.getString("COUNT(*)");
+            teacherCount.setText(count2);
+
+            String sql3 = "SELECT COUNT(*) from department";
+            PreparedStatement statement3 = Database.con.prepareStatement(sql3);
+            ResultSet result3 = statement3.executeQuery();
+            result3.next();
+            String count3 = result3.getString("COUNT(*)");
+            departmentCount.setText(count3);
+
+            String sql4 = "SELECT COUNT(*) from faculty";
+            PreparedStatement statement4 = Database.con.prepareStatement(sql4);
+            ResultSet result4 = statement4.executeQuery();
+            result4.next();
+            String count4 = result4.getString("COUNT(*)");
+            facultyCount.setText(count4);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

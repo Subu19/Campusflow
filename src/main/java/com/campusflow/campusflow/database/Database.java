@@ -464,7 +464,7 @@ public class Database{
                     Integer bid = result.getInt("bid");
 
                     //add marks to batch marksheet
-                    String checkMarks = "SELECT * FROM `"+bid+"marksheet` WHERE sid="+sid+" AND semester = '"+semester+"';";
+                    String checkMarks = "SELECT * FROM `"+bid+"marksheet` WHERE sid="+sid+" AND semester = '"+semester+"' AND term ='"+terminal+"' AND subId='"+subID+"';";
                     PreparedStatement checkStatement = con.prepareStatement(checkMarks);
                     ResultSet result2 = checkStatement.executeQuery();
                     result2.next();
