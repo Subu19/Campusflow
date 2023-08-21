@@ -509,8 +509,6 @@ public class Database{
                     PreparedStatement statement = con.prepareStatement(sql);
                     statement.executeUpdate();
 
-                    //generate login
-                   //addPLogin(pid,firstname,email);
                     feedback= "Success";
 
                 }catch (Exception e){
@@ -531,8 +529,7 @@ public class Database{
                     statement2.executeUpdate();
                     System.out.println("Data Inserted!");
 
-                    //generate login
-                    //addLogin(pid,firstname,email);
+
                     feedback = "Success";
 
                 }catch (Exception e){
