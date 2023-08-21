@@ -127,14 +127,14 @@ public class Database{
     }
 
     //////====================home===================//////////
-    public static String addDepartment(String id, String name, String hod){
+    public static String addDepartment(String name, String hod){
         String feedback = "";
         //first check if the table exists or not
         if(connected){
             if(checkTable("department")){
                 //table found, lets insert data
                 try{
-                    String sql = "INSERT INTO department VALUES("+Integer.parseInt(id)+",'"+name+"',"+Integer.parseInt(hod)+")";
+                    String sql = "INSERT INTO department(name,hod) VALUES('"+name+"',"+Integer.parseInt(hod)+")";
                     PreparedStatement statement = con.prepareStatement(sql);
                     statement.executeUpdate();
                     feedback= "Success";
@@ -146,12 +146,12 @@ public class Database{
                 //create table
                 System.out.println("Creating Table!");
                 try{
-                    String sql = "CREATE TABLE department(did int, name varchar(20), hod int, CONSTRAINT pk_did PRIMARY KEY (did))";
+                    String sql = "CREATE TABLE department(did int AUTO_INCREMENT PRIMARY KEY, name varchar(20), hod int)";
                     PreparedStatement statement = con.prepareStatement(sql);
                     statement.executeUpdate();
                     System.out.println("table created!");
                     //now insert data!
-                    String sql2 = "INSERT INTO department VALUES("+Integer.parseInt(id)+",'"+name+"',"+Integer.parseInt(hod)+")";
+                    String sql2 = "INSERT INTO department(name,hod) VALUES('"+name+"',"+Integer.parseInt(hod)+")";
                     PreparedStatement statement2 = con.prepareStatement(sql2);
                     statement2.executeUpdate();
                     System.out.println("Data Inserted!");
@@ -166,14 +166,14 @@ public class Database{
         }
         return feedback;
     }
-    public static String addFaculty(String id, String name, String did){
+    public static String addFaculty(String name, String did){
         String feedback = "";
         //first check if the table exists or not
         if(connected){
             if(checkTable("faculty")){
                 //table found, lets insert data
                 try{
-                    String sql = "INSERT INTO faculty VALUES("+Integer.parseInt(id)+",'"+name+"',"+Integer.parseInt(did)+")";
+                    String sql = "INSERT INTO faculty(faculty_name,did) VALUES('"+name+"',"+Integer.parseInt(did)+")";
                     PreparedStatement statement = con.prepareStatement(sql);
                     statement.executeUpdate();
                     feedback= "Success";
@@ -185,12 +185,12 @@ public class Database{
                 //create table
                 System.out.println("Creating Table!");
                 try{
-                    String sql = "CREATE TABLE faculty(fid int, faculty_name varchar(20), did int, CONSTRAINT pk_fid PRIMARY KEY (fid))";
+                    String sql = "CREATE TABLE faculty(fid int AUTO_INCREMENT PRIMARY KEY, faculty_name varchar(20), did int)";
                     PreparedStatement statement = con.prepareStatement(sql);
                     statement.executeUpdate();
                     System.out.println("table created!");
                     //now insert data!
-                    String sql2 = "INSERT INTO faculty VALUES("+Integer.parseInt(id)+",'"+name+"',"+Integer.parseInt(did)+")";
+                    String sql2 = "INSERT INTO faculty(faculty_name,did) VALUES('"+name+"',"+Integer.parseInt(did)+")";
                     PreparedStatement statement2 = con.prepareStatement(sql2);
                     statement2.executeUpdate();
                     System.out.println("Data Inserted!");
@@ -275,19 +275,22 @@ public class Database{
     }
     public static String addStudent(String firstname,String middlename, String lastname, String adderss,
                                     String contact, String email, String entrance,
-                                    String fid,String bid, String pid, String sid) throws AddressException {
+                                    String fid,String bid, String pid) throws AddressException {
         String feedback = "";
         //first check if the table exists or not
         if(connected){
             if(checkTable("students")){
                 //table found, lets insert data
                 try{
-                    String sql = "INSERT INTO students VALUES('"+firstname+"','"+middlename+"','"+lastname+"','"+adderss+"',"+contact+",'"+email+"',"+entrance+","+fid+","+bid+","+pid+","+sid+")";
-                    PreparedStatement statement = con.prepareStatement(sql);
+                    String sql = "INSERT INTO students(first_name,middle_name,last_name,address,contact,email,entrance_score,fid,bid,pid) VALUES('"+firstname+"','"+middlename+"','"+lastname+"','"+adderss+"',"+contact+",'"+email+"',"+entrance+","+fid+","+bid+","+pid+")";
+                    PreparedStatement statement = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
                     statement.executeUpdate();
 
+                    ResultSet keys = statement.getGeneratedKeys();
+                    keys.next();
+                    String studentId = String.valueOf(keys.getInt(1));
                     //generate login
-                    addLogin(sid,bid,firstname,email);
+                    addLogin(studentId,bid,firstname,email);
                     feedback= "Success";
 
                 }catch (Exception e){
@@ -298,18 +301,22 @@ public class Database{
                 //create table
                 System.out.println("Creating Table!");
                 try{
-                    String sql = "CREATE TABLE students (first_name varchar(20),middle_name varchar(20),last_name varchar(20),address varchar(50),contact long, email varchar(50),entrance_score float, fid int, bid int, pid int, sid int, CONSTRAINT pk_sid PRIMARY KEY (sid))";
+                    String sql = "CREATE TABLE students (first_name varchar(20),middle_name varchar(20),last_name varchar(20),address varchar(50),contact long, email varchar(50),entrance_score float, fid int, bid int, pid int, sid int AUTO_INCREMENT PRIMARY KEY)";
                     PreparedStatement statement = con.prepareStatement(sql);
                     statement.executeUpdate();
                     System.out.println("table created!");
                     //now insert data!
-                    String sql2 = "INSERT INTO students VALUES('"+firstname+"','"+middlename+"','"+lastname+"','"+adderss+"',"+contact+",'"+email+"',"+entrance+","+fid+","+bid+","+pid+","+sid+")";
-                    PreparedStatement statement2 = con.prepareStatement(sql2);
+                    String sql2 = "INSERT INTO students(first_name,middle_name,last_name,address,contact,email,entrance_score,fid,bid,pid) VALUES('"+firstname+"','"+middlename+"','"+lastname+"','"+adderss+"',"+contact+",'"+email+"',"+entrance+","+fid+","+bid+","+pid+")";
+                    PreparedStatement statement2 = con.prepareStatement(sql2,Statement.RETURN_GENERATED_KEYS);
                     statement2.executeUpdate();
                     System.out.println("Data Inserted!");
 
+                    ResultSet keys = statement2.getGeneratedKeys();
+                    keys.next();
+                    String studentId = String.valueOf(keys.getInt(1));
+
                     //generate login
-                    addLogin(sid,bid,firstname,email);
+                    addLogin(studentId,bid,firstname,email);
                     feedback = "Success";
 
                 }catch (Exception e){
@@ -491,14 +498,14 @@ public class Database{
 
 
     public static String addParent(String firstname,String middlename, String lastname, String address,
-                                    String contact, String email,String pid) throws AddressException {
+                                    String contact, String email) throws AddressException {
         String feedback = "";
         //first check if the table exists or not
         if(connected){
             if(checkTable("parents")){
                 //table found, lets insert data
                 try{
-                    String sql = "INSERT INTO parents VALUES('"+firstname+"','"+middlename+"','"+lastname+"','"+address+"',"+contact+",'"+email+"','"+pid+"')";
+                    String sql = "INSERT INTO parents(first_name,middle_name,last_name,address,contact,email) VALUES('"+firstname+"','"+middlename+"','"+lastname+"','"+address+"',"+contact+",'"+email+"')";
                     PreparedStatement statement = con.prepareStatement(sql);
                     statement.executeUpdate();
 
@@ -514,12 +521,12 @@ public class Database{
                 //create table
                 System.out.println("Creating Table!");
                 try{
-                    String sql = "CREATE TABLE parents (first_name varchar(20),middle_name varchar(20),last_name varchar(20),address varchar(50),contact long, email varchar(50), pid int, CONSTRAINT pk_sid PRIMARY KEY (pid))";
+                    String sql = "CREATE TABLE parents (first_name varchar(20),middle_name varchar(20),last_name varchar(20),address varchar(50),contact long, email varchar(50), pid int AUTO_INCREMENT PRIMARY KEY)";
                     PreparedStatement statement = con.prepareStatement(sql);
                     statement.executeUpdate();
                     System.out.println("table created!");
                     //now insert data!
-                    String sql2 = "INSERT INTO parents VALUES('"+firstname+"','"+middlename+"','"+lastname+"','"+address+"',"+contact+",'"+email+"','"+pid+"')";
+                    String sql2 = "INSERT INTO parents(first_name,middle_name,last_name,address,contact,email) VALUES('"+firstname+"','"+middlename+"','"+lastname+"','"+address+"',"+contact+",'"+email+"')";
                     PreparedStatement statement2 = con.prepareStatement(sql2);
                     statement2.executeUpdate();
                     System.out.println("Data Inserted!");

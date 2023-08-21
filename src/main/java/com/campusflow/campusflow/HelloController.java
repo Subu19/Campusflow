@@ -4,6 +4,7 @@ import Encryption.Encryption;
 import com.campusflow.campusflow.EntityClass.AttendenceStudent;
 import com.campusflow.campusflow.EntityClass.Student;
 import com.campusflow.campusflow.database.Notice;
+import com.campusflow.campusflow.database.User;
 import com.campusflow.campusflow.tableview.AttendenceView;
 import com.campusflow.campusflow.tableview.MarksStudentSearch;
 import com.campusflow.campusflow.tableview.StudentView;
@@ -38,6 +39,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.Vector;
@@ -63,6 +65,45 @@ public class HelloController {
     @FXML
     void onCloseAlert(ActionEvent event) {
         alertLabel.getParent().setVisible(false);
+    }
+
+    @FXML
+    void onLogin(ActionEvent event) throws InterruptedException {
+        BackgroundFill greenFill = new BackgroundFill(Color.GREEN, null, null);
+        Background green = new Background(greenFill);
+        BackgroundFill redFIll = new BackgroundFill(Color.GREEN, null, null);
+        Background red = new Background(redFIll);
+        loginbutton.setVisible(false);
+        Stage mainwindow = (Stage) loginbutton.getScene().getWindow();
+        if(User.checkUserExistance()){
+            if(User.checkLogin(USERNAME.getText(),PASSWORD.getText())){
+                feedback.setText("Success! Opening Dashboard...");
+                feedback.setTextFill(Color.GREEN);
+                HelloApplication.loggedin = true;
+                Dashboard dashboard = new Dashboard(mainwindow);
+            }else{
+                feedback.setText("Failed! Try again!");
+                feedback.setTextFill(Color.RED);
+                USERNAME.setText("");
+                PASSWORD.setText("");
+                loginbutton.setVisible(true);
+            }
+        }else{
+            if (USERNAME.getText().equals("admin") && PASSWORD.getText().equals(("admin"))) {
+                feedback.setText("Success! Opening Dashboard...");
+                feedback.setTextFill(Color.GREEN);
+                HelloApplication.loggedin = true;
+                Dashboard dashboard = new Dashboard(mainwindow);
+
+            } else {
+                feedback.setText("Failed! Try again!");
+                feedback.setTextFill(Color.RED);
+                USERNAME.setText("");
+                PASSWORD.setText("");
+                loginbutton.setVisible(true);
+            }
+        }
+
     }
 
     ///////////////////////////////// SettingsTABMenu//////////////////////////////////
@@ -93,6 +134,49 @@ public class HelloController {
 
     @FXML
     private Button databaseSubmitBtn;
+    @FXML
+    private TextField userEmail;
+    @FXML
+    private TextField userNewPass;
+
+    @FXML
+    private TextField userNewPassConfirm;
+
+    @FXML
+    private TextField userOldPass;
+
+    @FXML
+    private TextField userUsername;
+    @FXML
+    void onUpdateEmail(ActionEvent event) {
+        if(!userEmail.getText().isEmpty()){
+            String feedback = User.updateEmail(userEmail.getText());
+            Alert.show(alertLabel,feedback);
+        }else{
+            Alert.show(alertLabel,"Email is empty!");
+        }
+
+    }
+    @FXML
+    void onUpdateUsername(ActionEvent event) {
+        if(!userUsername.getText().isEmpty()){
+            String feedback = User.updateUsername(userUsername.getText());
+            Alert.show(alertLabel,feedback);
+        }else{
+            Alert.show(alertLabel,"Tero bau le nam rakhena tero?");
+        }
+
+    }
+    @FXML
+    void onUpdatePassword(ActionEvent event) {
+        if(!userOldPass.getText().isEmpty() && ! userNewPass.getText().isEmpty()){
+            String feedback = User.updatePassword(userOldPass.getText(), userNewPass.getText());
+            Alert.show(alertLabel,feedback);
+        }else{
+            Alert.show(alertLabel,"Password fields are empty!");
+        }
+
+    }
 
     // database submission
     @FXML
@@ -110,6 +194,7 @@ public class HelloController {
             databaseAlert.setText("Fields cant be empty!");
         }
     }
+
 
     @FXML
     void onSettings(ActionEvent event) {
@@ -197,8 +282,6 @@ public class HelloController {
     @FXML
     private TextField s_pid;
 
-    @FXML
-    private TextField sid;
 
     @FXML
     private TableColumn<Student, String> stdAddress;
@@ -241,16 +324,15 @@ public class HelloController {
     void onAddStudent(ActionEvent event) throws IOException, WriterException, AddressException {
         // if department values are valid try and save it in the database
         if (!s_address.getText().isEmpty() && !s_pid.getText().isEmpty() && !s_bid.getText().isEmpty()
-                && !sid.getText().isEmpty() && !s_contact.getText().isEmpty()
+                &&  !s_contact.getText().isEmpty()
                 && !s_email.getText().isEmpty() && !s_entrancescore.getText().isEmpty() && !s_fid.getText().isEmpty()
                 && !s_firstname.getText().isEmpty() && !s_lastname.getText().isEmpty()) {
             String push = Database.addStudent(s_firstname.getText(), s_middlename.getText(), s_lastname.getText(),
                     s_address.getText(), s_contact.getText(), s_email.getText(), s_entrancescore.getText(),
-                    s_fid.getText(), s_bid.getText(), s_pid.getText(), sid.getText());
+                    s_fid.getText(), s_bid.getText(), s_pid.getText());
             if (Objects.equals(push, "Success")) {
                 Alert.show(alertLabel, "Update Done!");
                 dptName.setText("");
-                dptId.setText("");
                 dptHOD.setText("");
             } else {
                 Alert.show(alertLabel, push);
@@ -274,7 +356,6 @@ public class HelloController {
             if (Objects.equals(push, "Success")) {
                 Alert.show(alertLabel, "Update Done!");
                 dptName.setText("");
-                dptId.setText("");
                 dptHOD.setText("");
             } else {
                 Alert.show(alertLabel, push);
@@ -327,7 +408,6 @@ public class HelloController {
             if (Objects.equals(push, "Success")) {
                 Alert.show(alertLabel, "Update Done!");
                 dptName.setText("");
-                dptId.setText("");
                 dptHOD.setText("");
             } else {
                 Alert.show(alertLabel, push);
@@ -341,28 +421,6 @@ public class HelloController {
         teachersTab.setVisible(true);
     }
 
-    @FXML
-    void onLogin(ActionEvent event) throws InterruptedException {
-        BackgroundFill greenFill = new BackgroundFill(Color.GREEN, null, null);
-        Background green = new Background(greenFill);
-        BackgroundFill redFIll = new BackgroundFill(Color.GREEN, null, null);
-        Background red = new Background(redFIll);
-        loginbutton.setVisible(false);
-        Stage mainwindow = (Stage) loginbutton.getScene().getWindow();
-        if (USERNAME.getText().equals("subu") && PASSWORD.getText().equals(("1234"))) {
-            feedback.setText("Success! Opening Dashboard...");
-            feedback.setTextFill(Color.GREEN);
-            HelloApplication.loggedin = true;
-            Dashboard dashboard = new Dashboard(mainwindow);
-
-        } else {
-            feedback.setText("Failed! Try again!");
-            feedback.setTextFill(Color.RED);
-            USERNAME.setText("");
-            PASSWORD.setText("");
-            loginbutton.setVisible(true);
-        }
-    }
 
     ////// =================== Home TAB =======================//
     @FXML
@@ -523,8 +581,6 @@ public class HelloController {
     @FXML
     private TextField dptHOD;
 
-    @FXML
-    private TextField dptId;
 
     @FXML
     private TextField dptName;
@@ -532,12 +588,11 @@ public class HelloController {
     @FXML
     void onAddDepartment(ActionEvent event) {
         // if department values are valid try and save it in the database
-        if (!dptId.getText().isEmpty() && !dptName.getText().isEmpty()) {
-            String push = Database.addDepartment(dptId.getText(), dptName.getText(), dptHOD.getText());
+        if (!dptName.getText().isEmpty()) {
+            String push = Database.addDepartment(dptName.getText(), dptHOD.getText());
             if (Objects.equals(push, "Success")) {
                 Alert.show(alertLabel, "Update Done!");
                 dptName.setText("");
-                dptId.setText("");
                 dptHOD.setText("");
             } else {
                 Alert.show(alertLabel, push);
@@ -549,20 +604,16 @@ public class HelloController {
     private TextField fDid;
 
     @FXML
-    private TextField fId;
-
-    @FXML
     private TextField fName;
 
     @FXML
     void onAddFaculty(ActionEvent event) {
         // if Faculty values are valid try and save it in the database
-        if (!fId.getText().isEmpty() && !fName.getText().isEmpty()) {
-            String push = Database.addFaculty(fId.getText(), fName.getText(), fDid.getText());
+        if (!fName.getText().isEmpty()) {
+            String push = Database.addFaculty(fName.getText(), fDid.getText());
             if (Objects.equals(push, "Success")) {
                 Alert.show(alertLabel, "Update Done!");
                 fDid.setText("");
-                fId.setText("");
                 fName.setText("");
             } else {
                 Alert.show(alertLabel, push);
@@ -574,8 +625,7 @@ public class HelloController {
     //////////////////////////////////// ///////////////////////////////////////
     @FXML
     private TabPane batchTab;
-    @FXML
-    private TextField bId;
+
     @FXML
     private TextField b_year;
     @FXML
@@ -597,7 +647,6 @@ public class HelloController {
             if (Objects.equals(push, "Success")) {
                 Alert.show(alertLabel, "Update Done!");
                 fDid.setText("");
-                fId.setText("");
                 fName.setText("");
             } else {
                 Alert.show(alertLabel, push);
@@ -817,8 +866,6 @@ public class HelloController {
     @FXML
     private TextField p_middlename;
 
-    @FXML
-    private TextField p_ID;
 
     @FXML
     void onParents(ActionEvent event){
@@ -830,11 +877,11 @@ public class HelloController {
     @FXML
     void onAddParent(ActionEvent event) throws IOException, WriterException, AddressException {
         // if department values are valid try and save it in the database
-        if (!p_address.getText().isEmpty() && !p_ID.getText().isEmpty()
+        if (!p_address.getText().isEmpty()
                 && !p_contact.getText().isEmpty()
                 && !p_email.getText().isEmpty() && !p_firstname.getText().isEmpty() && !p_lastname.getText().isEmpty()) {
             String push = Database.addParent(p_firstname.getText(), p_middlename.getText(), p_lastname.getText(),
-                    p_address.getText(), p_contact.getText(), p_email.getText(), p_ID.getText());
+                    p_address.getText(), p_contact.getText(), p_email.getText());
             if (Objects.equals(push, "Success")) {
                 Alert.show(alertLabel, "Update Done!");
             } else {

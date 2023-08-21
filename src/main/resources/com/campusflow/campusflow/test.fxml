@@ -194,7 +194,7 @@
                               <TextField fx:id="s_lastname" layoutX="462.0" layoutY="42.0" />
                               <TextField fx:id="s_entrancescore" layoutX="62.0" layoutY="172.0" />
                               <TextField fx:id="s_fid" layoutX="262.0" layoutY="172.0" />
-                              <Button layoutX="62.0" layoutY="341.0" mnemonicParsing="false" onAction="#onAddStudent" text="ADD NEW STUDENT" />
+                              <Button layoutX="64.0" layoutY="304.0" mnemonicParsing="false" onAction="#onAddStudent" prefHeight="44.0" prefWidth="137.0" styleClass="submitButton" text="ADD NEW STUDENT" />
                               <Label layoutX="62.0" layoutY="24.0" prefHeight="17.0" prefWidth="140.0" text="First Name:" textFill="WHITE" />
                               <Label layoutX="262.0" layoutY="24.0" prefHeight="17.0" prefWidth="140.0" text="Middle Name" textFill="WHITE" />
                               <Label layoutX="462.0" layoutY="24.0" prefHeight="17.0" prefWidth="140.0" text="Last Name:" textFill="WHITE" />
@@ -207,8 +207,6 @@
                               <Label layoutX="462.0" layoutY="151.0" prefHeight="17.0" prefWidth="140.0" text="Batch ID:" textFill="WHITE" />
                               <TextField fx:id="s_pid" layoutX="62.0" layoutY="246.0" />
                               <Label layoutX="62.0" layoutY="229.0" prefHeight="17.0" prefWidth="140.0" text="Parents ID:" textFill="WHITE" />
-                              <TextField fx:id="sid" layoutX="262.0" layoutY="245.0" />
-                              <Label layoutX="262.0" layoutY="228.0" prefHeight="17.0" prefWidth="140.0" text="Student ID:" textFill="WHITE" />
                            </children>
                         </Pane>
                      </content>
@@ -244,7 +242,7 @@
                               <TextField fx:id="tFirstName" layoutX="115.0" layoutY="60.0" promptText="First Name" />
                               <TextField fx:id="tSubject" layoutX="336.0" layoutY="203.0" promptText="Subject" />
                               <TextField fx:id="tFaculty" layoutX="116.0" layoutY="201.0" promptText="Faculty" />
-                              <Button layoutX="289.0" layoutY="332.0" mnemonicParsing="false" onAction="#onAddTeacher" text="ADD NEW TEACHER" />
+                              <Button layoutX="116.0" layoutY="278.0" mnemonicParsing="false" onAction="#onAddTeacher" prefHeight="44.0" prefWidth="134.0" styleClass="submitButton" text="ADD NEW TEACHER" />
                            </children>
                         </Pane>
                      </content></Tab>
@@ -415,14 +413,8 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="dptId" layoutX="41.0" layoutY="67.0" />
                               <TextField fx:id="dptHOD" layoutX="41.0" layoutY="215.0" prefHeight="25.0" prefWidth="176.0" />
                               <TextField fx:id="dptName" layoutX="41.0" layoutY="140.0" prefHeight="25.0" prefWidth="223.0" />
-                              <Label layoutX="41.0" layoutY="43.0" text="Department ID:" textFill="WHITE">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font>
-                              </Label>
                               <Label layoutX="41.0" layoutY="113.0" text="Department Name:" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
@@ -433,7 +425,7 @@
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="41.0" layoutY="292.0" mnemonicParsing="false" onAction="#onAddDepartment" text="Add">
+                              <Button layoutX="41.0" layoutY="292.0" mnemonicParsing="false" onAction="#onAddDepartment" prefHeight="37.0" prefWidth="66.0" styleClass="submitButton" text="Add">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
@@ -447,13 +439,7 @@
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <TextField fx:id="fDid" layoutX="41.0" layoutY="214.0" />
-                              <TextField fx:id="fId" layoutX="41.0" layoutY="68.0" prefHeight="25.0" prefWidth="176.0" />
                               <TextField fx:id="fName" layoutX="41.0" layoutY="138.0" prefHeight="25.0" prefWidth="223.0" />
-                              <Label layoutX="41.0" layoutY="43.0" text="Faculty ID:" textFill="WHITE">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font>
-                              </Label>
                               <Label layoutX="41.0" layoutY="112.0" text="Faculty Name:" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
@@ -464,7 +450,7 @@
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="41.0" layoutY="292.0" mnemonicParsing="false" onAction="#onAddFaculty" text="Add">
+                              <Button layoutX="41.0" layoutY="292.0" mnemonicParsing="false" onAction="#onAddFaculty" prefHeight="36.0" prefWidth="57.0" styleClass="submitButton" text="Add">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
@@ -486,14 +472,8 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="bId" layoutX="41.0" layoutY="67.0" />
                               <TextField fx:id="b_fId" layoutX="41.0" layoutY="215.0" prefHeight="25.0" prefWidth="176.0" />
                               <TextField fx:id="b_year" layoutX="41.0" layoutY="140.0" prefHeight="25.0" prefWidth="223.0" />
-                              <Label layoutX="41.0" layoutY="43.0" text="Batch ID:" textFill="WHITE">
-                                 <font>
-                                    <Font size="13.0" />
-                                 </font>
-                              </Label>
                               <Label layoutX="41.0" layoutY="113.0" text="Year:" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
@@ -504,7 +484,7 @@
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="42.0" layoutY="347.0" mnemonicParsing="false" onAction="#onAddBatch" text="Add">
+                              <Button layoutX="42.0" layoutY="347.0" mnemonicParsing="false" onAction="#onAddBatch" prefHeight="34.0" prefWidth="58.0" styleClass="submitButton" text="Add">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
@@ -575,7 +555,7 @@
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="45.0" layoutY="230.0" mnemonicParsing="false" onAction="#onAddSubject" text="Add">
+                              <Button layoutX="45.0" layoutY="230.0" mnemonicParsing="false" onAction="#onAddSubject" styleClass="submitButton" text="Add">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
@@ -639,7 +619,7 @@
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="120.0" layoutY="475.0" mnemonicParsing="false" onAction="#onAddSubjectMarks" text="Add marks">
+                              <Button layoutX="112.0" layoutY="476.0" mnemonicParsing="false" onAction="#onAddSubjectMarks" styleClass="submitButton" text="Add marks">
                                  <font>
                                     <Font name="System Bold" size="15.0" />
                                  </font>
@@ -761,7 +741,7 @@
                   </Tab>
                </tabs>
             </TabPane>
-            <TabPane fx:id="settingsTab" layoutX="-5.0" layoutY="-3.0" prefHeight="616.0" prefWidth="1035.0" tabClosingPolicy="UNAVAILABLE" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane fx:id="settingsTab" layoutX="-5.0" layoutY="-3.0" prefHeight="616.0" prefWidth="1035.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <tabs>
                   <Tab text="DATABASE">
                      <content>
@@ -782,7 +762,69 @@
                         </Pane>
                      </content>
                   </Tab>
-                <Tab text="User" />
+                <Tab text="User">
+                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Pane fx:id="userBox" layoutX="52.0" layoutY="113.0" prefHeight="414.0" prefWidth="331.0">
+                                 <children>
+                                    <ImageView fx:id="userImage" fitHeight="126.0" fitWidth="131.0" layoutX="100.0" layoutY="-63.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../images/profile.png" />
+                                       </image>
+                                    </ImageView>
+                                    <TextField fx:id="userOldPass" layoutX="40.0" layoutY="100.0" prefHeight="44.0" prefWidth="252.0" />
+                                    <TextField fx:id="userNewPass" layoutX="40.0" layoutY="196.0" prefHeight="44.0" prefWidth="252.0" />
+                                    <TextField fx:id="userNewPassConfirm" layoutX="40.0" layoutY="281.0" prefHeight="44.0" prefWidth="252.0" />
+                                    <Label layoutX="40.0" layoutY="72.0" text="Current Password:" textFill="WHITE">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="40.0" layoutY="174.0" text="New Password:" textFill="WHITE">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="40.0" layoutY="254.0" text="Confirm Password:" textFill="WHITE">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Line endX="100.0" layoutX="163.0" layoutY="162.0" startX="-100.0" stroke="WHITE" />
+                                    <Button layoutX="105.0" layoutY="350.0" mnemonicParsing="false" onAction="#onUpdatePassword" prefHeight="44.0" prefWidth="117.0" styleClass="submitButton" text="Update" />
+                                 </children>
+                              </Pane>
+                              <Pane fx:id="userEmailBox" layoutX="402.0" layoutY="113.0" prefHeight="115.0" prefWidth="443.0">
+                                 <children>
+                                    <Button layoutX="303.0" layoutY="41.0" mnemonicParsing="false" onAction="#onUpdateEmail" prefHeight="44.0" prefWidth="117.0" styleClass="submitButton" text="Change" />
+                                    <TextField fx:id="userEmail" layoutX="14.0" layoutY="41.0" prefHeight="44.0" prefWidth="252.0" />
+                                    <Label layoutX="14.0" layoutY="14.0" text="Email:" textFill="WHITE">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="14.0" layoutY="93.0" text="Note: It is recommended to have email as it will help reset password if you forget" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Italic" size="12.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                              <Pane fx:id="userEmailBox1" layoutX="402.0" layoutY="248.0" prefHeight="115.0" prefWidth="443.0">
+                                 <children>
+                                    <Button layoutX="303.0" layoutY="41.0" mnemonicParsing="false" onAction="#onUpdateUsername" prefHeight="44.0" prefWidth="117.0" styleClass="submitButton" text="Change" />
+                                    <TextField fx:id="userUsername" layoutX="14.0" layoutY="41.0" prefHeight="44.0" prefWidth="252.0" />
+                                    <Label layoutX="14.0" layoutY="14.0" text="Username:" textFill="WHITE">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
+                           </children>
+                        </AnchorPane>
+                     </content></Tab>
               </tabs>
             </TabPane>
             <TabPane fx:id="attendenceTab" layoutX="159.0" layoutY="112.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -852,15 +894,13 @@
                               <TextField fx:id="p_address" layoutX="62.0" layoutY="152.0" />
                               <TextField fx:id="p_middlename" layoutX="262.0" layoutY="72.0" />
                               <TextField fx:id="p_lastname" layoutX="462.0" layoutY="72.0" />
-                              <Button fx:id="addParent" layoutX="85.0" layoutY="295.0" mnemonicParsing="false" onAction="#onAddParent" text="ADD  Details" />
+                              <Button fx:id="addParent" layoutX="62.0" layoutY="222.0" mnemonicParsing="false" onAction="#onAddParent" prefHeight="35.0" prefWidth="100.0" styleClass="submitButton" text="ADD  Details" />
                               <Label layoutX="62.0" layoutY="54.0" prefHeight="17.0" prefWidth="140.0" text="First Name:" textFill="WHITE" />
                               <Label layoutX="262.0" layoutY="54.0" prefHeight="17.0" prefWidth="140.0" text="Middle Name" textFill="WHITE" />
                               <Label layoutX="462.0" layoutY="54.0" prefHeight="17.0" prefWidth="140.0" text="Last Name:" textFill="WHITE" />
                               <Label layoutX="62.0" layoutY="134.0" prefHeight="17.0" prefWidth="140.0" text="Address:" textFill="WHITE" />
                               <Label layoutX="262.0" layoutY="132.0" prefHeight="17.0" prefWidth="140.0" text="Contact No:" textFill="WHITE" />
                               <Label layoutX="462.0" layoutY="132.0" prefHeight="17.0" prefWidth="140.0" text="Email:" textFill="WHITE" />
-                              <TextField fx:id="p_ID" layoutX="62.0" layoutY="232.0" />
-                              <Label layoutX="62.0" layoutY="214.0" prefHeight="17.0" prefWidth="140.0" text="Parents ID" textFill="WHITE" />
                            </children>
                         </Pane>
                      </content>
