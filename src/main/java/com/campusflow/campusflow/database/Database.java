@@ -2,9 +2,6 @@ package com.campusflow.campusflow.database;
 
 import Encryption.Encryption;
 import com.campusflow.campusflow.EmailSender;
-import com.google.zxing.EncodeHintType;
-import com.google.zxing.WriterException;
-import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -18,10 +15,6 @@ import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.campusflow.campusflow.qrGenerator.generator.generateQRCode;
 
 public class Database{
     public static Connection con=null;
@@ -639,5 +632,20 @@ public class Database{
         }
         return result;
     }
+
+    //////////////////Delete Student//////////////////
+
+    public static String deleteStudent(String text) throws SQLException {
+        String feedback = null;
+        if (connected) {
+            String sql = "Delete FROM students WHERE sid = '" + text + "' OR first_name = '" + text + "'";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.executeUpdate();
+            feedback = "Success";
+        }
+        return feedback;
+
+    }
+
 }
 

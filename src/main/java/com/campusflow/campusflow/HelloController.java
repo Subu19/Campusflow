@@ -317,6 +317,61 @@ public class HelloController {
     private TableView<Student> studentTable;
 
     @FXML
+    private TableColumn<Student, String> stdAddress1;
+
+    @FXML
+    private TableColumn<Student, String> stdBatch1;
+
+    @FXML
+    private TableColumn<Student, Integer> stdContact1;
+
+    @FXML
+    private TableColumn<Student, String> stdEmail1;
+
+    @FXML
+    private TableColumn<Student, String> stdFaculty1;
+
+    @FXML
+    private TableColumn<Student, Integer> stdID1;
+
+    @FXML
+    private TableColumn<Student, String> stdName1;
+
+    @FXML
+    private TableColumn<Student, Integer> stdParentId1;
+
+    @FXML
+    private TableView<Student> studentTable2;
+
+    /////////////
+    @FXML
+    private TableColumn<Student, String> stdAddress11;
+
+    @FXML
+    private TableColumn<Student, String> stdBatch11;
+
+    @FXML
+    private TableColumn<Student, Integer> stdContact11;
+
+    @FXML
+    private TableColumn<Student, String> stdEmail11;
+
+    @FXML
+    private TableColumn<Student, String> stdFaculty11;
+
+    @FXML
+    private TableColumn<Student, Integer> stdID11;
+
+    @FXML
+    private TableColumn<Student, String> stdName11;
+
+    @FXML
+    private TableColumn<Student, Integer> stdParentId11;
+
+    @FXML
+    private TableView<Student> studentTable3;
+
+    @FXML
     void onStudents(ActionEvent event) {
         onMainButton(event);
         studentsTab.setVisible(true);
@@ -367,6 +422,43 @@ public class HelloController {
             } else {
                 Alert.show(alertLabel, push);
             }
+        }
+    }
+    @FXML
+    private TextField stdnfield;
+
+    @FXML
+    private TextField stdnfield1;
+
+    @FXML
+    void onSearchStudent(ActionEvent event) throws SQLException {
+        if (!stdnfield.getText().isEmpty()) {
+            System.out.println(stdnfield.getText());
+            StudentView studentView = new StudentView(stdnfield.getText(),studentTable2, stdID1, stdName1, stdAddress1, stdContact1, stdEmail1,
+                    stdFaculty1, stdBatch1, stdParentId1);
+        }
+    }
+
+    @FXML
+    void onSearchStudent1(ActionEvent event) throws SQLException {
+        if (!stdnfield1.getText().isEmpty()) {
+            System.out.println(stdnfield.getText());
+            StudentView studentView = new StudentView(stdnfield1.getText(),studentTable3, stdID11, stdName11, stdAddress11, stdContact11, stdEmail11,
+                    stdFaculty11, stdBatch11, stdParentId11);
+        }
+    }
+
+    @FXML
+    void onDelete(ActionEvent event) throws SQLException {
+        String push = null;
+        if (!stdnfield1.getText().isEmpty()) {
+            System.out.println(stdnfield1.getText());
+            push = Database.deleteStudent(stdnfield1.getText());
+        }
+        if (Objects.equals(push, "Success")) {
+            Alert.show(alertLabel, "Update Done!");
+        } else {
+            Alert.show(alertLabel, push);
         }
     }
 

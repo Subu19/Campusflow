@@ -163,7 +163,7 @@
       </AnchorPane>
       <AnchorPane layoutX="218.0" layoutY="119.0" prefHeight="612.0" prefWidth="1021.0" style="-fx-background-color: #006494;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="118.0">
          <children>
-            <TabPane fx:id="studentsTab" layoutX="33.0" layoutY="33.0" prefHeight="200.0" prefWidth="578.0" tabClosingPolicy="UNAVAILABLE" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane fx:id="studentsTab" layoutX="33.0" layoutY="33.0" prefHeight="200.0" prefWidth="578.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <tabs>
                 <Tab text="View Students">
                      <content>
@@ -217,9 +217,9 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Button layoutX="345.0" layoutY="72.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="84.0" text="Search" />
-                              <TextField layoutX="37.0" layoutY="68.0" prefHeight="39.0" prefWidth="235.0" promptText="Student Name/ ID" />
-                              <Label layoutX="41.0" layoutY="19.0" text="Student Name / ID" textFill="WHITE">
+                              <Button fx:id="searchbutton" layoutX="345.0" layoutY="72.0" mnemonicParsing="false" onAction="#onSearchStudent" prefHeight="33.0" prefWidth="84.0" text="Search" />
+                              <TextField fx:id="stdnfield" layoutX="37.0" layoutY="71.0" prefHeight="39.0" prefWidth="235.0" promptText="Student Name/ ID" />
+                              <Label layoutX="41.0" layoutY="28.0" text="Student Name / ID" textFill="WHITE">
                                  <font>
                                     <Font size="26.0" />
                                  </font>
@@ -243,19 +243,19 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Button layoutX="397.0" layoutY="103.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="84.0" text="Search" />
-                              <TextField layoutX="73.0" layoutY="103.0" prefHeight="39.0" prefWidth="235.0" promptText="Student Name/ ID" />
-                              <Label layoutX="84.0" layoutY="62.0" text="Student Name / ID" textFill="WHITE">
+                              <Button fx:id="stdnSearch2" layoutX="397.0" layoutY="103.0" mnemonicParsing="false" onAction="#onSearchStudent1" prefHeight="33.0" prefWidth="84.0" text="Search" />
+                              <TextField fx:id="stdnfield1" layoutX="23.0" layoutY="103.0" prefHeight="39.0" prefWidth="235.0" promptText="Student Name/ ID" />
+                              <Label layoutX="24.0" layoutY="52.0" text="Student Name / ID" textFill="WHITE">
                                  <font>
                                     <Font size="26.0" />
                                  </font>
                               </Label>
-                              <CheckBox layoutX="397.0" layoutY="454.0" mnemonicParsing="false" prefHeight="83.0" prefWidth="240.0" text="Delete" textFill="WHITE">
+                              <CheckBox fx:id="deletebtn" layoutX="369.0" layoutY="378.0" mnemonicParsing="false" onAction="#onDelete" prefHeight="83.0" prefWidth="240.0" text="Delete" textFill="WHITE">
                                  <font>
                                     <Font size="28.0" />
                                  </font>
                               </CheckBox>
-                              <TableView fx:id="studentTable21" layoutX="2.0" layoutY="172.0" prefHeight="259.0" prefWidth="1022.0" AnchorPane.rightAnchor="-2.800000000000068">
+                              <TableView fx:id="studentTable3" layoutX="7.0" layoutY="245.0" prefHeight="74.0" prefWidth="1022.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="-6.999999999999886">
                                  <columns>
                                     <TableColumn fx:id="stdID11" prefWidth="62.0" text="ID" />
                                     <TableColumn fx:id="stdName11" prefWidth="124.0" text="Name" />
