@@ -19,6 +19,7 @@ import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -39,10 +40,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-import java.util.Vector;
+import java.util.*;
 
 public class HelloController {
     private String[] semesters = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII" };
@@ -61,12 +59,20 @@ public class HelloController {
 
     @FXML
     private Label feedback;
+    @FXML
+    private ListView<String> searchResultList;
 
+    @FXML
+    private Pane searchResults;
     @FXML
     void onCloseAlert(ActionEvent event) {
         alertLabel.getParent().setVisible(false);
     }
 
+    @FXML
+    void onCloseSearch(ActionEvent event) {
+        searchResults.setVisible(false);
+    }
     @FXML
     void onLogin(ActionEvent event) throws InterruptedException {
         BackgroundFill greenFill = new BackgroundFill(Color.GREEN, null, null);
@@ -319,7 +325,30 @@ public class HelloController {
                 stdFaculty, stdBatch, stdParentId);
 
     }
+    @FXML
+    void onStudentSearchFaculty(KeyEvent event ){
+        searchResultList.getItems().clear();
 
+        ArrayList<String> result = Database.searchFaculty(s_fid.getText().toString());
+        searchResultList.getItems().addAll(result);
+        searchResults.setVisible(true);
+    }
+    @FXML
+    void onStudentSearchBatch(KeyEvent event ){
+        searchResultList.getItems().clear();
+
+        ArrayList<String> result = Database.searchBatch(s_bid.getText().toString());
+        searchResultList.getItems().addAll(result);
+        searchResults.setVisible(true);
+    }
+    @FXML
+    void onStudentSearchParent(KeyEvent event ){
+        searchResultList.getItems().clear();
+
+        ArrayList<String> result = Database.searchParent(s_pid.getText().toString());
+        searchResultList.getItems().addAll(result);
+        searchResults.setVisible(true);
+    }
     @FXML
     void onAddStudent(ActionEvent event) throws IOException, WriterException, AddressException {
         // if department values are valid try and save it in the database
@@ -334,6 +363,7 @@ public class HelloController {
                 Alert.show(alertLabel, "Update Done!");
                 dptName.setText("");
                 dptHOD.setText("");
+                searchResults.setVisible(false);
             } else {
                 Alert.show(alertLabel, push);
             }
@@ -753,6 +783,13 @@ public class HelloController {
         }
     }
 
+    @FXML
+    void onMarksSearchSubject(KeyEvent event ){
+        searchResultList.getItems().clear();
+        ArrayList<String> result = Database.searchSubject(mSubID.getText());
+        searchResultList.getItems().addAll(result);
+        searchResults.setVisible(true);
+    }
     @FXML
     void onMarks(ActionEvent event) throws InterruptedException {
         onMainButton(event);
