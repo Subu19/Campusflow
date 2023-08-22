@@ -17,6 +17,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -540,6 +541,103 @@ public class Database{
             feedback = "Database Not Connected!";
         }
         return feedback;
+    }
+        /////////////////////search results////////////////////////////////
+    public static ArrayList<String> searchFaculty(String search) {
+        ArrayList<String> result = new ArrayList<>();
+
+        try{
+            String sql = "SELECT faculty_name,fid from faculty WHERE faculty_name LIKE \"%"+search+"%\" OR fid LIKE \"%"+search+"%\";";
+            PreparedStatement statement = con.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                result.add(resultSet.getInt("fid")+" = "+resultSet.getString("faculty_name"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+
+        }
+        return result;
+    }
+    public static ArrayList<String> searchBatch(String search) {
+        ArrayList<String> result = new ArrayList<>();
+
+        try{
+            String sql = "SELECT year,bid,faculty_name from batch inner join faculty on batch.fid = faculty.fid WHERE year LIKE \"%"+search+"%\" OR bid LIKE \"%"+search+"%\";";
+            PreparedStatement statement = con.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                result.add(resultSet.getInt("bid")+" = "+resultSet.getString("year")+" "+resultSet.getString("faculty_name"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+
+        }
+        return result;
+    }
+    public static ArrayList<String> searchParent(String search) {
+        ArrayList<String> result = new ArrayList<>();
+
+        try{
+            String sql = "SELECT first_name,middle_name,last_name,contact,pid from parents WHERE CONCAT(first_name, ' ', middle_name, ' ',last_name,' ',pid,' ',contact) LIKE '%"+search+"%'";
+            PreparedStatement statement = con.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                result.add(resultSet.getInt("pid")+" = "+resultSet.getString("first_name")+" "+resultSet.getString("last_name"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+
+        }
+        return result;
+    }
+    public static ArrayList<String> searchSubject(String search) {
+        ArrayList<String> result = new ArrayList<>();
+
+        try{
+            String sql = "SELECT subId,sub_name from subjects WHERE sub_name LIKE \"%"+search+"%\" OR subId LIKE \"%"+search+"%\";";
+            PreparedStatement statement = con.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                result.add(resultSet.getInt("subId")+" = "+resultSet.getString("sub_name"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+
+        }
+        return result;
+    }
+    public static ArrayList<String> searchTeacher(String search) {
+        ArrayList<String> result = new ArrayList<>();
+
+        try{
+            String sql = "SELECT first_name,middle_name,last_name,contact,tid from teachers WHERE CONCAT(first_name, ' ', middle_name, ' ',last_name,' ',tid,' ',contact) LIKE '%"+search+"%'";
+            PreparedStatement statement = con.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                result.add(resultSet.getInt("tid")+" = "+resultSet.getString("first_name")+" "+resultSet.getString("last_name"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+
+        }
+        return result;
+    }
+    public static ArrayList<String> searchDepartment(String search) {
+        ArrayList<String> result = new ArrayList<>();
+
+        try{
+            String sql = "SELECT did,name from department WHERE name LIKE \"%"+search+"%\" OR did LIKE \"%"+search+"%\";";
+            PreparedStatement statement = con.prepareStatement(sql);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()){
+                result.add(resultSet.getInt("did")+" = "+resultSet.getString("name"));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+
+        }
+        return result;
     }
 }
 

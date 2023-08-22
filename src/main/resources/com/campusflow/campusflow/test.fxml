@@ -10,6 +10,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -194,7 +195,7 @@
                               <TextField fx:id="s_middlename" layoutX="262.0" layoutY="42.0" />
                               <TextField fx:id="s_lastname" layoutX="462.0" layoutY="42.0" />
                               <TextField fx:id="s_entrancescore" layoutX="62.0" layoutY="172.0" />
-                              <TextField fx:id="s_fid" layoutX="262.0" layoutY="172.0" />
+                              <TextField fx:id="s_fid" layoutX="262.0" layoutY="172.0" onKeyPressed="#onStudentSearchFaculty" />
                               <Button layoutX="64.0" layoutY="304.0" mnemonicParsing="false" onAction="#onAddStudent" prefHeight="44.0" prefWidth="137.0" styleClass="submitButton" text="ADD NEW STUDENT" />
                               <Label layoutX="62.0" layoutY="24.0" prefHeight="17.0" prefWidth="140.0" text="First Name:" textFill="WHITE" />
                               <Label layoutX="262.0" layoutY="24.0" prefHeight="17.0" prefWidth="140.0" text="Middle Name" textFill="WHITE" />
@@ -204,9 +205,9 @@
                               <Label layoutX="462.0" layoutY="82.0" prefHeight="17.0" prefWidth="140.0" text="Email:" textFill="WHITE" />
                               <Label layoutX="62.0" layoutY="155.0" prefHeight="17.0" prefWidth="140.0" text="Entrance Score:" textFill="WHITE" />
                               <Label layoutX="262.0" layoutY="155.0" prefHeight="17.0" prefWidth="140.0" text="Faculty ID:" textFill="WHITE" />
-                              <TextField fx:id="s_bid" layoutX="462.0" layoutY="168.0" />
+                              <TextField fx:id="s_bid" layoutX="462.0" layoutY="168.0" onKeyPressed="#onStudentSearchBatch" />
                               <Label layoutX="462.0" layoutY="151.0" prefHeight="17.0" prefWidth="140.0" text="Batch ID:" textFill="WHITE" />
-                              <TextField fx:id="s_pid" layoutX="62.0" layoutY="246.0" />
+                              <TextField fx:id="s_pid" layoutX="62.0" layoutY="246.0" onKeyPressed="#onStudentSearchParent" />
                               <Label layoutX="62.0" layoutY="229.0" prefHeight="17.0" prefWidth="140.0" text="Parents ID:" textFill="WHITE" />
                            </children>
                         </Pane>
@@ -271,7 +272,7 @@
                   </Tab>
               </tabs>
             </TabPane>
-            <TabPane fx:id="teachersTab" layoutX="33.0" layoutY="33.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane fx:id="teachersTab" layoutX="33.0" layoutY="33.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <tabs>
                 <Tab text="View Teachers">
                      <content>
@@ -587,17 +588,13 @@
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="42.0" layoutY="347.0" mnemonicParsing="false" onAction="#onAddBatch" prefHeight="34.0" prefWidth="58.0" styleClass="submitButton" text="Add">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Button>
                               <TextField fx:id="b_semester" layoutX="41.0" layoutY="293.0" prefHeight="25.0" prefWidth="176.0" />
                               <Label layoutX="41.0" layoutY="266.0" text="Semester" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </Label>
+                              <Button layoutX="41.0" layoutY="345.0" mnemonicParsing="false" onAction="#onAddBatch" prefHeight="44.0" prefWidth="137.0" styleClass="submitButton" text="Add Marks" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -658,11 +655,7 @@
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="45.0" layoutY="230.0" mnemonicParsing="false" onAction="#onAddSubject" styleClass="submitButton" text="Add">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Button>
+                              <Button layoutX="44.0" layoutY="227.0" mnemonicParsing="false" onAction="#onAddSubject" prefHeight="44.0" prefWidth="137.0" styleClass="submitButton" text="Add Subject" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -711,7 +704,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="mSubID" layoutX="112.0" layoutY="88.0" prefHeight="25.0" prefWidth="223.0" />
+                              <TextField fx:id="mSubID" layoutX="112.0" layoutY="88.0" onKeyPressed="#onMarksSearchSubject" prefHeight="25.0" prefWidth="223.0" />
                               <Label layoutX="112.0" layoutY="61.0" text="Subject ID:" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
@@ -722,11 +715,6 @@
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <Button layoutX="112.0" layoutY="476.0" mnemonicParsing="false" onAction="#onAddSubjectMarks" styleClass="submitButton" text="Add marks">
-                                 <font>
-                                    <Font name="System Bold" size="15.0" />
-                                 </font>
-                              </Button>
                               <ChoiceBox fx:id="mSemList" layoutX="112.0" layoutY="178.0" prefWidth="150.0" />
                               <TextField fx:id="mStdMarks" layoutX="112.0" layoutY="264.0" prefHeight="25.0" prefWidth="112.0" />
                               <Label layoutX="112.0" layoutY="239.0" text="Marks:" textFill="WHITE">
@@ -762,6 +750,7 @@
                                  </font>
                               </Label>
                               <ChoiceBox fx:id="mTermList" layoutX="112.0" layoutY="423.0" prefWidth="150.0" />
+                              <Button layoutX="108.0" layoutY="474.0" mnemonicParsing="false" onAction="#onAddSubjectMarks" prefHeight="44.0" prefWidth="137.0" styleClass="submitButton" text="Add Marks" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -811,11 +800,7 @@
                                     <Font name="Arial" size="35.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="announcementbtn" contentDisplay="CENTER" layoutX="31.0" layoutY="372.0" mnemonicParsing="false" onAction="#onAnnouncement" prefHeight="44.0" prefWidth="131.0" styleClass="submitButton" text="Announce">
-                                 <font>
-                                    <Font name="Arial" size="20.0" />
-                                 </font>
-                              </Button>
+                              <Button fx:id="announcementbtn" layoutX="31.0" layoutY="403.0" mnemonicParsing="false" onAction="#onAnnouncement" prefHeight="44.0" prefWidth="137.0" styleClass="submitButton" text="Announce" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -844,7 +829,7 @@
                   </Tab>
                </tabs>
             </TabPane>
-            <TabPane fx:id="settingsTab" layoutX="-5.0" layoutY="-3.0" prefHeight="616.0" prefWidth="1035.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane fx:id="settingsTab" layoutX="-5.0" layoutY="-3.0" prefHeight="616.0" prefWidth="1035.0" tabClosingPolicy="UNAVAILABLE" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <tabs>
                   <Tab text="DATABASE">
                      <content>
@@ -1026,5 +1011,16 @@
             </Button>
          </children>
       </AnchorPane>
+      <Pane fx:id="searchResults" layoutX="920.0" layoutY="30.0" prefHeight="612.0" prefWidth="312.0" style="-fx-background-color: #36454f;" visible="false" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="118.0">
+         <children>
+            <ListView fx:id="searchResultList" layoutX="10.0" layoutY="50.0" prefHeight="549.0" prefWidth="293.0" />
+            <Label layoutX="122.0" layoutY="14.0" text="Search Results" textFill="#00ff90">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Button layoutX="286.0" layoutY="2.0" mnemonicParsing="false" onAction="#onCloseSearch" text="X" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
