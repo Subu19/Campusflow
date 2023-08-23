@@ -3,7 +3,6 @@ package com.campusflow.campusflow.EntityClass;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 public class Parent {
-    private SimpleIntegerProperty stdID;
     private SimpleStringProperty pName;
     private SimpleStringProperty pAddress;
     private SimpleIntegerProperty pContact;
@@ -11,84 +10,69 @@ public class Parent {
     private SimpleIntegerProperty pId;
 
 
-    public int getStdID() {
-        return stdID.get();
-    }
-
-    public SimpleIntegerProperty stdIDProperty() {
-        return stdID;
-    }
-
-    public String getStdName() {
+    public String getpName() {
         return pName.get();
     }
 
-    public SimpleStringProperty stdNameProperty() {
+    public SimpleStringProperty pNameProperty() {
         return pName;
     }
 
-    public String getStdAddress() {
+    public String getpAddress() {
         return pAddress.get();
     }
 
-    public SimpleStringProperty stdAddressProperty() {
+    public SimpleStringProperty pAddressProperty() {
         return pAddress;
     }
 
-    public int getStdContact() {
+    public int getpContact() {
         return pContact.get();
     }
 
-    public SimpleIntegerProperty stdContactProperty() {
+    public SimpleIntegerProperty pContactProperty() {
         return pContact;
     }
 
-    public String getStdEmail() {
+    public String getpEmail() {
         return pEmail.get();
     }
 
-    public SimpleStringProperty stdEmailProperty() {
+    public SimpleStringProperty pEmailProperty() {
         return pEmail;
     }
 
-    public int getStdParentId() {
+    public int getpId() {
         return pId.get();
     }
 
-    public SimpleIntegerProperty stdParentIdProperty() {
+    public SimpleIntegerProperty pIdProperty() {
         return pId;
     }
 
-    public void setStdID(int stdID) {
-        this.stdID.set(stdID);
+    public void setpName(String pName) {
+        this.pName.set(pName);
     }
 
-    public void setStdName(String stdName) {
-        this.pName.set(stdName);
+    public void setpAddress(String pAddress) {
+        this.pAddress.set(pAddress);
     }
 
-    public void setStdAddress(String stdAddress) {
-        this.pAddress.set(stdAddress);
+    public void setpContact(int pContact) {
+        this.pContact.set(pContact);
     }
 
-    public void setStdContact(int stdContact) {
-        this.pContact.set(stdContact);
+    public void setpEmail(String pEmail) {
+        this.pEmail.set(pEmail);
     }
 
-    public void setStdEmail(String stdEmail) {
-        this.pEmail.set(stdEmail);
-    }
+    public void setpId(int pId) {this.pId.set(pId);}
 
-    public void setStdParentId(int stdParentId) {
-        this.pId.set(stdParentId);
-    }
-
-    public Parent(Integer id, String name, String address, Integer contact, String email, Integer parnetID){
+    public Parent(Integer id, String name, String address, Integer contact, String email){
         this.pAddress =new SimpleStringProperty(address);
         this.pName = new SimpleStringProperty(name);
-        this.stdID =new SimpleIntegerProperty(id);
         this.pContact = new SimpleIntegerProperty(contact);
-        this.pId = new SimpleIntegerProperty(parnetID);
+        this.pId = new SimpleIntegerProperty(id);
         this.pEmail = new SimpleStringProperty(email);
     }
 }

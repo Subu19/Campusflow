@@ -2,11 +2,13 @@ package com.campusflow.campusflow;
 
 import Encryption.Encryption;
 import com.campusflow.campusflow.EntityClass.AttendenceStudent;
+import com.campusflow.campusflow.EntityClass.Parent;
 import com.campusflow.campusflow.EntityClass.Student;
 import com.campusflow.campusflow.database.Notice;
 import com.campusflow.campusflow.database.User;
 import com.campusflow.campusflow.tableview.AttendenceView;
 import com.campusflow.campusflow.tableview.MarksStudentSearch;
+import com.campusflow.campusflow.tableview.ParentView;
 import com.campusflow.campusflow.tableview.StudentView;
 import com.google.zxing.WriterException;
 import javafx.event.ActionEvent;
@@ -370,6 +372,9 @@ public class HelloController {
 
     @FXML
     private TableView<Student> studentTable3;
+
+    @FXML
+    private ProgressIndicator Loading;
 
     @FXML
     void onStudents(ActionEvent event) {
@@ -995,11 +1000,49 @@ public class HelloController {
     @FXML
     private TextField p_middlename;
 
+    @FXML
+    private TableColumn<Parent, Integer> pID;
+    @FXML
+    private TableColumn<Parent, String> pName;
+    @FXML
+    private TableColumn<Parent, String> pAddress;
+    @FXML
+    private TableColumn<Parent, String> pEmail;
+    @FXML
+    private TableColumn<Parent, Long> pContact;
+
+    @FXML
+    private TableView<Parent> parentTable;
+
+    @FXML
+    private TableColumn<Parent, Integer> pID1;
+    @FXML
+    private TableColumn<Parent, String> pName1;
+    @FXML
+    private TableColumn<Parent, String> pAddress1;
+    @FXML
+    private TableColumn<Parent, String> pEmail1;
+    @FXML
+    private TableColumn<Parent, Long> pContact1;
+
+    @FXML
+    private TableView<Parent> parentTable1;
+
+    @FXML
+    private Button searchbutton1;
+
+    @FXML
+    private TextField parentField;
+
+
+
+
 
     @FXML
     void onParents(ActionEvent event){
         onMainButton(event);
         parentsTab.setVisible(true);
+        ParentView newParent = new ParentView(parentTable,pID,pName,pAddress,pContact,pEmail);
     }
 
 
@@ -1078,5 +1121,8 @@ public class HelloController {
                 "-fx-background-color: linear-gradient(to right,#b625d6,#9157ec,#6773f8,#3987fa,#0997f4);-fx-font-weight: bold;-fx-text-fill: white;-fx-font-size: 20px;");
 
     }
+    
+    @FXML
+    void onParentDelete(){}
 
 }
