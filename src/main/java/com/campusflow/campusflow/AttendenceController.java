@@ -90,6 +90,5 @@ public class AttendenceController {
         Thread QRThread = new Thread(checkQR);
         QRThread.setDaemon(true);
         QRThread.start();
-
     }
 }

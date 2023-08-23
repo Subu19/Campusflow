@@ -9,6 +9,8 @@ import com.campusflow.campusflow.tableview.AttendenceView;
 import com.campusflow.campusflow.tableview.MarksStudentSearch;
 import com.campusflow.campusflow.tableview.StudentView;
 import com.google.zxing.WriterException;
+import javafx.concurrent.Task;
+import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.chart.AreaChart;
@@ -72,6 +74,18 @@ public class HelloController {
     @FXML
     void onCloseSearch(ActionEvent event) {
         searchResults.setVisible(false);
+    }
+    @FXML
+    private ProgressBar progressBar;
+    void showProgress(ActionEvent event){
+        Button button = (Button)  event.getSource();
+        progressBar.setVisible(true);
+        button.setDisable(true);
+    }
+    void hideProgress(ActionEvent event){
+        Button button = (Button)  event.getSource();
+        progressBar.setVisible(false);
+        button.setDisable(false);
     }
     @FXML
     void onLogin(ActionEvent event) throws InterruptedException {
@@ -406,22 +420,46 @@ public class HelloController {
     }
     @FXML
     void onAddStudent(ActionEvent event) throws IOException, WriterException, AddressException {
+
         // if department values are valid try and save it in the database
         if (!s_address.getText().isEmpty() && !s_pid.getText().isEmpty() && !s_bid.getText().isEmpty()
                 &&  !s_contact.getText().isEmpty()
                 && !s_email.getText().isEmpty() && !s_entrancescore.getText().isEmpty() && !s_fid.getText().isEmpty()
                 && !s_firstname.getText().isEmpty() && !s_lastname.getText().isEmpty()) {
-            String push = Database.addStudent(s_firstname.getText(), s_middlename.getText(), s_lastname.getText(),
-                    s_address.getText(), s_contact.getText(), s_email.getText(), s_entrancescore.getText(),
-                    s_fid.getText(), s_bid.getText(), s_pid.getText());
-            if (Objects.equals(push, "Success")) {
-                Alert.show(alertLabel, "Update Done!");
-                dptName.setText("");
-                dptHOD.setText("");
-                searchResults.setVisible(false);
-            } else {
-                Alert.show(alertLabel, push);
-            }
+            showProgress(event);
+            Task<String> addStudentTask = new Task<String>() {
+                @Override
+                protected String call() throws Exception {
+
+                    return Database.addStudent(s_firstname.getText(), s_middlename.getText(), s_lastname.getText(),
+                            s_address.getText(), s_contact.getText(), s_email.getText(), s_entrancescore.getText(),
+                            s_fid.getText(), s_bid.getText(), s_pid.getText());
+                }
+            };
+            addStudentTask.valueProperty().addListener((observable, oldValue, newValue)->{
+                if (Objects.equals(newValue, "Success")) {
+                    Alert.show(alertLabel, "Update Done!");
+                    s_firstname.setText("");
+                    s_middlename.setText("");
+                    s_lastname.setText("");
+                    s_address.setText("");
+                    s_contact.setText("");
+                    s_email.setText("");
+                    s_entrancescore.setText("");
+                    s_fid.setText("");
+                    s_bid.setText("");
+                    s_pid.setText("");
+                    searchResults.setVisible(false);
+                    hideProgress(event);
+                } else {
+                    Alert.show(alertLabel, newValue);
+                    hideProgress(event);
+                }
+            });
+
+            Thread addStdThread = new Thread(addStudentTask);
+            addStdThread.setDaemon(true);
+            addStdThread.start();
         }
     }
     @FXML
@@ -460,8 +498,8 @@ public class HelloController {
         } else {
             Alert.show(alertLabel, push);
         }
-    }
 
+    }
     ///////////////////////////////// SUBJECTS////////////////////////////////////////////////////////
     @FXML
     private TextField subjectName;
