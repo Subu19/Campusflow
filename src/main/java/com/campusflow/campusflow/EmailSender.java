@@ -18,7 +18,6 @@ public class EmailSender {
     private static final String PASSWORD = "sthajdthjhsyhivf"; // This is secured!
 
     private static Session session;
-
     // Initialize the session once
     static {
         initialize();
@@ -43,9 +42,68 @@ public class EmailSender {
     }
 
     public static void sendEmail(Address[] toAddresses, String subject, String text) {
-        sendEmail(toAddresses, subject, text, null);
+        if(session == null){
+            initialize();
+            sendEmail(toAddresses,subject,text,null);
+
+//            SendEmailThread sendEmailThread = new SendEmailThread(toAddresses,subject, text,null);
+//            Thread thread = new Thread(sendEmailThread);
+//            thread.start();
+        }else{
+            sendEmail(toAddresses,subject,text,null);
+
+//            SendEmailThread sendEmailThread = new SendEmailThread(toAddresses,subject, text,null);
+//            Thread thread = new Thread(sendEmailThread);
+//            thread.start();
+        }
     }
 
+    private  static class SendEmailThread implements Runnable{
+        Address[] toAddresses;
+        String subject;
+        String text;
+        String imagePath;
+
+        SendEmailThread(Address[] toAddresses, String subject, String text, String imagePath){
+            this.toAddresses = toAddresses;
+            this.imagePath = imagePath;
+            this.subject = subject;
+            this.text = text;
+        }
+        public void run(){
+            try {
+                MimeMessage message = new MimeMessage(session);
+                message.setFrom(new InternetAddress(USERNAME));
+                message.setRecipients(Message.RecipientType.TO, toAddresses);
+                message.setSubject(subject);
+
+                if (imagePath == null) {
+                    message.setText(text);
+                } else {
+                    BodyPart messageBodyPart = new MimeBodyPart();
+                    messageBodyPart.setText(text);
+
+                    BodyPart attachmentBodyPart = new MimeBodyPart();
+                    DataSource source = new FileDataSource(new File(imagePath));
+                    attachmentBodyPart.setDataHandler(new DataHandler(source));
+                    attachmentBodyPart.setFileName(source.getName());
+
+                    Multipart multipart = new MimeMultipart();
+                    multipart.addBodyPart(messageBodyPart);
+                    multipart.addBodyPart(attachmentBodyPart);
+
+                    message.setContent(multipart);
+                }
+
+                System.out.println("Sending...");
+                Transport.send(message);
+                System.out.println("Sent message successfully.");
+            } catch (MessagingException mex) {
+                System.err.println("Email sending failed.");
+                mex.printStackTrace();
+            }
+        }
+    }
     public static void sendEmail(Address[] toAddresses, String subject, String text, String imagePath) {
         try {
             MimeMessage message = new MimeMessage(session);

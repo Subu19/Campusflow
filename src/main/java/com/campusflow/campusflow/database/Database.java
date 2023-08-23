@@ -365,7 +365,6 @@ public class Database{
         insertStatement.executeUpdate();
 
         //send Email to student
-        EmailSender sendmail  = new EmailSender();
         String subject= "Welcome to Our University, "+name;
         String url= "campusflow.subasacharya.com.np";
         String text="Your addmission has been done and we would like to welcome you to our wonderful Campus.\n\nHope you will have a great time with new friends and teachers. \n\n Your Student account logins for CampusFlow is listed below: \n Username:"+username+"\n Password: "+password+"\n URL: "+url+" \n\n Thank you!";

@@ -11,7 +11,6 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -164,7 +163,7 @@
       </AnchorPane>
       <AnchorPane layoutX="218.0" layoutY="119.0" prefHeight="612.0" prefWidth="1021.0" style="-fx-background-color: #006494;" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="220.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="118.0">
          <children>
-            <TabPane fx:id="studentsTab" layoutX="33.0" layoutY="33.0" prefHeight="200.0" prefWidth="578.0" tabClosingPolicy="UNAVAILABLE" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane fx:id="studentsTab" layoutX="33.0" layoutY="33.0" prefHeight="200.0" prefWidth="578.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <tabs>
                 <Tab text="View Students">
                      <content>
@@ -956,13 +955,14 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="parentTable" prefHeight="524.0" prefWidth="999.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="studentTable1" prefHeight="524.0" prefWidth="999.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <columns>
                                     <TableColumn fx:id="pID" prefWidth="62.0" text="ID" />
                                     <TableColumn fx:id="pName" prefWidth="124.0" text="Name" />
                                     <TableColumn fx:id="pAddress" prefWidth="226.0" text="Address" />
-                                    <TableColumn fx:id="pContact" prefWidth="82.0" text="Contact" />
+                                    <TableColumn fx:id="pcontact" prefWidth="82.0" text="Contact" />
                                     <TableColumn fx:id="pEmail" minWidth="3.0" prefWidth="188.0" text="Email" />
+                                    <TableColumn fx:id="sID" prefWidth="73.0" text="Sutdent ID" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -989,68 +989,8 @@
                               <Label layoutX="62.0" layoutY="134.0" prefHeight="17.0" prefWidth="140.0" text="Address:" textFill="WHITE" />
                               <Label layoutX="262.0" layoutY="132.0" prefHeight="17.0" prefWidth="140.0" text="Contact No:" textFill="WHITE" />
                               <Label layoutX="462.0" layoutY="132.0" prefHeight="17.0" prefWidth="140.0" text="Email:" textFill="WHITE" />
-                              <ProgressIndicator fx:id="Loading" layoutX="342.0" layoutY="237.0" progress="0.0" visible="false" />
                            </children>
                         </Pane>
-                     </content>
-                  </Tab>
-                  <Tab text="Search">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="searchbutton1" layoutX="345.0" layoutY="72.0" mnemonicParsing="false" onAction="#onSearchStudent" prefHeight="33.0" prefWidth="84.0" text="Search" />
-                              <TextField fx:id="parentField" layoutX="37.0" layoutY="71.0" prefHeight="39.0" prefWidth="235.0" promptText="Parent Name/ ID" />
-                              <Label layoutX="41.0" layoutY="28.0" text="Parent Name / ID" textFill="WHITE">
-                                 <font>
-                                    <Font size="26.0" />
-                                 </font>
-                              </Label>
-                              <TableView fx:id="parentTable1" layoutX="-5.0" layoutY="145.0" prefHeight="438.0" prefWidth="1026.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                                 <columns>
-                                    <TableColumn fx:id="pID1" prefWidth="62.0" text="ID" />
-                                    <TableColumn fx:id="pName1" prefWidth="124.0" text="Name" />
-                                    <TableColumn fx:id="pAddress1" prefWidth="226.0" text="Address" />
-                                    <TableColumn fx:id="pContact1" prefWidth="82.0" text="Contact" />
-                                    <TableColumn fx:id="pEmail1" minWidth="3.0" prefWidth="188.0" text="Email" />
-                                 </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab text="Delete">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="stdnSearch21" layoutX="397.0" layoutY="103.0" mnemonicParsing="false" onAction="#onSearchStudent1" prefHeight="33.0" prefWidth="84.0" text="Search" />
-                              <TextField fx:id="stdnfield11" layoutX="23.0" layoutY="103.0" prefHeight="39.0" prefWidth="235.0" promptText="Student Name/ ID" />
-                              <Label layoutX="24.0" layoutY="52.0" text="Student Name / ID" textFill="WHITE">
-                                 <font>
-                                    <Font size="26.0" />
-                                 </font>
-                              </Label>
-                              <CheckBox fx:id="parentDelbtn" layoutX="369.0" layoutY="378.0" mnemonicParsing="false" onAction="#onParentDelete" prefHeight="83.0" prefWidth="240.0" text="Delete" textFill="WHITE">
-                                 <font>
-                                    <Font size="28.0" />
-                                 </font>
-                              </CheckBox>
-                              <TableView fx:id="studentTable31" layoutX="7.0" layoutY="245.0" prefHeight="74.0" prefWidth="1022.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="-6.999999999999886">
-                                 <columns>
-                                    <TableColumn fx:id="stdID112" prefWidth="62.0" text="ID" />
-                                    <TableColumn fx:id="stdName112" prefWidth="124.0" text="Name" />
-                                    <TableColumn fx:id="stdAddress112" prefWidth="226.0" text="Address" />
-                                    <TableColumn fx:id="stdContact112" prefWidth="82.0" text="Contact" />
-                                    <TableColumn fx:id="stdEmail112" minWidth="3.0" prefWidth="188.0" text="Email" />
-                                    <TableColumn fx:id="stdFaculty112" minWidth="0.0" prefWidth="169.0" text="Faculty" />
-                                    <TableColumn fx:id="stdBatch111" minWidth="0.0" prefWidth="54.0" text="Batch" />
-                                    <TableColumn fx:id="stdParentId111" prefWidth="73.0" text="ParentID" />
-                                 </columns>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
                      </content>
                   </Tab>
               </tabs>
