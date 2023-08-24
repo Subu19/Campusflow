@@ -1052,6 +1052,10 @@ public class HelloController {
     @FXML
     private TableView<Parent> parentTable;
 
+    //////////
+    @FXML
+    private Button searchbutton1;
+
     @FXML
     private TableColumn<Parent, Integer> pID1;
     @FXML
@@ -1066,11 +1070,29 @@ public class HelloController {
     @FXML
     private TableView<Parent> parentTable1;
 
+
+    ///////////////
     @FXML
-    private Button searchbutton1;
+    private TextField parentField1;
 
     @FXML
-    private TextField parentField;
+    private TableView<Parent> parentTable2;
+
+    @FXML
+    private Button deleteSearchParentbtn;
+
+    @FXML
+    private TextField parentField2;
+    @FXML
+    private TableColumn<Parent, Integer> pID2;
+    @FXML
+    private TableColumn<Parent, String> pName2;
+    @FXML
+    private TableColumn<Parent, String> pAddress2;
+    @FXML
+    private TableColumn<Parent, String> pEmail2;
+    @FXML
+    private TableColumn<Parent, Long> pContact2;
 
 
 
@@ -1099,6 +1121,41 @@ public class HelloController {
             }
         }
     }
+    @FXML
+    void onSearchParent(ActionEvent event) throws SQLException {
+        handleSearch(parentField1, parentTable1, pID1, pName1, pAddress1, pContact1, pEmail1);
+    }
+
+    @FXML
+    void onSearchParent1(ActionEvent event) throws SQLException {
+        handleSearch(parentField2, parentTable2, pID2, pName2, pAddress2, pContact2, pEmail2);
+    }
+
+    private void handleSearch(TextField textField, TableView tableView,
+                              TableColumn idColumn, TableColumn nameColumn, TableColumn addressColumn,
+                              TableColumn contactColumn, TableColumn emailColumn) throws SQLException {
+        if (!textField.getText().isEmpty()) {
+            System.out.println(textField.getText());
+            ParentView parentView = new ParentView(textField.getText(), tableView, idColumn, nameColumn, addressColumn,
+                    contactColumn, emailColumn);
+        }
+    }
+
+    @FXML
+    void onDeleteParent(ActionEvent event) throws SQLException {
+        String push = null;
+        if (!parentField2.getText().isEmpty()) {
+            System.out.println(parentField2.getText());
+            push = Database.deleteParent(parentField2.getText());
+        }
+        if (Objects.equals(push, "Success")) {
+            Alert.show(alertLabel, "Update Done!");
+        } else {
+            Alert.show(alertLabel, push);
+        }
+
+    }
+
 
 
 
@@ -1159,8 +1216,5 @@ public class HelloController {
                 "-fx-background-color: linear-gradient(to right,#b625d6,#9157ec,#6773f8,#3987fa,#0997f4);-fx-font-weight: bold;-fx-text-fill: white;-fx-font-size: 20px;");
 
     }
-    
-    @FXML
-    void onParentDelete(){}
 
 }
