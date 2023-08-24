@@ -46,15 +46,10 @@ public class EmailSender {
             initialize();
             sendEmail(toAddresses,subject,text,null);
 
-//            SendEmailThread sendEmailThread = new SendEmailThread(toAddresses,subject, text,null);
-//            Thread thread = new Thread(sendEmailThread);
-//            thread.start();
+
         }else{
             sendEmail(toAddresses,subject,text,null);
 
-//            SendEmailThread sendEmailThread = new SendEmailThread(toAddresses,subject, text,null);
-//            Thread thread = new Thread(sendEmailThread);
-//            thread.start();
         }
     }
 

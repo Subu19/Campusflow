@@ -30,7 +30,7 @@ public class StudentView {
         Integer id;
         String name;
         String address;
-        Integer contact;
+        Long contact;
         String email;
         String faculty;
         String batch;
@@ -44,7 +44,7 @@ public class StudentView {
                 id = result.getInt("sid");
                 name = result.getString("first_name")+" "+result.getString("middle_name")+" "+result.getString("last_name");
                 address= result.getString("address");
-                contact = Math.toIntExact(result.getLong("contact"));
+                contact = result.getLong("contact");
                 email = result.getString("email");
                 faculty = result.getString("faculty_name");
                 batch = result.getString("year");
@@ -71,7 +71,7 @@ public class StudentView {
         Integer id;
         String name;
         String address;
-        Integer contact;
+        Long contact;
         String email;
         String faculty;
         String batch;
@@ -85,7 +85,7 @@ public class StudentView {
                 id = result.getInt("sid");
                 name = result.getString("first_name")+" "+result.getString("middle_name")+" "+result.getString("last_name");
                 address= result.getString("address");
-                contact = Math.toIntExact(result.getLong("contact"));
+                contact = result.getLong("contact");
                 email = result.getString("email");
                 faculty = result.getString("faculty_name");
                 batch = result.getString("year");

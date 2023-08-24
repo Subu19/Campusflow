@@ -19,6 +19,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
@@ -126,6 +127,29 @@ public class HelloController {
 
     }
 
+    @FXML
+    void onForgotPassword(MouseEvent event) {
+        Label label = (Label) event.getSource();
+        label.setVisible(false);
+        feedback.setText("Please wait..Sending Email");
+        feedback.setTextFill(Color.WHITE);
+        Task<String> forgotpasswordTask= new Task<String>() {
+            @Override
+            protected String call() throws Exception {
+
+                return User.onForgetPassword();
+            }
+        };
+        forgotpasswordTask.valueProperty().addListener((observable, oldValue, newValue)->{
+            feedback.setText(newValue);
+        });
+        Thread fpthread = new Thread(forgotpasswordTask);
+        fpthread.setDaemon(true);
+        fpthread.start();
+
+//        String callback = User.onForgetPassword();
+
+    }
     ///////////////////////////////// SettingsTABMenu//////////////////////////////////
     @FXML
     private TabPane settingsTab;
@@ -478,7 +502,7 @@ public class HelloController {
     }
 
     @FXML
-    void onSearchStudent1(ActionEvent event) throws SQLException {
+    void onSearchDeleteStudent(ActionEvent event) throws SQLException {
         if (!stdnfield1.getText().isEmpty()) {
             System.out.println(stdnfield.getText());
             StudentView studentView = new StudentView(stdnfield1.getText(),studentTable3, stdID11, stdName11, stdAddress11, stdContact11, stdEmail11,
@@ -487,17 +511,23 @@ public class HelloController {
     }
 
     @FXML
-    void onDelete(ActionEvent event) throws SQLException {
+    void onDeleteStudent(ActionEvent event) throws SQLException {
         String push = null;
         if (!stdnfield1.getText().isEmpty()) {
+
             System.out.println(stdnfield1.getText());
             push = Database.deleteStudent(stdnfield1.getText());
+            if (Objects.equals(push, "Success")) {
+                Alert.show(alertLabel, "Update Done!");
+                studentTable3.getItems().clear();
+            } else {
+                Alert.show(alertLabel, push);
+            }
+
+        }else{
+            Alert.show(alertLabel,"Empty ID");
         }
-        if (Objects.equals(push, "Success")) {
-            Alert.show(alertLabel, "Update Done!");
-        } else {
-            Alert.show(alertLabel, push);
-        }
+
 
     }
     ///////////////////////////////// SUBJECTS////////////////////////////////////////////////////////

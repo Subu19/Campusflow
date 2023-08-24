@@ -44,7 +44,9 @@ TextField {
 .tab-header-background {
   -fx-background-color: rgb(41, 41, 41);
 }
-
+.box{
+ -fx-background-color: rgba(0, 0, 0, 0.284);
+}
 #userBox {
   -fx-background-color: rgba(0, 0, 0, 0.284);
 }
@@ -57,4 +59,7 @@ TextField {
 }
 #userEmailBox1 {
   -fx-background-color: rgba(0, 0, 0, 0.284);
+}
+.tabElement {
+  -fx-background-color: #006494;
 }

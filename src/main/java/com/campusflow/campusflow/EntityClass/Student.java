@@ -1,13 +1,14 @@
 package com.campusflow.campusflow.EntityClass;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 public class Student {
     private SimpleIntegerProperty stdID;
     private SimpleStringProperty stdName;
     private SimpleStringProperty stdAddress;
-    private SimpleIntegerProperty stdContact;
+    private SimpleLongProperty stdContact;
     private SimpleStringProperty stdEmail;
     private SimpleStringProperty stdFaculty;
     private SimpleStringProperty stdBatch;
@@ -54,10 +55,10 @@ public class Student {
     }
 
     public int getStdContact() {
-        return stdContact.get();
+        return (int) stdContact.get();
     }
 
-    public SimpleIntegerProperty stdContactProperty() {
+    public SimpleLongProperty stdContactProperty() {
         return stdContact;
     }
 
@@ -125,13 +126,13 @@ public class Student {
         this.stdParentId.set(stdParentId);
     }
 
-    public Student(Integer id, String name, String address, Integer contact, String email, String faculty, String batch, Integer parnetID){
+    public Student(Integer id, String name, String address, Long contact, String email, String faculty, String batch, Integer parnetID){
         this.stdAddress =new SimpleStringProperty(address);
         this.stdBatch =new SimpleStringProperty(batch);
         this.stdFaculty = new SimpleStringProperty(faculty);
         this.stdName = new SimpleStringProperty(name);
         this.stdID =new SimpleIntegerProperty(id);
-        this.stdContact = new SimpleIntegerProperty(contact);
+        this.stdContact = new SimpleLongProperty(contact);
         this.stdParentId = new SimpleIntegerProperty(parnetID);
         this.stdEmail = new SimpleStringProperty(email);
     }
