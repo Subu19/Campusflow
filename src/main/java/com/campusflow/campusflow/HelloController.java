@@ -2,11 +2,13 @@ package com.campusflow.campusflow;
 
 import Encryption.Encryption;
 import com.campusflow.campusflow.EntityClass.AttendenceStudent;
+import com.campusflow.campusflow.EntityClass.Parent;
 import com.campusflow.campusflow.EntityClass.Student;
 import com.campusflow.campusflow.database.Notice;
 import com.campusflow.campusflow.database.User;
 import com.campusflow.campusflow.tableview.AttendenceView;
 import com.campusflow.campusflow.tableview.MarksStudentSearch;
+import com.campusflow.campusflow.tableview.ParentView;
 import com.campusflow.campusflow.tableview.StudentView;
 import com.google.zxing.WriterException;
 import javafx.concurrent.Task;
@@ -408,6 +410,9 @@ public class HelloController {
 
     @FXML
     private TableView<Student> studentTable3;
+
+    @FXML
+    private ProgressIndicator Loading;
 
     @FXML
     void onStudents(ActionEvent event) {
@@ -1063,11 +1068,71 @@ public class HelloController {
     @FXML
     private TextField p_middlename;
 
+    @FXML
+    private TableColumn<Parent, Integer> pID;
+    @FXML
+    private TableColumn<Parent, String> pName;
+    @FXML
+    private TableColumn<Parent, String> pAddress;
+    @FXML
+    private TableColumn<Parent, String> pEmail;
+    @FXML
+    private TableColumn<Parent, Long> pContact;
+
+    @FXML
+    private TableView<Parent> parentTable;
+
+    //////////
+    @FXML
+    private Button searchbutton1;
+
+    @FXML
+    private TableColumn<Parent, Integer> pID1;
+    @FXML
+    private TableColumn<Parent, String> pName1;
+    @FXML
+    private TableColumn<Parent, String> pAddress1;
+    @FXML
+    private TableColumn<Parent, String> pEmail1;
+    @FXML
+    private TableColumn<Parent, Long> pContact1;
+
+    @FXML
+    private TableView<Parent> parentTable1;
+
+
+    ///////////////
+    @FXML
+    private TextField parentField1;
+
+    @FXML
+    private TableView<Parent> parentTable2;
+
+    @FXML
+    private Button deleteSearchParentbtn;
+
+    @FXML
+    private TextField parentField2;
+    @FXML
+    private TableColumn<Parent, Integer> pID2;
+    @FXML
+    private TableColumn<Parent, String> pName2;
+    @FXML
+    private TableColumn<Parent, String> pAddress2;
+    @FXML
+    private TableColumn<Parent, String> pEmail2;
+    @FXML
+    private TableColumn<Parent, Long> pContact2;
+
+
+
+
 
     @FXML
     void onParents(ActionEvent event){
         onMainButton(event);
         parentsTab.setVisible(true);
+        ParentView newParent = new ParentView(parentTable,pID,pName,pAddress,pContact,pEmail);
     }
 
 
@@ -1086,6 +1151,41 @@ public class HelloController {
             }
         }
     }
+    @FXML
+    void onSearchParent(ActionEvent event) throws SQLException {
+        handleSearch(parentField1, parentTable1, pID1, pName1, pAddress1, pContact1, pEmail1);
+    }
+
+    @FXML
+    void onSearchParent1(ActionEvent event) throws SQLException {
+        handleSearch(parentField2, parentTable2, pID2, pName2, pAddress2, pContact2, pEmail2);
+    }
+
+    private void handleSearch(TextField textField, TableView tableView,
+                              TableColumn idColumn, TableColumn nameColumn, TableColumn addressColumn,
+                              TableColumn contactColumn, TableColumn emailColumn) throws SQLException {
+        if (!textField.getText().isEmpty()) {
+            System.out.println(textField.getText());
+            ParentView parentView = new ParentView(textField.getText(), tableView, idColumn, nameColumn, addressColumn,
+                    contactColumn, emailColumn);
+        }
+    }
+
+    @FXML
+    void onDeleteParent(ActionEvent event) throws SQLException {
+        String push = null;
+        if (!parentField2.getText().isEmpty()) {
+            System.out.println(parentField2.getText());
+            push = Database.deleteParent(parentField2.getText());
+        }
+        if (Objects.equals(push, "Success")) {
+            Alert.show(alertLabel, "Update Done!");
+        } else {
+            Alert.show(alertLabel, push);
+        }
+
+    }
+
 
 
 

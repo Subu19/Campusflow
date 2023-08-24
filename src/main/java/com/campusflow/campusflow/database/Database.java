@@ -646,5 +646,15 @@ public class Database{
 
     }
 
+    public static String deleteParent(String text) throws SQLException {
+        String feedback = null;
+        if (connected) {
+            String sql = "Delete FROM parents WHERE pid = '" + text + "' OR first_name = '" + text + "'";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.executeUpdate();
+            feedback = "Success";
+        }
+        return feedback;
+    }
 }
 
