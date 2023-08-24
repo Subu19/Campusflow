@@ -1008,14 +1008,14 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="searchParentbtn" layoutX="345.0" layoutY="72.0" mnemonicParsing="false" onAction="#onSearchParent" prefHeight="33.0" prefWidth="84.0" text="Search" />
+                              <Button fx:id="searchParentbtn" layoutX="345.0" layoutY="72.0" mnemonicParsing="false" onAction="#onSearchParent" prefHeight="33.0" prefWidth="84.0" styleClass="submitButton" text="Search" />
                               <TextField fx:id="parentField1" layoutX="37.0" layoutY="68.0" prefHeight="39.0" prefWidth="235.0" promptText="Parent Name/ ID" />
                               <Label layoutX="41.0" layoutY="19.0" text="Parent Name / ID" textFill="WHITE">
                                  <font>
                                     <Font size="26.0" />
                                  </font>
                               </Label>
-                              <TableView fx:id="parentTable1" layoutY="117.0" prefHeight="443.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              <TableView fx:id="parentTable1" layoutY="117.0" prefHeight="443.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="137.0">
                                  <columns>
                                     <TableColumn fx:id="pID1" prefWidth="62.0" text="ID" />
                                     <TableColumn fx:id="pName1" prefWidth="124.0" text="Name" />
@@ -1035,9 +1035,9 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="deleteSearchParentbtn" layoutX="397.0" layoutY="103.0" mnemonicParsing="false" onAction="#onSearchParent1" prefHeight="33.0" prefWidth="84.0" text="Search" />
-                              <TextField fx:id="parentField2" layoutX="73.0" layoutY="103.0" prefHeight="39.0" prefWidth="235.0" promptText="Parent Name/ ID" />
-                              <Label layoutX="84.0" layoutY="62.0" text="Parent Name / ID" textFill="WHITE">
+                              <Button fx:id="deleteSearchParentbtn" layoutX="281.0" layoutY="100.0" mnemonicParsing="false" onAction="#onSearchParent1" prefHeight="33.0" prefWidth="84.0" styleClass="submitButton" text="Search" />
+                              <TextField fx:id="parentField2" layoutX="14.0" layoutY="97.0" prefHeight="39.0" prefWidth="235.0" promptText="Parent Name/ ID" />
+                              <Label layoutX="14.0" layoutY="53.0" text="Parent Name / ID" textFill="WHITE">
                                  <font>
                                     <Font size="26.0" />
                                  </font>
@@ -1054,7 +1054,21 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                               </TableView>
-                              <Button fx:id="deleteParentbtn" layoutX="442.0" layoutY="482.0" mnemonicParsing="false" onAction="#onDeleteParent" prefHeight="33.0" prefWidth="84.0" text="Delete" />
+                              <Button layoutX="21.0" layoutY="475.0" mnemonicParsing="false" onAction="#onDeleteParent" prefHeight="44.0" prefWidth="127.0" style="-fx-background-color: #c41a4d;" text="Delete" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="35.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../images/3221803.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
                            </children>
                         </AnchorPane>
                      </content>

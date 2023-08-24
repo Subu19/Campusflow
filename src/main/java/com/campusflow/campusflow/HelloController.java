@@ -221,7 +221,6 @@ public class HelloController {
         }else{
             Alert.show(alertLabel,"Password fields are empty!");
         }
-
     }
 
     // database submission
@@ -1177,12 +1176,16 @@ public class HelloController {
         if (!parentField2.getText().isEmpty()) {
             System.out.println(parentField2.getText());
             push = Database.deleteParent(parentField2.getText());
+            if (Objects.equals(push, "Success")) {
+                Alert.show(alertLabel, "Update Done!");
+                parentTable2.getItems().clear();
+            } else {
+                Alert.show(alertLabel, push);
+            }
+        }else{
+            Alert.show(alertLabel,"Empty is id!");
         }
-        if (Objects.equals(push, "Success")) {
-            Alert.show(alertLabel, "Update Done!");
-        } else {
-            Alert.show(alertLabel, push);
-        }
+
 
     }
 
