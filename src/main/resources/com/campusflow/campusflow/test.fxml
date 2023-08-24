@@ -7,7 +7,6 @@
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -283,49 +282,72 @@
                   </Tab>
               </tabs>
             </TabPane>
-            <TabPane fx:id="teachersTab" layoutX="33.0" layoutY="33.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane fx:id="parentsTab" layoutX="33.0" layoutY="33.0" prefHeight="200.0" prefWidth="331.0" tabClosingPolicy="UNAVAILABLE" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <tabs>
-                <Tab text="View Teachers">
-                     <content>
-                        <Pane prefHeight="200.0" prefWidth="200.0" />
-                     </content>
+                <Tab text="View Details">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="parentTable" prefHeight="524.0" prefWidth="999.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <columns>
+                                    <TableColumn fx:id="pID" prefWidth="62.0" text="ID" />
+                                    <TableColumn fx:id="pName" prefWidth="124.0" text="Name" />
+                                    <TableColumn fx:id="pAddress" prefWidth="226.0" text="Address" />
+                                    <TableColumn fx:id="pContact" prefWidth="82.0" text="Contact" />
+                                    <TableColumn fx:id="pEmail" minWidth="3.0" prefWidth="188.0" text="Email" />
+                                    <TableColumn fx:id="sID" prefWidth="73.0" text="Sutdent ID" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                  </content>
                 </Tab>
-                <Tab text="Add Teachers">
+                  <Tab text="Add Parents Detail">
                      <content>
                         <Pane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="tLastName" layoutX="555.0" layoutY="57.0" promptText="Last Name" />
-                              <TextField fx:id="tContact" layoutX="331.0" layoutY="132.0" promptText="Contact" />
-                              <TextField fx:id="tEmail" layoutX="557.0" layoutY="130.0" promptText="Email" />
-                              <TextField fx:id="tAddress" layoutX="115.0" layoutY="132.0" promptText="Address" />
-                              <TextField fx:id="tMiddleName" layoutX="330.0" layoutY="57.0" promptText="Middle Name" />
-                              <TextField fx:id="tFirstName" layoutX="115.0" layoutY="60.0" promptText="First Name" />
-                              <TextField fx:id="tSubject" layoutX="336.0" layoutY="203.0" promptText="Subject" />
-                              <TextField fx:id="tFaculty" layoutX="116.0" layoutY="201.0" promptText="Faculty" />
-                              <Button layoutX="116.0" layoutY="278.0" mnemonicParsing="false" onAction="#onAddTeacher" prefHeight="44.0" prefWidth="134.0" styleClass="submitButton" text="ADD NEW TEACHER" />
+                              <TextField fx:id="p_firstname" layoutX="62.0" layoutY="72.0" />
+                              <TextField fx:id="p_contact" layoutX="262.0" layoutY="149.0" />
+                              <TextField fx:id="p_email" layoutX="462.0" layoutY="149.0" />
+                              <TextField fx:id="p_address" layoutX="62.0" layoutY="152.0" />
+                              <TextField fx:id="p_middlename" layoutX="262.0" layoutY="72.0" />
+                              <TextField fx:id="p_lastname" layoutX="462.0" layoutY="72.0" />
+                              <Button fx:id="addParent" layoutX="62.0" layoutY="222.0" mnemonicParsing="false" onAction="#onAddParent" prefHeight="35.0" prefWidth="100.0" styleClass="submitButton" text="ADD  Details" />
+                              <Label layoutX="62.0" layoutY="54.0" prefHeight="17.0" prefWidth="140.0" text="First Name:" textFill="WHITE" />
+                              <Label layoutX="262.0" layoutY="54.0" prefHeight="17.0" prefWidth="140.0" text="Middle Name" textFill="WHITE" />
+                              <Label layoutX="462.0" layoutY="54.0" prefHeight="17.0" prefWidth="140.0" text="Last Name:" textFill="WHITE" />
+                              <Label layoutX="62.0" layoutY="134.0" prefHeight="17.0" prefWidth="140.0" text="Address:" textFill="WHITE" />
+                              <Label layoutX="262.0" layoutY="132.0" prefHeight="17.0" prefWidth="140.0" text="Contact No:" textFill="WHITE" />
+                              <Label layoutX="462.0" layoutY="132.0" prefHeight="17.0" prefWidth="140.0" text="Email:" textFill="WHITE" />
                            </children>
                         </Pane>
-                     </content></Tab>
+                     </content>
+                  </Tab>
                   <Tab text="Search ">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Button layoutX="345.0" layoutY="72.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="84.0" text="Search" />
-                              <TextField layoutX="37.0" layoutY="68.0" prefHeight="39.0" prefWidth="235.0" promptText="Teacher  Name/ ID" />
-                              <Label layoutX="41.0" layoutY="19.0" text="Teacher Name / ID" textFill="WHITE">
+                              <Button fx:id="searchParentbtn" layoutX="345.0" layoutY="72.0" mnemonicParsing="false" onAction="#onSearchParent" prefHeight="33.0" prefWidth="84.0" styleClass="submitButton" text="Search" />
+                              <TextField fx:id="parentField1" layoutX="37.0" layoutY="68.0" prefHeight="39.0" prefWidth="235.0" promptText="Parent Name/ ID" />
+                              <Label layoutX="41.0" layoutY="19.0" text="Parent Name / ID" textFill="WHITE">
                                  <font>
                                     <Font size="26.0" />
                                  </font>
                               </Label>
-                              <TableView fx:id="studentTable22" layoutY="117.0" prefHeight="443.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                              <TableView fx:id="parentTable1" layoutY="117.0" prefHeight="443.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="137.0">
                                  <columns>
-                                    <TableColumn fx:id="stdID12" prefWidth="62.0" text="ID" />
-                                    <TableColumn fx:id="stdName12" prefWidth="124.0" text="Name" />
-                                    <TableColumn fx:id="stdAddress12" prefWidth="226.0" text="Address" />
-                                    <TableColumn fx:id="stdContact12" prefWidth="82.0" text="Contact" />
-                                    <TableColumn fx:id="stdEmail12" minWidth="3.0" prefWidth="188.0" text="Email" />
-                                    <TableColumn fx:id="stdFaculty12" minWidth="0.0" prefWidth="169.0" text="Faculty" />
+                                    <TableColumn fx:id="pID1" prefWidth="62.0" text="ID" />
+                                    <TableColumn fx:id="pName1" prefWidth="124.0" text="Name" />
+                                    <TableColumn fx:id="pAddress1" prefWidth="226.0" text="Address" />
+                                    <TableColumn fx:id="pContact1" prefWidth="82.0" text="Contact" />
+                                    <TableColumn fx:id="pEmail1" minWidth="3.0" prefWidth="188.0" text="Email" />
                                  </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
                            </children>
                         </AnchorPane>
@@ -335,28 +357,155 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <Button layoutX="397.0" layoutY="103.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="84.0" text="Search" />
-                              <TextField layoutX="73.0" layoutY="103.0" prefHeight="39.0" prefWidth="235.0" promptText="Teacher Name/ ID" />
-                              <Label layoutX="84.0" layoutY="62.0" text="Teacher Name / ID" textFill="WHITE">
+                              <Button fx:id="deleteSearchParentbtn" layoutX="281.0" layoutY="100.0" mnemonicParsing="false" onAction="#onSearchParent1" prefHeight="33.0" prefWidth="84.0" styleClass="submitButton" text="Search" />
+                              <TextField fx:id="parentField2" layoutX="14.0" layoutY="97.0" prefHeight="39.0" prefWidth="235.0" promptText="Parent Name/ ID" />
+                              <Label layoutX="14.0" layoutY="53.0" text="Parent Name / ID" textFill="WHITE">
                                  <font>
                                     <Font size="26.0" />
                                  </font>
                               </Label>
-                              <CheckBox layoutX="397.0" layoutY="454.0" mnemonicParsing="false" prefHeight="83.0" prefWidth="240.0" text="Delete" textFill="WHITE">
-                                 <font>
-                                    <Font size="28.0" />
-                                 </font>
-                              </CheckBox>
-                              <TableView fx:id="studentTable211" layoutX="2.0" layoutY="172.0" prefHeight="259.0" prefWidth="1022.0" AnchorPane.rightAnchor="-2.800000000000068">
+                              <TableView fx:id="parentTable2" layoutX="2.0" layoutY="172.0" prefHeight="259.0" prefWidth="1022.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                  <columns>
-                                    <TableColumn fx:id="stdID111" prefWidth="62.0" text="ID" />
-                                    <TableColumn fx:id="stdName111" prefWidth="124.0" text="Name" />
-                                    <TableColumn fx:id="stdAddress111" prefWidth="226.0" text="Address" />
-                                    <TableColumn fx:id="stdContact111" prefWidth="82.0" text="Contact" />
-                                    <TableColumn fx:id="stdEmail111" minWidth="3.0" prefWidth="188.0" text="Email" />
-                                    <TableColumn fx:id="stdFaculty111" minWidth="0.0" prefWidth="169.0" text="Faculty" />
+                                    <TableColumn fx:id="pID2" prefWidth="62.0" text="ID" />
+                                    <TableColumn fx:id="pName2" prefWidth="124.0" text="Name" />
+                                    <TableColumn fx:id="pAddress2" prefWidth="226.0" text="Address" />
+                                    <TableColumn fx:id="pContact2" prefWidth="82.0" text="Contact" />
+                                    <TableColumn fx:id="pEmail2" minWidth="3.0" prefWidth="188.0" text="Email" />
                                  </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
                               </TableView>
+                              <Button layoutX="21.0" layoutY="475.0" mnemonicParsing="false" onAction="#onDeleteParent" prefHeight="44.0" prefWidth="127.0" style="-fx-background-color: #c41a4d;" text="Delete" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="35.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../images/3221803.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <TabPane fx:id="teachersTab" layoutX="33.0" layoutY="33.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <tabs>
+                <Tab text="View Teachers">
+                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <TableView fx:id="TeacherTable" layoutX="33.0" layoutY="33.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columns>
+                                  <TableColumn fx:id="tId" prefWidth="75.0" text="ID" />
+                                  <TableColumn fx:id="tName" prefWidth="75.0" text="Name" />
+                                    <TableColumn fx:id="tAddress" prefWidth="75.0" text="Address" />
+                                    <TableColumn fx:id="tContact" prefWidth="75.0" text="Contact" />
+                                    <TableColumn fx:id="tEmail" prefWidth="75.0" text="Email" />
+                                    <TableColumn fx:id="tFId" prefWidth="75.0" text="Faculty" />
+                                    <TableColumn fx:id="tSId" prefWidth="75.0" text="Subject" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                </Tab>
+                <Tab text="Add Teachers">
+                     <content>
+                        <Pane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <TextField fx:id="t_LastName" layoutX="555.0" layoutY="57.0" promptText="Last Name" />
+                              <TextField fx:id="t_Contact" layoutX="331.0" layoutY="132.0" promptText="Contact" />
+                              <TextField fx:id="t_Email" layoutX="557.0" layoutY="130.0" promptText="Email" />
+                              <TextField fx:id="t_Address" layoutX="115.0" layoutY="132.0" promptText="Address" />
+                              <TextField fx:id="t_MiddleName" layoutX="330.0" layoutY="57.0" promptText="Middle Name" />
+                              <TextField fx:id="t_FirstName" layoutX="115.0" layoutY="60.0" promptText="First Name" />
+                              <TextField fx:id="t_Subject" layoutX="336.0" layoutY="203.0" promptText="Subject" />
+                              <TextField fx:id="t_Faculty" layoutX="116.0" layoutY="201.0" promptText="Faculty" />
+                              <Button layoutX="116.0" layoutY="278.0" mnemonicParsing="false" onAction="#onAddTeacher" prefHeight="44.0" prefWidth="134.0" styleClass="submitButton" text="ADD NEW TEACHER" />
+                           </children>
+                        </Pane>
+                     </content></Tab>
+                  <Tab text="Search ">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="teacherSearch1" layoutX="345.0" layoutY="88.0" mnemonicParsing="false" onAction="#onTeacherSearch1" prefHeight="33.0" prefWidth="84.0" text="Search" />
+                              <TextField fx:id="teacherField1" layoutX="21.0" layoutY="86.0" prefHeight="39.0" prefWidth="235.0" promptText="Teacher  Name/ ID" />
+                              <Label layoutX="24.0" layoutY="41.0" text="Teacher Name / ID" textFill="WHITE">
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="TeacherTable1" layoutX="96.0" layoutY="173.0" prefHeight="412.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <columns>
+                                    <TableColumn fx:id="tId1" prefWidth="75.0" text="ID" />
+                                    <TableColumn fx:id="tName1" prefWidth="75.0" text="Name" />
+                                    <TableColumn fx:id="tAddress1" prefWidth="75.0" text="Address" />
+                                    <TableColumn fx:id="tContact1" prefWidth="75.0" text="Contact" />
+                                    <TableColumn fx:id="tEmail1" prefWidth="75.0" text="Email" />
+                                    <TableColumn fx:id="tFId1" prefWidth="75.0" text="Faculty" />
+                                    <TableColumn fx:id="tSId1" prefWidth="75.0" text="Subject" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab text="Delete">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Button fx:id="teacherSearch2" layoutX="350.0" layoutY="99.0" mnemonicParsing="false" onAction="#onTeacherSearch2" prefHeight="33.0" prefWidth="84.0" text="Search" />
+                              <TextField fx:id="teacherField2" layoutX="18.0" layoutY="96.0" prefHeight="39.0" prefWidth="235.0" promptText="Teacher Name/ ID" />
+                              <Label layoutX="24.0" layoutY="47.0" text="Teacher Name / ID" textFill="WHITE">
+                                 <font>
+                                    <Font size="26.0" />
+                                 </font>
+                              </Label>
+                              <TableView fx:id="TeacherTable2" layoutY="214.0" prefHeight="228.0" prefWidth="1022.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <columns>
+                                    <TableColumn fx:id="tId2" prefWidth="75.0" text="ID" />
+                                    <TableColumn fx:id="tName2" prefWidth="75.0" text="Name" />
+                                    <TableColumn fx:id="tAddress2" prefWidth="75.0" text="Address" />
+                                    <TableColumn fx:id="tContact2" prefWidth="75.0" text="Contact" />
+                                    <TableColumn fx:id="tEmail2" prefWidth="75.0" text="Email" />
+                                    <TableColumn fx:id="tFId2" prefWidth="75.0" text="Faculty" />
+                                    <TableColumn fx:id="tSId2" prefWidth="75.0" text="Subject" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                              <Button fx:id="deleteTeacherbtn" layoutX="8.0" layoutY="461.0" mnemonicParsing="false" onAction="#onDeleteTeacher" prefHeight="44.0" prefWidth="127.0" style="-fx-background-color: #c41a4d;" text="Delete" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                                 <graphic>
+                                    <ImageView fitHeight="35.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../images/3221803.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Button>
                            </children>
                         </AnchorPane>
                      </content>
@@ -958,121 +1107,6 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                   </content>
                 </Tab>
-              </tabs>
-            </TabPane>
-            <TabPane fx:id="parentsTab" layoutX="33.0" layoutY="33.0" prefHeight="200.0" prefWidth="331.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <tabs>
-                <Tab text="View Details">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TableView fx:id="parentTable" prefHeight="524.0" prefWidth="999.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <columns>
-                                    <TableColumn fx:id="pID" prefWidth="62.0" text="ID" />
-                                    <TableColumn fx:id="pName" prefWidth="124.0" text="Name" />
-                                    <TableColumn fx:id="pAddress" prefWidth="226.0" text="Address" />
-                                    <TableColumn fx:id="pContact" prefWidth="82.0" text="Contact" />
-                                    <TableColumn fx:id="pEmail" minWidth="3.0" prefWidth="188.0" text="Email" />
-                                    <TableColumn fx:id="sID" prefWidth="73.0" text="Sutdent ID" />
-                                 </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-                  <Tab text="Add Parents Detail">
-                     <content>
-                        <Pane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <TextField fx:id="p_firstname" layoutX="62.0" layoutY="72.0" />
-                              <TextField fx:id="p_contact" layoutX="262.0" layoutY="149.0" />
-                              <TextField fx:id="p_email" layoutX="462.0" layoutY="149.0" />
-                              <TextField fx:id="p_address" layoutX="62.0" layoutY="152.0" />
-                              <TextField fx:id="p_middlename" layoutX="262.0" layoutY="72.0" />
-                              <TextField fx:id="p_lastname" layoutX="462.0" layoutY="72.0" />
-                              <Button fx:id="addParent" layoutX="62.0" layoutY="222.0" mnemonicParsing="false" onAction="#onAddParent" prefHeight="35.0" prefWidth="100.0" styleClass="submitButton" text="ADD  Details" />
-                              <Label layoutX="62.0" layoutY="54.0" prefHeight="17.0" prefWidth="140.0" text="First Name:" textFill="WHITE" />
-                              <Label layoutX="262.0" layoutY="54.0" prefHeight="17.0" prefWidth="140.0" text="Middle Name" textFill="WHITE" />
-                              <Label layoutX="462.0" layoutY="54.0" prefHeight="17.0" prefWidth="140.0" text="Last Name:" textFill="WHITE" />
-                              <Label layoutX="62.0" layoutY="134.0" prefHeight="17.0" prefWidth="140.0" text="Address:" textFill="WHITE" />
-                              <Label layoutX="262.0" layoutY="132.0" prefHeight="17.0" prefWidth="140.0" text="Contact No:" textFill="WHITE" />
-                              <Label layoutX="462.0" layoutY="132.0" prefHeight="17.0" prefWidth="140.0" text="Email:" textFill="WHITE" />
-                           </children>
-                        </Pane>
-                     </content>
-                  </Tab>
-                  <Tab text="Search ">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="searchParentbtn" layoutX="345.0" layoutY="72.0" mnemonicParsing="false" onAction="#onSearchParent" prefHeight="33.0" prefWidth="84.0" styleClass="submitButton" text="Search" />
-                              <TextField fx:id="parentField1" layoutX="37.0" layoutY="68.0" prefHeight="39.0" prefWidth="235.0" promptText="Parent Name/ ID" />
-                              <Label layoutX="41.0" layoutY="19.0" text="Parent Name / ID" textFill="WHITE">
-                                 <font>
-                                    <Font size="26.0" />
-                                 </font>
-                              </Label>
-                              <TableView fx:id="parentTable1" layoutY="117.0" prefHeight="443.0" prefWidth="1022.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="137.0">
-                                 <columns>
-                                    <TableColumn fx:id="pID1" prefWidth="62.0" text="ID" />
-                                    <TableColumn fx:id="pName1" prefWidth="124.0" text="Name" />
-                                    <TableColumn fx:id="pAddress1" prefWidth="226.0" text="Address" />
-                                    <TableColumn fx:id="pContact1" prefWidth="82.0" text="Contact" />
-                                    <TableColumn fx:id="pEmail1" minWidth="3.0" prefWidth="188.0" text="Email" />
-                                 </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab text="Delete">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="deleteSearchParentbtn" layoutX="281.0" layoutY="100.0" mnemonicParsing="false" onAction="#onSearchParent1" prefHeight="33.0" prefWidth="84.0" styleClass="submitButton" text="Search" />
-                              <TextField fx:id="parentField2" layoutX="14.0" layoutY="97.0" prefHeight="39.0" prefWidth="235.0" promptText="Parent Name/ ID" />
-                              <Label layoutX="14.0" layoutY="53.0" text="Parent Name / ID" textFill="WHITE">
-                                 <font>
-                                    <Font size="26.0" />
-                                 </font>
-                              </Label>
-                              <TableView fx:id="parentTable2" layoutX="2.0" layoutY="172.0" prefHeight="259.0" prefWidth="1022.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                                 <columns>
-                                    <TableColumn fx:id="pID2" prefWidth="62.0" text="ID" />
-                                    <TableColumn fx:id="pName2" prefWidth="124.0" text="Name" />
-                                    <TableColumn fx:id="pAddress2" prefWidth="226.0" text="Address" />
-                                    <TableColumn fx:id="pContact2" prefWidth="82.0" text="Contact" />
-                                    <TableColumn fx:id="pEmail2" minWidth="3.0" prefWidth="188.0" text="Email" />
-                                 </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                              <Button layoutX="21.0" layoutY="475.0" mnemonicParsing="false" onAction="#onDeleteParent" prefHeight="44.0" prefWidth="127.0" style="-fx-background-color: #c41a4d;" text="Delete" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Bold" size="18.0" />
-                                 </font>
-                                 <graphic>
-                                    <ImageView fitHeight="35.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../../../images/3221803.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                                 <cursor>
-                                    <Cursor fx:constant="HAND" />
-                                 </cursor>
-                              </Button>
-                           </children>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
               </tabs>
             </TabPane>
          </children>

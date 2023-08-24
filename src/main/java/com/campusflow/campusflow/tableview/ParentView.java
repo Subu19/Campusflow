@@ -1,6 +1,5 @@
 package com.campusflow.campusflow.tableview;
 import com.campusflow.campusflow.EntityClass.Parent;
-import com.campusflow.campusflow.EntityClass.Student;
 import com.campusflow.campusflow.database.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

@@ -10,61 +10,33 @@ public class Parent {
     private SimpleIntegerProperty pId;
 
 
-    public String getpName() {
-        return pName.get();
-    }
+    public String getpName() {return pName.get();}
 
-    public SimpleStringProperty pNameProperty() {
-        return pName;
-    }
+    public SimpleStringProperty pNameProperty() {return pName;}
 
-    public String getpAddress() {
-        return pAddress.get();
-    }
+    public String getpAddress() {return pAddress.get();}
 
-    public SimpleStringProperty pAddressProperty() {
-        return pAddress;
-    }
+    public SimpleStringProperty pAddressProperty() {return pAddress;}
 
-    public int getpContact() {
-        return pContact.get();
-    }
+    public int getpContact() {return pContact.get();}
 
-    public SimpleIntegerProperty pContactProperty() {
-        return pContact;
-    }
+    public SimpleIntegerProperty pContactProperty() {return pContact;}
 
-    public String getpEmail() {
-        return pEmail.get();
-    }
+    public String getpEmail() {return pEmail.get();}
 
-    public SimpleStringProperty pEmailProperty() {
-        return pEmail;
-    }
+    public SimpleStringProperty pEmailProperty() {return pEmail;}
 
-    public int getpId() {
-        return pId.get();
-    }
+    public int getpId() {return pId.get();}
 
-    public SimpleIntegerProperty pIdProperty() {
-        return pId;
-    }
+    public SimpleIntegerProperty pIdProperty() {return pId;}
 
-    public void setpName(String pName) {
-        this.pName.set(pName);
-    }
+    public void setpName(String pName) {this.pName.set(pName);}
 
-    public void setpAddress(String pAddress) {
-        this.pAddress.set(pAddress);
-    }
+    public void setpAddress(String pAddress) {this.pAddress.set(pAddress);}
 
-    public void setpContact(int pContact) {
-        this.pContact.set(pContact);
-    }
+    public void setpContact(int pContact) {this.pContact.set(pContact);}
 
-    public void setpEmail(String pEmail) {
-        this.pEmail.set(pEmail);
-    }
+    public void setpEmail(String pEmail) {this.pEmail.set(pEmail);}
 
     public void setpId(int pId) {this.pId.set(pId);}
 

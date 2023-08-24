@@ -4,12 +4,10 @@ import Encryption.Encryption;
 import com.campusflow.campusflow.EntityClass.AttendenceStudent;
 import com.campusflow.campusflow.EntityClass.Parent;
 import com.campusflow.campusflow.EntityClass.Student;
+import com.campusflow.campusflow.EntityClass.Teacher;
 import com.campusflow.campusflow.database.Notice;
 import com.campusflow.campusflow.database.User;
-import com.campusflow.campusflow.tableview.AttendenceView;
-import com.campusflow.campusflow.tableview.MarksStudentSearch;
-import com.campusflow.campusflow.tableview.ParentView;
-import com.campusflow.campusflow.tableview.StudentView;
+import com.campusflow.campusflow.tableview.*;
 import com.google.zxing.WriterException;
 import javafx.concurrent.Task;
 import javafx.concurrent.Worker;
@@ -382,7 +380,7 @@ public class HelloController {
     @FXML
     private TableView<Student> studentTable2;
 
-    /////////////
+    /////////////Student Search ////////////////////////
     @FXML
     private TableColumn<Student, String> stdAddress11;
 
@@ -534,6 +532,11 @@ public class HelloController {
 
 
     }
+
+
+
+
+
     ///////////////////////////////// SUBJECTS////////////////////////////////////////////////////////
     @FXML
     private TextField subjectName;
@@ -565,40 +568,119 @@ public class HelloController {
 
     }
     ////////////////////////////////// TeachersTAB//////////////////////////////////
-    //
+
     @FXML
     private TabPane teachersTab;
     @FXML
-    private TextField tAddress;
+    private TextField t_Address;
 
     @FXML
-    private TextField tContact;
+    private TextField t_Contact;
 
     @FXML
-    private TextField tEmail;
+    private TextField t_Email;
 
     @FXML
-    private TextField tFaculty;
+    private TextField t_Faculty;
 
     @FXML
-    private TextField tFirstName;
+    private TextField t_FirstName;
 
     @FXML
-    private TextField tLastName;
+    private TextField t_LastName;
 
     @FXML
-    private TextField tMiddleName;
+    private TextField t_MiddleName;
 
     @FXML
-    private TextField tSubject;
+    private TextField t_Subject;
+
+    ///////////////teacher View//////////
+    @FXML
+    private TableView<Teacher> TeacherTable;
+    @FXML
+    private TableColumn<Teacher, Integer> tId;
+
+    @FXML
+    private TableColumn<Teacher, String> tAddress;
+
+    @FXML
+    private TableColumn<Teacher, Long> tContact;
+
+    @FXML
+    private TableColumn<Teacher, String> tEmail;
+
+    @FXML
+    private TableColumn<Teacher, String> tName;
+
+    @FXML
+    private TableColumn<Teacher, Integer> tFId;
+
+    @FXML
+    private TableColumn<Teacher, Integer> tSId;
+
+    @FXML
+    private TableView<Teacher> TeacherTable1;
+    @FXML
+    private TableColumn<Teacher, Integer> tId1;
+
+    @FXML
+    private TableColumn<Teacher, String> tAddress1;
+
+    @FXML
+    private TableColumn<Teacher, Long> tContact1;
+
+    @FXML
+    private TableColumn<Teacher, String> tEmail1;
+
+    @FXML
+    private TableColumn<Teacher, String> tName1;
+
+    @FXML
+    private TableColumn<Teacher, Integer> tFId1;
+
+    @FXML
+    private TableColumn<Teacher, Integer> tSId1;
+
+    @FXML
+    private TableView<Teacher> TeacherTable2;
+    @FXML
+    private TableColumn<Teacher, Integer> tId2;
+
+    @FXML
+    private TableColumn<Teacher, String> tAddress2;
+
+    @FXML
+    private TableColumn<Teacher, Long> tContact2;
+
+    @FXML
+    private TableColumn<Teacher, String> tEmail2;
+
+    @FXML
+    private TableColumn<Teacher, String> tName2;
+
+    @FXML
+    private TableColumn<Teacher, Integer> tFId2;
+
+    @FXML
+    private TableColumn<Teacher, Integer> tSId2;
+
+    @FXML
+    private TextField teacherField1;
+
+    @FXML
+    private TextField teacherField2;
+
+
+
 
     @FXML
     void onAddTeacher(ActionEvent event) {
-        if (!tFirstName.getText().isEmpty() && !tMiddleName.getText().isEmpty() && !tLastName.getText().isEmpty()
-                && !tAddress.getText().isEmpty() && !tContact.getText().isEmpty()
-                && !tEmail.getText().isEmpty() && !tFaculty.getText().isEmpty() && !tSubject.getText().isEmpty()) {
-            String push = Database.addTeacher(tFirstName.getText(), tMiddleName.getText(), tLastName.getText(),
-                    tAddress.getText(), tContact.getText(), tEmail.getText(), tFaculty.getText(), tSubject.getText());
+        if (!t_FirstName.getText().isEmpty() && !t_MiddleName.getText().isEmpty() && !t_LastName.getText().isEmpty()
+                && !t_Address.getText().isEmpty() && !t_Contact.getText().isEmpty()
+                && !t_Email.getText().isEmpty() && !t_Faculty.getText().isEmpty() && !t_Subject.getText().isEmpty()) {
+            String push = Database.addTeacher(t_FirstName.getText(), t_MiddleName.getText(), t_LastName.getText(),
+                    t_Address.getText(), t_Contact.getText(), t_Email.getText(), t_Faculty.getText(), t_Subject.getText());
             if (Objects.equals(push, "Success")) {
                 Alert.show(alertLabel, "Update Done!");
                 dptName.setText("");
@@ -613,7 +695,49 @@ public class HelloController {
     void onTeachers(ActionEvent event) {
         onMainButton(event);
         teachersTab.setVisible(true);
+        TeacherView newTeacherView = new TeacherView(TeacherTable,tId,tName,tAddress,tContact,tEmail,tFId,tSId);
+
     }
+    @FXML
+    void onTeacherSearch1(ActionEvent event) throws SQLException {
+        handleTSearch(teacherField1,TeacherTable1,tId1,tName1,tAddress1,tContact1,tEmail1,tFId1,tSId1);
+    }
+
+    @FXML
+    void onTeacherSearch2(ActionEvent event) throws SQLException {
+        handleTSearch(teacherField2,TeacherTable2,tId2,tName2,tAddress2,tContact2,tEmail2,tFId2,tSId2);
+    }
+
+    private void handleTSearch(TextField textField, TableView tableView,
+                              TableColumn idColumn, TableColumn nameColumn, TableColumn addressColumn,
+                              TableColumn contactColumn, TableColumn emailColumn,TableColumn facultyColumn, TableColumn subjectColumn) throws SQLException {
+        if (!textField.getText().isEmpty()) {
+            System.out.println(textField.getText());
+            TeacherView teacherView = new TeacherView(textField.getText(), tableView, idColumn, nameColumn, addressColumn,
+                    contactColumn, emailColumn,facultyColumn,subjectColumn);
+        }
+    }
+
+    @FXML
+    void onDeleteTeacher(ActionEvent event) throws SQLException {
+        String push = null;
+        if (!teacherField2.getText().isEmpty()) {
+            System.out.println(teacherField2.getText());
+            push = Database.deleteTeacher(teacherField2.getText());
+            if (Objects.equals(push, "Success")) {
+                Alert.show(alertLabel, "Update Done!");
+                TeacherTable2.getItems().clear();
+            } else {
+                Alert.show(alertLabel, push);
+            }
+        }else{
+            Alert.show(alertLabel,"Empty is id!");
+        }
+
+
+    }
+
+
 
 
     ////// =================== Home TAB =======================//

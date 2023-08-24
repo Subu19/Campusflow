@@ -656,5 +656,16 @@ public class Database{
         }
         return feedback;
     }
+
+    public static String deleteTeacher(String text) throws SQLException {
+        String feedback = null;
+        if (connected) {
+            String sql = "Delete FROM teachers WHERE tid = '" + text + "' OR first_name = '" + text + "'";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.executeUpdate();
+            feedback = "Success";
+        }
+        return feedback;
+    }
 }
 
