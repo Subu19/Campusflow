@@ -397,7 +397,7 @@
                   </Tab>
               </tabs>
             </TabPane>
-            <TabPane fx:id="teachersTab" layoutX="33.0" layoutY="33.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane fx:id="teachersTab" layoutX="33.0" layoutY="33.0" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <tabs>
                 <Tab text="View Teachers">
                      <content>
@@ -857,33 +857,67 @@
                <tabs>
                   <Tab text="View Marks">
                      <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ChoiceBox fx:id="mViewSem" layoutX="242.0" layoutY="34.0" prefHeight="30.0" prefWidth="150.0" />
+                              <TextField fx:id="mViewBID" layoutX="31.0" layoutY="33.0" />
+                              <ChoiceBox fx:id="mViewTerminal" layoutX="424.0" layoutY="34.0" prefHeight="30.0" prefWidth="150.0" />
+                              <Label layoutX="31.0" layoutY="14.0" text="Batch ID:" textFill="WHITE">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="242.0" layoutY="14.0" text="Semester:" textFill="WHITE">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="424.0" layoutY="14.0" text="Terminal:" textFill="WHITE">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </Label>
+                              <Button layoutX="598.0" layoutY="31.0" mnemonicParsing="false" onAction="#onMViewSearch" prefHeight="36.0" prefWidth="77.0" styleClass="submitButton" text="Search" />
+                              <TableView fx:id="mvTable" layoutX="14.0" layoutY="81.0" prefHeight="490.0" prefWidth="997.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="90.0">
+                                <columns>
+                                  <TableColumn fx:id="mvtMID" prefWidth="56.0" text="MID" />
+                                  <TableColumn fx:id="mvtName" prefWidth="309.0" text="Name" />
+                                    <TableColumn fx:id="mvtTerminal" prefWidth="136.0" text="Terminal" />
+                                    <TableColumn fx:id="mvtSemester" prefWidth="76.0" text="Semester" />
+                                    <TableColumn fx:id="mvtSubject" prefWidth="231.0" text="Subject" />
+                                    <TableColumn fx:id="mvtMarks" prefWidth="207.0" text="Marks" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children></AnchorPane>
                      </content>
                   </Tab>
                   <Tab text="Add Marks">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="mSubID" layoutX="112.0" layoutY="88.0" onKeyPressed="#onMarksSearchSubject" prefHeight="25.0" prefWidth="223.0" />
-                              <Label layoutX="112.0" layoutY="61.0" text="Subject ID:" textFill="WHITE">
+                              <TextField fx:id="mSubID" layoutX="29.0" layoutY="75.0" onKeyPressed="#onMarksSearchSubject" prefHeight="25.0" prefWidth="223.0" />
+                              <Label layoutX="29.0" layoutY="48.0" text="Subject ID:" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="112.0" layoutY="152.0" text="Semester:" textFill="WHITE">
+                              <Label layoutX="29.0" layoutY="139.0" text="Semester:" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <ChoiceBox fx:id="mSemList" layoutX="112.0" layoutY="178.0" prefWidth="150.0" />
-                              <TextField fx:id="mStdMarks" layoutX="112.0" layoutY="264.0" prefHeight="25.0" prefWidth="112.0" />
-                              <Label layoutX="112.0" layoutY="239.0" text="Marks:" textFill="WHITE">
+                              <ChoiceBox fx:id="mSemList" layoutX="29.0" layoutY="165.0" prefWidth="150.0" />
+                              <TextField fx:id="mStdMarks" layoutX="29.0" layoutY="251.0" prefHeight="25.0" prefWidth="112.0" />
+                              <Label layoutX="29.0" layoutY="226.0" text="Marks:" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="mStdID" layoutX="112.0" layoutY="350.0" onKeyPressed="#onMSearchStudent" prefHeight="25.0" prefWidth="167.0" promptText="ID or Name to search" />
-                              <Label layoutX="112.0" layoutY="325.0" text="Student ID:" textFill="WHITE">
+                              <TextField fx:id="mStdID" layoutX="29.0" layoutY="337.0" onKeyPressed="#onMSearchStudent" prefHeight="25.0" prefWidth="167.0" promptText="ID or Name to search" />
+                              <Label layoutX="29.0" layoutY="312.0" text="Student ID:" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
@@ -904,13 +938,13 @@
                                     <Font name="System Bold" size="24.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="112.0" layoutY="397.0" text="Terminal:" textFill="WHITE">
+                              <Label layoutX="29.0" layoutY="384.0" text="Terminal:" textFill="WHITE">
                                  <font>
                                     <Font size="13.0" />
                                  </font>
                               </Label>
-                              <ChoiceBox fx:id="mTermList" layoutX="112.0" layoutY="423.0" prefWidth="150.0" />
-                              <Button layoutX="108.0" layoutY="474.0" mnemonicParsing="false" onAction="#onAddSubjectMarks" prefHeight="44.0" prefWidth="137.0" styleClass="submitButton" text="Add Marks" />
+                              <ChoiceBox fx:id="mTermList" layoutX="29.0" layoutY="410.0" prefWidth="150.0" />
+                              <Button layoutX="25.0" layoutY="461.0" mnemonicParsing="false" onAction="#onAddSubjectMarks" prefHeight="44.0" prefWidth="137.0" styleClass="submitButton" text="Add Marks" />
                            </children>
                         </AnchorPane>
                      </content>

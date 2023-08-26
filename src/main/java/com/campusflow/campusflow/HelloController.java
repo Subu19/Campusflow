@@ -1,10 +1,7 @@
 package com.campusflow.campusflow;
 
 import Encryption.Encryption;
-import com.campusflow.campusflow.EntityClass.AttendenceStudent;
-import com.campusflow.campusflow.EntityClass.Parent;
-import com.campusflow.campusflow.EntityClass.Student;
-import com.campusflow.campusflow.EntityClass.Teacher;
+import com.campusflow.campusflow.EntityClass.*;
 import com.campusflow.campusflow.database.Notice;
 import com.campusflow.campusflow.database.User;
 import com.campusflow.campusflow.tableview.*;
@@ -1054,7 +1051,44 @@ public class HelloController {
 
     @FXML
     private ChoiceBox<String> mSemList;
+    @FXML
+    private TableView<Marks> mvTable;
 
+    @FXML
+    private TableColumn<Marks, Integer> mvtMID;
+
+    @FXML
+    private TableColumn<Marks, Float> mvtMarks;
+
+    @FXML
+    private TableColumn<Marks, String> mvtName;
+
+    @FXML
+    private TableColumn<Marks, String> mvtSemester;
+
+    @FXML
+    private TableColumn<Marks, String> mvtSubject;
+
+    @FXML
+    private TableColumn<Marks, String> mvtTerminal;
+    @FXML
+    private TextField mViewBID;
+
+    @FXML
+    private ChoiceBox<String> mViewSem;
+
+    @FXML
+    private ChoiceBox<String> mViewTerminal;
+    @FXML
+    void onMViewSearch(ActionEvent event) {
+        if(!mViewBID.getText().isEmpty() && !mViewTerminal.getValue().isEmpty() && !mViewSem.getValue().isEmpty()){
+            MarksView marksView = new MarksView(mvTable,mvtMID,mvtMarks,mvtName,mvtSemester,mvtSubject,mvtTerminal,mViewBID.getText(),mViewTerminal.getValue(),mViewSem.getValue());
+
+        }else{
+            Alert.show(alertLabel,"Empty fields!");
+        }
+
+    }
     @FXML
     void onAddSubjectMarks(ActionEvent event) {
         if (!mStdID.getText().isEmpty() && !mStdMarks.getText().isEmpty() && !mSubID.getText().isEmpty()
@@ -1063,8 +1097,18 @@ public class HelloController {
                     mStdID.getText(), mTermList.getValue());
             if (Objects.equals(push, "Success")) {
                 Alert.show(alertLabel, "Update Done!");
+                mStdID.setText("");
+                mStdMarks.setText("");
+                mSubID.setText("");
+                mSemList.setValue("");
+                mTermList.setValue("");
             } else {
                 Alert.show(alertLabel, push);
+                mStdID.setText("");
+                mStdMarks.setText("");
+                mSubID.setText("");
+                mSemList.setValue("");
+                mTermList.setValue("");
             }
         } else {
             Alert.show(alertLabel, "Please fill the form properly!");
@@ -1083,9 +1127,14 @@ public class HelloController {
         onMainButton(event);
         marksheetTab.setVisible(true);
         mSemList.getItems().clear();
+        mViewSem.getItems().clear();
+        mViewTerminal.getItems().clear();
         mTermList.getItems().clear();
         mSemList.getItems().addAll(semesters);
         mTermList.getItems().addAll(terminals);
+
+        mViewSem.getItems().addAll(semesters);
+        mViewTerminal.getItems().addAll(terminals);
     }
 
     @FXML
