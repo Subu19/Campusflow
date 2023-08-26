@@ -43,8 +43,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public class HelloController {
-    private String[] semesters = { "I", "II", "III", "IV", "V", "VI", "VII", "VIII" };
-    private String[] terminals = { "1st Term", "2ndTerm", "3rd Term", "Pre-board" };
+    private String[] semesters = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII"};
+    private String[] terminals = {"1st Term", "2ndTerm", "3rd Term", "Pre-board"};
     @FXML
     private Label alertLabel;
 
@@ -64,6 +64,7 @@ public class HelloController {
 
     @FXML
     private Pane searchResults;
+
     @FXML
     void onCloseAlert(ActionEvent event) {
         alertLabel.getParent().setVisible(false);
@@ -73,18 +74,22 @@ public class HelloController {
     void onCloseSearch(ActionEvent event) {
         searchResults.setVisible(false);
     }
+
     @FXML
     private ProgressBar progressBar;
-    void showProgress(ActionEvent event){
-        Button button = (Button)  event.getSource();
+
+    void showProgress(ActionEvent event) {
+        Button button = (Button) event.getSource();
         progressBar.setVisible(true);
         button.setDisable(true);
     }
-    void hideProgress(ActionEvent event){
-        Button button = (Button)  event.getSource();
+
+    void hideProgress(ActionEvent event) {
+        Button button = (Button) event.getSource();
         progressBar.setVisible(false);
         button.setDisable(false);
     }
+
     @FXML
     void onLogin(ActionEvent event) throws InterruptedException {
         BackgroundFill greenFill = new BackgroundFill(Color.GREEN, null, null);
@@ -93,20 +98,20 @@ public class HelloController {
         Background red = new Background(redFIll);
         loginbutton.setVisible(false);
         Stage mainwindow = (Stage) loginbutton.getScene().getWindow();
-        if(User.checkUserExistance()){
-            if(User.checkLogin(USERNAME.getText(),PASSWORD.getText())){
+        if (User.checkUserExistance()) {
+            if (User.checkLogin(USERNAME.getText(), PASSWORD.getText())) {
                 feedback.setText("Success! Opening Dashboard...");
                 feedback.setTextFill(Color.GREEN);
                 HelloApplication.loggedin = true;
                 Dashboard dashboard = new Dashboard(mainwindow);
-            }else{
+            } else {
                 feedback.setText("Failed! Try again!");
                 feedback.setTextFill(Color.RED);
                 USERNAME.setText("");
                 PASSWORD.setText("");
                 loginbutton.setVisible(true);
             }
-        }else{
+        } else {
             if (USERNAME.getText().equals("admin") && PASSWORD.getText().equals(("admin"))) {
                 feedback.setText("Success! Opening Dashboard...");
                 feedback.setTextFill(Color.GREEN);
@@ -130,14 +135,14 @@ public class HelloController {
         label.setVisible(false);
         feedback.setText("Please wait..Sending Email");
         feedback.setTextFill(Color.WHITE);
-        Task<String> forgotpasswordTask= new Task<String>() {
+        Task<String> forgotpasswordTask = new Task<String>() {
             @Override
             protected String call() throws Exception {
 
                 return User.onForgetPassword();
             }
         };
-        forgotpasswordTask.valueProperty().addListener((observable, oldValue, newValue)->{
+        forgotpasswordTask.valueProperty().addListener((observable, oldValue, newValue) -> {
             feedback.setText(newValue);
         });
         Thread fpthread = new Thread(forgotpasswordTask);
@@ -147,6 +152,7 @@ public class HelloController {
 //        String callback = User.onForgetPassword();
 
     }
+
     ///////////////////////////////// SettingsTABMenu//////////////////////////////////
     @FXML
     private TabPane settingsTab;
@@ -188,33 +194,36 @@ public class HelloController {
 
     @FXML
     private TextField userUsername;
+
     @FXML
     void onUpdateEmail(ActionEvent event) {
-        if(!userEmail.getText().isEmpty()){
+        if (!userEmail.getText().isEmpty()) {
             String feedback = User.updateEmail(userEmail.getText());
-            Alert.show(alertLabel,feedback);
-        }else{
-            Alert.show(alertLabel,"Email is empty!");
+            Alert.show(alertLabel, feedback);
+        } else {
+            Alert.show(alertLabel, "Email is empty!");
         }
 
     }
+
     @FXML
     void onUpdateUsername(ActionEvent event) {
-        if(!userUsername.getText().isEmpty()){
+        if (!userUsername.getText().isEmpty()) {
             String feedback = User.updateUsername(userUsername.getText());
-            Alert.show(alertLabel,feedback);
-        }else{
-            Alert.show(alertLabel,"Tero bau le nam rakhena tero?");
+            Alert.show(alertLabel, feedback);
+        } else {
+            Alert.show(alertLabel, "Tero bau le nam rakhena tero?");
         }
 
     }
+
     @FXML
     void onUpdatePassword(ActionEvent event) {
-        if(!userOldPass.getText().isEmpty() && ! userNewPass.getText().isEmpty()){
+        if (!userOldPass.getText().isEmpty() && !userNewPass.getText().isEmpty()) {
             String feedback = User.updatePassword(userOldPass.getText(), userNewPass.getText());
-            Alert.show(alertLabel,feedback);
-        }else{
-            Alert.show(alertLabel,"Password fields are empty!");
+            Alert.show(alertLabel, feedback);
+        } else {
+            Alert.show(alertLabel, "Password fields are empty!");
         }
     }
 
@@ -408,8 +417,103 @@ public class HelloController {
     @FXML
     private ProgressIndicator Loading;
 
+
+    //////////////// update///////////////
     @FXML
-    void onStudents(ActionEvent event) {
+    private Button upddateStudentbtn;
+
+    @FXML
+    private TextField us_address;
+
+    @FXML
+    private TextField us_bid;
+
+    @FXML
+    private TextField us_contact;
+
+    @FXML
+    private TextField us_email;
+
+    @FXML
+    private TextField us_entrancescore;
+
+    @FXML
+    private TextField us_fid;
+
+    @FXML
+    private TextField us_firstname;
+
+    @FXML
+    private TextField us_lastname;
+
+    @FXML
+    private TextField us_middlename;
+
+    @FXML
+    private TextField us_pid;
+
+    @FXML
+    private TextField studentUpdateField;
+
+    @FXML
+    void onUpdateStudent(ActionEvent event) throws AddressException, SQLException {
+        String push = null;
+        if (!studentUpdateField.getText().isEmpty()) {
+            if (!us_address.getText().isEmpty() && !us_pid.getText().isEmpty() && !us_bid.getText().isEmpty()
+                    && !us_contact.getText().isEmpty() && !us_email.getText().isEmpty()
+                    && !us_entrancescore.getText().isEmpty() && !us_fid.getText().isEmpty()
+                    && !us_firstname.getText().isEmpty() && !us_lastname.getText().isEmpty()) {
+
+                String firstName = us_firstname.getText();
+                String middleName = us_middlename.getText();
+                String lastName = us_lastname.getText();
+                String address = us_address.getText();
+                String contact = us_contact.getText();
+                String email = us_email.getText();
+                String entranceScore = us_entrancescore.getText();
+                String faculty = us_fid.getText();
+                String batch = us_bid.getText();
+                String parentId = us_pid.getText();
+
+                push = Database.updateStudent(studentUpdateField.getText(), firstName, middleName, lastName, address, contact, email,
+                        entranceScore, faculty, batch, parentId);
+                if (Objects.equals(push, "Success")) {
+                    Alert.show(alertLabel, "Update Done!");
+                } else {
+                    Alert.show(alertLabel, push);
+                }
+
+            }
+        }
+        else{
+            Alert.show(alertLabel,"Empty ID");
+        }
+}
+
+    @FXML
+    void onUpdateSearch(ActionEvent event){
+        if (!studentUpdateField.getText().isEmpty()) {
+            String search = studentUpdateField.getText();
+            StudentView studentView = new StudentView(search);
+            Student student = studentView.getStudent();
+            us_firstname.setText(student.getStdFirstname());
+            us_middlename.setText(student.getStdMiddlemnane());
+            us_lastname.setText(student.getStdLastname());
+            us_address.setText(student.getStdAddress());
+            us_contact.setText(String.valueOf(student.getStdContact()));
+            us_email.setText(student.getStdEmail());
+            us_entrancescore.setText(String.valueOf(student.getStdEntranceScore()));
+            us_fid.setText(student.getStdFaculty());
+            us_bid.setText(student.getStdBatch());
+            us_pid.setText(String.valueOf(student.getStdParentId()));
+        }
+    }
+
+
+
+
+    @FXML
+    void onStudents(ActionEvent event) throws SQLException {
         onMainButton(event);
         studentsTab.setVisible(true);
 
@@ -595,6 +699,7 @@ public class HelloController {
     ///////////////teacher View//////////
     @FXML
     private TableView<Teacher> TeacherTable;
+
     @FXML
     private TableColumn<Teacher, Integer> tId;
 
