@@ -712,5 +712,39 @@ public class Database {
         }
         return feedback;
     }
+
+    public static String updateTeacher(String text, String firstName, String middleName, String lastName, String address, String contact, String email,String fid,String sid) {
+        String feedback = null;
+        if (connected) {
+            String sql = "UPDATE teachers " +
+                    "SET first_name = '" + firstName + "', middle_name = '" + middleName + "', last_name = '" + lastName + "', " +
+                    "address = '" + address + "', contact = '" + contact + "', email = '" + email + "',fid = '" + fid + "',subjectId = '" + sid + "' WHERE tid = '" + text + "' or first_name= '" + text + "'";
+            feedback = "Success";
+
+            try (Statement statement = con.createStatement()) {
+                int rowsAffected = statement.executeUpdate(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return feedback;
+    }
+
+    public static String updateParent(String text, String firstName, String middleName, String lastName, String address, String contact, String email) {
+        String feedback = null;
+        if (connected) {
+            String sql = "UPDATE parents " +
+                    "SET first_name = '" + firstName + "', middle_name = '" + middleName + "', last_name = '" + lastName + "', " +
+                    "address = '" + address + "', contact = '" + contact + "', email = '" + email + "' WHERE pid = '" + text + "' or first_name= '" + text + "'";
+            feedback = "Success";
+
+            try (Statement statement = con.createStatement()) {
+                int rowsAffected = statement.executeUpdate(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return feedback;
+    }
 }
 

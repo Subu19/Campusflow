@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 public class TeacherView {
+    private Teacher teacher;
     private TableColumn<Teacher, String> tAddress;
     private  TableColumn<Teacher, Long> tContact;
     private  TableColumn<Teacher, String> tEmail;
@@ -25,6 +26,10 @@ public class TeacherView {
 
     private TableView<Teacher> tableView;
     private String search;
+
+
+
+
 
     ObservableList<Teacher> teacherData(){
 
@@ -141,6 +146,27 @@ public class TeacherView {
         tableView.setItems(teacherData());
     }
 
+    public TeacherView(String search) throws SQLException {
+        String sql = "SELECT * FROM `teachers` WHERE tid = '" + search + "' OR first_name = '" + search + "'";
+        try (PreparedStatement statement = Database.con.prepareStatement(sql)) {
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                Integer id = result.getInt("tid");
+                String firstName = result.getString("first_name");
+                String middleName = result.getString("middle_name");
+                String lastName = result.getString("last_name");
+                String address = result.getString("address");
+                Integer contact = Math.toIntExact(result.getLong("contact"));
+                String email = result.getString("email");
+                Integer faculty = result.getInt("fid");
+                Integer subject = result.getInt("subjectId");
 
+                teacher = new Teacher(id, firstName,middleName,lastName, address, contact, email, faculty, subject);
+            }
+        }
+    }
 
+    public Teacher getTeacher() {
+        return teacher;
+    }
 }

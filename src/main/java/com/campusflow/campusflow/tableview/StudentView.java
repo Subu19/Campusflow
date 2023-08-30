@@ -60,14 +60,8 @@ public class StudentView {
             e.printStackTrace();
         }
 
-//        Student s1 = new Student(1,"Subu","ktm",1000010, "subuacharya19@gmail.com", "BIT", "2020", 1);
-//        Student s2 = new Student(2,"Subu2","ktm",1002010, "subuacharya19@gmail.com", "BIT", "2020", 1);
-
         return FXCollections.observableArrayList(studentVector);
     }
-
-
-    //////
     ObservableList<Student> studentDataSearch() {
         Vector<Student> studentVector = new Vector<Student>();
         Integer id;
@@ -102,9 +96,6 @@ public class StudentView {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-//        Student s1 = new Student(1,"Subu","ktm",1000010, "subuacharya19@gmail.com", "BIT", "2020", 1);
-//        Student s2 = new Student(2,"Subu2","ktm",1002010, "subuacharya19@gmail.com", "BIT", "2020", 1);
 
         return FXCollections.observableArrayList(studentVector);
     }

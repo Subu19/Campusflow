@@ -1,5 +1,6 @@
 package com.campusflow.campusflow.tableview;
 import com.campusflow.campusflow.EntityClass.Parent;
+import com.campusflow.campusflow.EntityClass.Student;
 import com.campusflow.campusflow.database.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,7 @@ import java.sql.SQLException;
 import java.util.Vector;
 
 public class ParentView {
+    private Parent parent;
     private TableColumn<Parent, String> pAddress;
     private  TableColumn<Parent, Long> pContact;
     private  TableColumn<Parent, String> pEmail;
@@ -20,7 +22,6 @@ public class ParentView {
     private  TableColumn<Parent,String> pName;
     private TableView<Parent> tableView;
     private String search;
-
 
     ObservableList<Parent> parentData(){
 
@@ -49,9 +50,6 @@ public class ParentView {
         catch (SQLException e){
             e.printStackTrace();
         }
-
-//        Student s1 = new Student(1,"Subu","ktm",1000010, "subuacharya19@gmail.com", "BIT", "2020", 1);
-//        Student s2 = new Student(2,"Subu2","ktm",1002010, "subuacharya19@gmail.com", "BIT", "2020", 1);
 
         return (ObservableList<Parent>) FXCollections.observableArrayList(parentVector);
     }
@@ -102,9 +100,6 @@ public class ParentView {
             e.printStackTrace();
         }
 
-//        Student s1 = new Student(1,"Subu","ktm",1000010, "subuacharya19@gmail.com", "BIT", "2020", 1);
-//        Student s2 = new Student(2,"Subu2","ktm",1002010, "subuacharya19@gmail.com", "BIT", "2020", 1);
-
         return (ObservableList<Parent>) FXCollections.observableArrayList(parentVector);
     }
     public ParentView(String search,javafx.scene.control.TableView<Parent> ParentTable, javafx.scene.control.TableColumn<Parent, Integer> pID, javafx.scene.control.TableColumn<Parent, String> pName, javafx.scene.control.TableColumn<Parent, String> pAddress, javafx.scene.control.TableColumn<Parent, Long> pContact, javafx.scene.control.TableColumn<Parent, String> pEmail) {
@@ -124,6 +119,27 @@ public class ParentView {
         this.pEmail.setCellValueFactory(new PropertyValueFactory<Parent, String>("pEmail"));
 
         tableView.setItems(parentDataSearch());
+    }
+    public ParentView(String search) {
+        String sql = "SELECT * FROM `parents` WHERE pid = '" + search + "' OR first_name = '" + search + "'";
+        try (PreparedStatement statement = Database.con.prepareStatement(sql)) {
+            ResultSet result = statement.executeQuery();
+            if (result.next()) {
+                int id = result.getInt("pid");
+                String firstName = result.getString("first_name");
+                String middleName = result.getString("middle_name");
+                String lastName = result.getString("last_name");
+                String address = result.getString("address");
+                Integer contact = Math.toIntExact(result.getLong("contact"));
+                String email = result.getString("email");
+                parent = new Parent(id,firstName,middleName,lastName , address, contact,email);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public Parent getParent() {
+        return parent;
     }
 }
 

@@ -38,6 +38,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.BreakIterator;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -509,9 +510,6 @@ public class HelloController {
         }
     }
 
-
-
-
     @FXML
     void onStudents(ActionEvent event) throws SQLException {
         onMainButton(event);
@@ -773,6 +771,80 @@ public class HelloController {
     @FXML
     private TextField teacherField2;
 
+    ///////update
+    @FXML
+    private TextField ut_address;
+
+    @FXML
+    private TextField ut_contact;
+
+    @FXML
+    private TextField ut_email;
+
+    @FXML
+    private TextField ut_firstname;
+
+    @FXML
+    private TextField ut_lastname;
+
+    @FXML
+    private TextField ut_middlename;
+    @FXML
+    private TextField ut_faculty;
+    @FXML
+    private TextField ut_subject;
+
+    @FXML
+    private TextField teacherUpdateField;
+
+    @FXML
+    void onTeacherUs(ActionEvent event) throws SQLException {
+        if (!teacherUpdateField.getText().isEmpty()) {
+            String search = teacherUpdateField.getText();
+            TeacherView teacherView = new TeacherView(search);
+            Teacher teacher = teacherView.getTeacher();
+            ut_firstname.setText(teacher.getTfirst_name());
+            ut_middlename.setText(teacher.getTmiddle_name());
+            ut_lastname.setText(teacher.getTlast_name());
+            ut_address.setText(teacher.gettAddress());
+            ut_contact.setText(String.valueOf(teacher.gettContact()));
+            ut_email.setText(teacher.gettEmail());
+            ut_faculty.setText(String.valueOf(teacher.gettFId()));
+            ut_subject.setText(String.valueOf(teacher.gettSId()));
+        }
+    }
+    @FXML
+    void onUpdateTeacher(ActionEvent event) throws AddressException, SQLException {
+        String push = null;
+        System.out.println("hi");
+        if (!teacherUpdateField.getText().isEmpty()) {
+            System.out.println("lamo");
+            if (!ut_address.getText().isEmpty() && !ut_contact.getText().isEmpty() && !ut_email.getText().isEmpty()
+                    && !ut_firstname.getText().isEmpty() && !ut_lastname.getText().isEmpty()
+                    && !ut_faculty.getText().isEmpty()&& !ut_subject.getText().isEmpty()) {
+
+                String firstName = ut_firstname.getText();
+                String middleName = ut_middlename.getText();
+                String lastName = ut_lastname.getText();
+                String address = ut_address.getText();
+                String contact = ut_contact.getText();
+                String email = ut_email.getText();
+                String fid = ut_faculty.getText();
+                String sid = ut_subject.getText();
+
+                System.out.println("k xa");
+                push = Database.updateTeacher(teacherUpdateField.getText(), firstName, middleName, lastName, address, contact, email,fid,sid);
+                if (Objects.equals(push, "Success")) {
+                    Alert.show(alertLabel, "Update Done!");
+                } else {
+                    Alert.show(alertLabel, push);
+                }
+            }
+        }
+        else{
+            Alert.show(alertLabel,"Empty ID");
+        }
+    }
 
 
 
@@ -1057,6 +1129,7 @@ public class HelloController {
     void onBatch(ActionEvent event) throws InterruptedException {
         onMainButton(event);
         batchTab.setVisible(true);
+
     }
 
     @FXML
@@ -1293,9 +1366,9 @@ public class HelloController {
         int batchId;
         String semester;
         batchId = Integer.parseInt(selectiveBatch.getText());
-        // semester= selectiveSemester.getText();
+        semester = selectiveSemester.getText();
 
-        List<String> batchSemesterStudentEmails = Notice.getStudentEmailsByBatchAndSemester(Integer.parseInt(String.valueOf(batchId)));
+        List<String> batchSemesterStudentEmails = Notice.getStudentEmailsByBatchAndSemester(Integer.parseInt(String.valueOf(batchId)),semester);
 
         System.out.println("All Student Emails:");
         for (String email : batchSemesterStudentEmails) {
@@ -1402,8 +1475,71 @@ public class HelloController {
     private TableColumn<Parent, Long> pContact2;
 
 
+    ///////update
+    @FXML
+    private TextField up_address;
 
+    @FXML
+    private TextField up_contact;
 
+    @FXML
+    private TextField up_email;
+
+    @FXML
+    private TextField up_firstname;
+
+    @FXML
+    private TextField up_lastname;
+
+    @FXML
+    private TextField up_middlename;
+
+    @FXML
+    private TextField up_pid;
+
+    @FXML
+    private TextField parentUpdateField;
+
+    @FXML
+    void onParentUs(ActionEvent event){
+        if (!parentUpdateField.getText().isEmpty()) {
+            String search = parentUpdateField.getText();
+            ParentView parentView = new ParentView(search);
+            Parent parent = parentView.getParent();
+            up_firstname.setText(parent.getPfirst_name());
+            up_middlename.setText(parent.getPmiddle_name());
+            up_lastname.setText(parent.getPlast_name());
+            up_address.setText(parent.getpAddress());
+            up_contact.setText(String.valueOf(parent.getpContact()));
+            up_email.setText(parent.getpEmail());
+        }
+    }
+    @FXML
+    void onUpdatParent(ActionEvent event) throws AddressException, SQLException {
+        String push = null;
+        if (!parentUpdateField.getText().isEmpty()) {
+            if (!up_address.getText().isEmpty() && !up_contact.getText().isEmpty() && !up_email.getText().isEmpty()
+                    && !up_firstname.getText().isEmpty() && !up_lastname.getText().isEmpty()) {
+
+                String firstName = up_firstname.getText();
+                String middleName = up_middlename.getText();
+                String lastName = up_lastname.getText();
+                String address = up_address.getText();
+                String contact = up_contact.getText();
+                String email = up_email.getText();
+
+                push = Database.updateParent(parentUpdateField.getText(), firstName, middleName, lastName, address, contact, email);
+                if (Objects.equals(push, "Success")) {
+                    Alert.show(alertLabel, "Update Done!");
+                } else {
+                    Alert.show(alertLabel, push);
+                }
+            }
+        }
+        else{
+            Alert.show(alertLabel,"Empty ID");
+        }
+    }
 
     @FXML
     void onParents(ActionEvent event){
@@ -1415,7 +1551,6 @@ public class HelloController {
 
     @FXML
     void onAddParent(ActionEvent event) throws IOException, WriterException, AddressException {
-        // if department values are valid try and save it in the database
         if (!p_address.getText().isEmpty()
                 && !p_contact.getText().isEmpty()
                 && !p_email.getText().isEmpty() && !p_firstname.getText().isEmpty() && !p_lastname.getText().isEmpty()) {
@@ -1466,10 +1601,6 @@ public class HelloController {
 
 
     }
-
-
-
-
 
     ///////////////////////////////////////////// select
     ///////////////////////////////////////////// tab////////////////////////////////
