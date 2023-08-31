@@ -646,6 +646,18 @@ public class HelloController {
     private TabPane subjectTab;
 
     @FXML
+    private TableColumn<Subject, String> semester;
+    @FXML
+    private TableColumn<Subject, String> subject;
+    @FXML
+    private TableColumn<Subject, Integer> sid;
+    @FXML
+    private TableView<Subject> subjectTable;
+
+
+
+
+    @FXML
     void onAddSubject(ActionEvent event) {
         if (!subjectName.getText().isEmpty() && !subSemester.getText().isEmpty()) {
             String push = Database.addSubject(subjectName.getText(), subSemester.getText());
@@ -660,12 +672,19 @@ public class HelloController {
             Alert.show(alertLabel, "Fields are empty!");
         }
     }
+
     @FXML
-    void onSubjects(ActionEvent event) {
+    void onSubjects(ActionEvent event) throws SQLException {
         onMainButton(event);
         subjectTab.setVisible(true);
-
+        SubjectView subjectView= new SubjectView(subjectTable,sid,subject,semester);
     }
+
+
+    @FXML
+    void onEditBatch(ActionEvent event){}
+    @FXML
+    void onEditSubject(ActionEvent event){}
     ////////////////////////////////// TeachersTAB//////////////////////////////////
 
     @FXML

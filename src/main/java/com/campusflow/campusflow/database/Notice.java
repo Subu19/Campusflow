@@ -44,7 +44,7 @@ public class Notice {
 
         if (connected) {
             try {
-                String sql = "SELECT email FROM `students` INNER JOIN batch on batch.bid = students.bid INNER JOIN faculty on faculty.fid = batch.fid WHERE bid = '" + batchId + "' OR semester = '" + semester + "'";
+                String sql = "SELECT email FROM `students` INNER JOIN batch on batch.bid = students.bid INNER JOIN faculty on faculty.fid = batch.fid WHERE bid = '" + batchId + "' and semester = '" + semester + "'";
 
                 PreparedStatement statement = con.prepareStatement(sql);
                 ResultSet result = statement.executeQuery();
