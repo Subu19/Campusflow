@@ -23,20 +23,18 @@ public class EmailSender {
         initialize();
     }
 
-    private static void initialize() {
+    public static void initialize() {
         if (session == null) {
             Properties properties = new Properties();
             properties.put("mail.smtp.host", HOST);
             properties.put("mail.smtp.port", "465");
             properties.put("mail.smtp.ssl.enable", "true");
             properties.put("mail.smtp.auth", "true");
-
             session = Session.getInstance(properties, new javax.mail.Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(USERNAME, PASSWORD);
                 }
             });
-
             session.setDebug(true);
         }
     }
@@ -132,4 +130,28 @@ public class EmailSender {
             mex.printStackTrace();
         }
     }
+    public static void sendMarksheet(Address[] toAddresses, String subject, String htmlContent) {
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(USERNAME));
+            message.setRecipients(Message.RecipientType.TO, toAddresses);
+            message.setSubject(subject);
+
+            MimeBodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setContent(htmlContent, "text/html");
+
+            Multipart multipart = new MimeMultipart();
+            multipart.addBodyPart(messageBodyPart);
+
+            message.setContent(multipart);
+
+            System.out.println("Sending...");
+            Transport.send(message);
+            System.out.println("Sent message successfully.");
+        } catch (MessagingException mex) {
+            System.err.println("Email sending failed.");
+            mex.printStackTrace();
+        }
+    }
+
 }

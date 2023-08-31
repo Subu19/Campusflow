@@ -67,6 +67,9 @@ public class Dashboard{
         //start HTTP server
         startHttpserver();
 
+        //start smtp server
+        EmailSender.initialize();
+
     }
     private void startHttpserver(){
 

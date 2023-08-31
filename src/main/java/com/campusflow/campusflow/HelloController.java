@@ -1353,12 +1353,52 @@ public class HelloController {
 
     @FXML
     private Button selectivebtn;
+    @FXML
+    private TextField noticeMBatch;
+
+    @FXML
+    private ChoiceBox<String> noticeMSem;
+
+    @FXML
+    private ChoiceBox<String> noticeMTerm;
+    //on marksheet email!!
+    @FXML
+    void onMarksheetEmail(ActionEvent event) {
+        if(!noticeMTerm.getValue().isEmpty() && !noticeMSem.getValue().isEmpty() && !noticeMBatch.getText().isEmpty()){
+            showProgress(event);
+            Task<String> marksEmail = new Task<String>() {
+                @Override
+                protected String call() throws Exception {
+                    return Notice.sendMarksheetToParents(noticeMBatch.getText(),noticeMTerm.getValue(),noticeMSem.getValue());
+                }
+            };
+            marksEmail.valueProperty().addListener((observable,newvalue,oldvalue) ->{
+                if(Objects.equals(newvalue, "Done")){
+                    hideProgress(event);
+                    Alert.show(alertLabel,"Sent marksheet of <term> to all students in <batch> batchID of <sem>".replace("<batch>",noticeMBatch.getText()).replace("<sem>",noticeMSem.getValue()).replace("<term>",noticeMTerm.getValue()));
+                }else{
+                    hideProgress(event);
+                    Alert.show(alertLabel,newvalue);
+                }
+            });
+            Alert.show(alertLabel,"Sending email... please be patient while email is being sent in BACKGROUND!");
+            Thread addStdThread = new Thread(marksEmail);
+            addStdThread.setDaemon(true);
+            addStdThread.start();
+        }else{
+            Alert.show(alertLabel,"Please fill the form properly");
+        }
+    }
 
     @FXML
     void onNotice(ActionEvent event) {
 
         onMainButton(event);
         noticeTab.setVisible(true);
+        noticeMTerm.getItems().clear();
+        noticeMSem.getItems().clear();
+        noticeMTerm.getItems().addAll(terminals);
+        noticeMSem.getItems().addAll(semesters);
     }
 
     @FXML

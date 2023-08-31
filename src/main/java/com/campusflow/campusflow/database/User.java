@@ -85,6 +85,8 @@ public class User {
                     EmailSender.sendEmail(toAddresses,subject,text);
 
                     feedback = "Please check your Email";
+
+
                 }
             }catch (IOException | ParseException e){
                 feedback = e.toString();
