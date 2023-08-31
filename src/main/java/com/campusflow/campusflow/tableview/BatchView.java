@@ -1,5 +1,4 @@
 package com.campusflow.campusflow.tableview;
-
 import com.campusflow.campusflow.EntityClass.Batch;
 import com.campusflow.campusflow.database.Database;
 import javafx.collections.FXCollections;
@@ -7,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,10 +15,11 @@ public class BatchView {
     private Batch batch;
 
     private TableColumn<Batch, String> semester;
-    private TableColumn<Batch, Integer> year;
+    private TableColumn<Batch, String> year;
     private TableColumn<Batch, Integer> bid;
     private TableColumn<Batch, Integer> fid;
     private TableView<Batch> tableView;
+
 
     ObservableList<Batch> batchData() {
         Vector<Batch> batchVector = new Vector<Batch>();
@@ -34,7 +33,7 @@ public class BatchView {
             PreparedStatement statement = Database.con.prepareStatement(sql);
             ResultSet result = statement.executeQuery();
             while (result.next()) {
-                bid = result.getInt("sid");
+                bid = result.getInt("bid");
                 semester = result.getString("semester");
                 fid = result.getInt("fid");
                 year = result.getInt("year");
@@ -48,7 +47,7 @@ public class BatchView {
 
         return FXCollections.observableArrayList(batchVector);
     }
-    public BatchView(TableView<Batch> batchTable, TableColumn<Batch, Integer> bid, TableColumn<Batch, String> semester, TableColumn<Batch, Integer> fid, TableColumn<Batch, Integer> year) throws SQLException{
+    public BatchView(TableView<Batch> batchTable, TableColumn<Batch, Integer> bid, TableColumn<Batch, String> semester, TableColumn<Batch, Integer> fid, TableColumn<Batch, String> year) throws SQLException{
         this.tableView = batchTable;
         this.bid = bid;
         this.semester = semester;
@@ -58,9 +57,8 @@ public class BatchView {
         this.bid.setCellValueFactory(new PropertyValueFactory<Batch, Integer>("bid"));
         this.semester.setCellValueFactory(new PropertyValueFactory<Batch, String>("semester"));
         this.fid.setCellValueFactory(new PropertyValueFactory<Batch, Integer>("fid"));
-        this.year.setCellValueFactory(new PropertyValueFactory<Batch, Integer>("year"));
+        this.year.setCellValueFactory(new PropertyValueFactory<Batch, String>("year"));
 
         tableView.setItems(batchData());
     }
-
 }

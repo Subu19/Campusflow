@@ -1125,10 +1125,25 @@ public class HelloController {
     @FXML
     private TextField b_semester;
 
+    /////
     @FXML
-    void onBatch(ActionEvent event) throws InterruptedException {
+    private TableColumn<Batch,Integer> batch_Id;
+    @FXML
+    private TableColumn<Batch,Integer> b_Faculty;
+
+    @FXML
+    private TableColumn<Batch, String> b_Semester;
+
+    @FXML
+    private TableColumn<Batch, String> b_Year;
+    @FXML
+    private TableView<?> batchTable;
+
+    @FXML
+    void onBatch(ActionEvent event) throws InterruptedException, SQLException {
         onMainButton(event);
         batchTab.setVisible(true);
+        BatchView batchView= new BatchView((TableView<Batch>) batchTable,batch_Id,b_Year,b_Faculty,b_Semester);
 
     }
 
