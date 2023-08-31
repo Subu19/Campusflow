@@ -7,8 +7,6 @@ public class Subject {
     private SimpleStringProperty Subject;
     private SimpleStringProperty semester;
 
-
-
     public int getSubId() {
         return subId.get();
     }
