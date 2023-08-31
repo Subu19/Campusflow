@@ -194,23 +194,23 @@
                                     <Button layoutX="26.0" layoutY="389.0" mnemonicParsing="false" onAction="#onAddStudent" prefHeight="44.0" prefWidth="137.0" styleClass="submitButton" text="ADD NEW STUDENT" AnchorPane.leftAnchor="26.0" />
                                     <TextField fx:id="s_firstname" layoutX="26.0" layoutY="117.0" AnchorPane.leftAnchor="26.0" />
                                     <TextField fx:id="s_middlename" layoutX="226.0" layoutY="116.0" />
-                                    <Label layoutX="26.0" layoutY="98.0" prefHeight="17.0" prefWidth="140.0" text="First Name:" textFill="WHITE" AnchorPane.leftAnchor="26.0" />
-                                    <Label layoutX="226.0" layoutY="98.0" prefHeight="17.0" prefWidth="140.0" text="Middle Name" textFill="WHITE" />
+                                    <TextField fx:id="s_lastname" layoutX="426.0" layoutY="116.0" />
+                                    <TextField fx:id="s_address" layoutX="26.0" layoutY="176.0" AnchorPane.leftAnchor="26.0" />
                                     <TextField fx:id="s_contact" layoutX="226.0" layoutY="173.0" />
                                     <TextField fx:id="s_email" layoutX="426.0" layoutY="173.0" />
-                                    <TextField fx:id="s_address" layoutX="26.0" layoutY="176.0" AnchorPane.leftAnchor="26.0" />
-                                    <TextField fx:id="s_lastname" layoutX="426.0" layoutY="116.0" />
                                     <TextField fx:id="s_entrancescore" layoutX="26.0" layoutY="246.0" AnchorPane.leftAnchor="26.0" />
                                     <TextField fx:id="s_fid" layoutX="226.0" layoutY="246.0" onKeyPressed="#onStudentSearchFaculty" />
+                                    <TextField fx:id="s_bid" layoutX="426.0" layoutY="242.0" onKeyPressed="#onStudentSearchBatch" />
+                                    <TextField fx:id="s_pid" layoutX="26.0" layoutY="320.0" onKeyPressed="#onStudentSearchParent" AnchorPane.leftAnchor="26.0" />
+                                    <Label layoutX="26.0" layoutY="98.0" prefHeight="17.0" prefWidth="140.0" text="First Name:" textFill="WHITE" AnchorPane.leftAnchor="26.0" />
+                                    <Label layoutX="226.0" layoutY="98.0" prefHeight="17.0" prefWidth="140.0" text="Middle Name" textFill="WHITE" />
                                     <Label layoutX="426.0" layoutY="98.0" prefHeight="17.0" prefWidth="140.0" text="Last Name:" textFill="WHITE" />
                                     <Label layoutX="26.0" layoutY="158.0" prefHeight="17.0" prefWidth="140.0" text="Address:" textFill="WHITE" AnchorPane.leftAnchor="26.0" />
                                     <Label layoutX="226.0" layoutY="156.0" prefHeight="17.0" prefWidth="140.0" text="Contact No:" textFill="WHITE" />
                                     <Label layoutX="426.0" layoutY="156.0" prefHeight="17.0" prefWidth="140.0" text="Email:" textFill="WHITE" />
                                     <Label layoutX="26.0" layoutY="229.0" prefHeight="17.0" prefWidth="140.0" text="Entrance Score:" textFill="WHITE" AnchorPane.leftAnchor="26.0" />
                                     <Label layoutX="226.0" layoutY="229.0" prefHeight="17.0" prefWidth="140.0" text="Faculty ID:" textFill="WHITE" />
-                                    <TextField fx:id="s_bid" layoutX="426.0" layoutY="242.0" onKeyPressed="#onStudentSearchBatch" />
                                     <Label layoutX="426.0" layoutY="225.0" prefHeight="17.0" prefWidth="140.0" text="Batch ID:" textFill="WHITE" />
-                                    <TextField fx:id="s_pid" layoutX="26.0" layoutY="320.0" onKeyPressed="#onStudentSearchParent" AnchorPane.leftAnchor="26.0" />
                                     <Label layoutX="26.0" layoutY="303.0" prefHeight="17.0" prefWidth="140.0" text="Parents ID:" textFill="WHITE" AnchorPane.leftAnchor="26.0" />
                                     <Label layoutX="26.0" layoutY="45.0" text="Add new Student" textFill="WHITE" AnchorPane.leftAnchor="26.0">
                                        <font>
@@ -253,19 +253,20 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
+                              <TextField fx:id="studentUpdateField" layoutX="42.0" layoutY="88.0" prefHeight="39.0" prefWidth="235.0" promptText="Student Name/ ID" AnchorPane.leftAnchor="49.0" />
                               <AnchorPane layoutX="44.0" layoutY="154.0" prefHeight="407.0" prefWidth="807.0" style="-fx-background-radius: 30;" styleClass="box" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="154.0">
                                  <children>
                                     <TextField fx:id="us_firstname" layoutX="20.0" layoutY="38.0" AnchorPane.leftAnchor="20.0" />
                                     <TextField fx:id="us_middlename" layoutX="236.0" layoutY="38.0" />
                                     <TextField fx:id="us_lastname" layoutX="450.0" layoutY="38.0" />
                                     <TextField fx:id="us_address" layoutX="20.0" layoutY="114.0" AnchorPane.leftAnchor="20.0" />
-                                    <Label layoutX="238.0" layoutY="182.0" prefHeight="17.0" prefWidth="140.0" text="Faculty ID:" textFill="WHITE" />
                                     <TextField fx:id="us_contact" layoutX="236.0" layoutY="113.0" />
                                     <TextField fx:id="us_email" layoutX="450.0" layoutY="115.0" />
                                     <TextField fx:id="us_entrancescore" layoutX="20.0" layoutY="202.0" AnchorPane.leftAnchor="20.0" />
                                     <TextField fx:id="us_fid" layoutX="236.0" layoutY="202.0" />
                                     <TextField fx:id="us_bid" layoutX="450.0" layoutY="202.0" />
                                     <TextField fx:id="us_pid" layoutX="20.0" layoutY="284.0" AnchorPane.leftAnchor="20.0" />
+                                    <Label layoutX="238.0" layoutY="182.0" prefHeight="17.0" prefWidth="140.0" text="Faculty ID:" textFill="WHITE" />
                                     <Label layoutX="20.0" layoutY="14.0" prefHeight="17.0" prefWidth="140.0" text="First Name:" textFill="WHITE" AnchorPane.leftAnchor="20.0" />
                                     <Label layoutX="238.0" layoutY="16.0" prefHeight="17.0" prefWidth="140.0" text="Middle Name" textFill="WHITE" />
                                     <Label layoutX="450.0" layoutY="16.0" prefHeight="17.0" prefWidth="140.0" text="Last Name:" textFill="WHITE" />
@@ -279,7 +280,6 @@
                                  </children>
                               </AnchorPane>
                               <Button fx:id="searchbutton1" layoutX="316.0" layoutY="90.0" mnemonicParsing="false" onAction="#onUpdateSearch" prefHeight="36.0" prefWidth="94.0" styleClass="submitButton" text="Search" />
-                              <TextField fx:id="studentUpdateField" layoutX="42.0" layoutY="88.0" prefHeight="39.0" prefWidth="235.0" promptText="Student Name/ ID" AnchorPane.leftAnchor="49.0" />
                               <Label layoutX="48.0" layoutY="41.0" text="Student Name / ID" textFill="WHITE" AnchorPane.leftAnchor="49.0">
                                  <font>
                                     <Font size="26.0" />
@@ -338,7 +338,7 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView fx:id="parentTable" prefHeight="524.0" prefWidth="999.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TableView fx:id="parentTable" prefHeight="524.0" prefWidth="999.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0">
                                  <columns>
                                     <TableColumn fx:id="pID" prefWidth="62.0" text="ID" />
                                     <TableColumn fx:id="pName" prefWidth="124.0" text="Name" />
@@ -359,19 +359,28 @@
                      <content>
                         <Pane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="p_firstname" layoutX="62.0" layoutY="72.0" />
-                              <TextField fx:id="p_contact" layoutX="262.0" layoutY="149.0" />
-                              <TextField fx:id="p_email" layoutX="462.0" layoutY="149.0" />
-                              <TextField fx:id="p_address" layoutX="62.0" layoutY="152.0" />
-                              <TextField fx:id="p_middlename" layoutX="262.0" layoutY="72.0" />
-                              <TextField fx:id="p_lastname" layoutX="462.0" layoutY="72.0" />
-                              <Button fx:id="addParent" layoutX="62.0" layoutY="222.0" mnemonicParsing="false" onAction="#onAddParent" prefHeight="35.0" prefWidth="100.0" styleClass="submitButton" text="ADD  Details" />
-                              <Label layoutX="62.0" layoutY="54.0" prefHeight="17.0" prefWidth="140.0" text="First Name:" textFill="WHITE" />
-                              <Label layoutX="262.0" layoutY="54.0" prefHeight="17.0" prefWidth="140.0" text="Middle Name" textFill="WHITE" />
-                              <Label layoutX="462.0" layoutY="54.0" prefHeight="17.0" prefWidth="140.0" text="Last Name:" textFill="WHITE" />
-                              <Label layoutX="62.0" layoutY="134.0" prefHeight="17.0" prefWidth="140.0" text="Address:" textFill="WHITE" />
-                              <Label layoutX="262.0" layoutY="132.0" prefHeight="17.0" prefWidth="140.0" text="Contact No:" textFill="WHITE" />
-                              <Label layoutX="462.0" layoutY="132.0" prefHeight="17.0" prefWidth="140.0" text="Email:" textFill="WHITE" />
+                              <AnchorPane layoutX="38.0" layoutY="41.0" prefHeight="369.0" prefWidth="758.0" style="-fx-background-radius: 30;" styleClass="box">
+                                 <children>
+                                    <TextField fx:id="p_firstname" layoutX="21.0" layoutY="108.0" AnchorPane.leftAnchor="21.0" />
+                                    <TextField fx:id="p_middlename" layoutX="231.0" layoutY="108.0" />
+                                    <TextField fx:id="p_lastname" layoutX="444.0" layoutY="108.0" />
+                                    <TextField fx:id="p_address" layoutX="21.0" layoutY="188.0" AnchorPane.leftAnchor="21.0" />
+                                    <TextField fx:id="p_contact" layoutX="231.0" layoutY="188.0" />
+                                    <TextField fx:id="p_email" layoutX="444.0" layoutY="188.0" />
+                                    <Button fx:id="addParent" layoutX="21.0" layoutY="311.0" mnemonicParsing="false" onAction="#onAddParent" prefHeight="35.0" prefWidth="100.0" styleClass="submitButton" text="ADD  Details" AnchorPane.leftAnchor="21.0" />
+                                    <Label layoutX="21.0" layoutY="90.0" prefHeight="17.0" prefWidth="140.0" text="First Name:" textFill="WHITE" AnchorPane.leftAnchor="21.0" />
+                                    <Label layoutX="231.0" layoutY="90.0" prefHeight="17.0" prefWidth="140.0" text="Middle Name" textFill="WHITE" />
+                                    <Label layoutX="444.0" layoutY="90.0" prefHeight="17.0" prefWidth="140.0" text="Last Name:" textFill="WHITE" />
+                                    <Label layoutX="21.0" layoutY="170.0" prefHeight="17.0" prefWidth="140.0" text="Address:" textFill="WHITE" AnchorPane.leftAnchor="21.0" />
+                                    <Label layoutX="231.0" layoutY="170.0" prefHeight="17.0" prefWidth="140.0" text="Contact No:" textFill="WHITE" />
+                                    <Label layoutX="444.0" layoutY="170.0" prefHeight="17.0" prefWidth="140.0" text="Email:" textFill="WHITE" />
+                                    <Label layoutX="21.0" layoutY="36.0" text="Add New Teacher" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="22.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </AnchorPane>
                            </children>
                         </Pane>
                      </content>
@@ -407,11 +416,23 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="up_firstname" layoutX="65.0" layoutY="196.0" />
-                              <TextField fx:id="up_middlename" layoutX="297.0" layoutY="196.0" />
-                              <TextField fx:id="up_lastname" layoutX="543.0" layoutY="196.0" />
-                              <TextField fx:id="up_address" layoutX="63.0" layoutY="272.0" />
-                              <TextField fx:id="up_contact" layoutX="302.0" layoutY="271.0" />
+                              <AnchorPane layoutX="44.0" layoutY="152.0" prefHeight="383.0" prefWidth="733.0" style="-fx-background-radius: 30;" styleClass="box" AnchorPane.leftAnchor="40.0">
+                                 <children>
+                                    <Button fx:id="upddateTeacherbtn11" layoutX="23.0" layoutY="260.0" mnemonicParsing="false" onAction="#onUpdatParent" prefHeight="33.0" prefWidth="84.0" styleClass="submitButton" text="UPDATE" />
+                                    <TextField fx:id="up_firstname" layoutX="25.0" layoutY="57.0" AnchorPane.leftAnchor="20.0" />
+                                    <TextField fx:id="up_middlename" layoutX="257.0" layoutY="57.0" />
+                                    <TextField fx:id="up_lastname" layoutX="503.0" layoutY="57.0" />
+                                    <TextField fx:id="up_address" layoutX="23.0" layoutY="133.0" AnchorPane.leftAnchor="20.0" />
+                                    <TextField fx:id="up_contact" layoutX="262.0" layoutY="132.0" />
+                                    <TextField fx:id="up_email" layoutX="507.0" layoutY="132.0" />
+                                    <Label layoutX="39.0" layoutY="33.0" prefHeight="17.0" prefWidth="140.0" text="First Name:" textFill="WHITE" AnchorPane.leftAnchor="20.0" />
+                                    <Label layoutX="260.0" layoutY="35.0" prefHeight="17.0" prefWidth="140.0" text="Middle Name" textFill="WHITE" />
+                                    <Label layoutX="508.0" layoutY="35.0" prefHeight="17.0" prefWidth="140.0" text="Last Name:" textFill="WHITE" />
+                                    <Label layoutX="34.0" layoutY="115.0" prefHeight="17.0" prefWidth="140.0" text="Address:" textFill="WHITE" AnchorPane.leftAnchor="20.0" />
+                                    <Label layoutX="264.0" layoutY="115.0" prefHeight="17.0" prefWidth="140.0" text="Contact No:" textFill="WHITE" />
+                                    <Label layoutX="505.0" layoutY="113.0" prefHeight="17.0" prefWidth="140.0" text="Email" textFill="WHITE" />
+                                 </children>
+                              </AnchorPane>
                               <Button fx:id="parentusbtn" layoutX="362.0" layoutY="90.0" mnemonicParsing="false" onAction="#onParentUs" prefHeight="33.0" prefWidth="84.0" styleClass="submitButton" text="Search" />
                               <TextField fx:id="parentUpdateField" layoutX="42.0" layoutY="88.0" prefHeight="39.0" prefWidth="235.0" promptText="Parent Name/ ID" />
                               <Label layoutX="48.0" layoutY="41.0" text="Parent Name / ID" textFill="WHITE">
@@ -419,14 +440,6 @@
                                     <Font size="26.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="79.0" layoutY="172.0" prefHeight="17.0" prefWidth="140.0" text="First Name:" textFill="WHITE" />
-                              <Label layoutX="300.0" layoutY="174.0" prefHeight="17.0" prefWidth="140.0" text="Middle Name" textFill="WHITE" />
-                              <Label layoutX="548.0" layoutY="174.0" prefHeight="17.0" prefWidth="140.0" text="Last Name:" textFill="WHITE" />
-                              <Label layoutX="74.0" layoutY="254.0" prefHeight="17.0" prefWidth="140.0" text="Address:" textFill="WHITE" />
-                              <Label layoutX="304.0" layoutY="254.0" prefHeight="17.0" prefWidth="140.0" text="Contact No:" textFill="WHITE" />
-                              <Button fx:id="upddateTeacherbtn11" layoutX="359.0" layoutY="410.0" mnemonicParsing="false" onAction="#onUpdatParent" prefHeight="33.0" prefWidth="84.0" styleClass="submitButton" text="UPDATE" />
-                              <TextField fx:id="up_email" layoutX="547.0" layoutY="271.0" />
-                              <Label layoutX="545.0" layoutY="252.0" prefHeight="17.0" prefWidth="140.0" text="Email" textFill="WHITE" />
                            </children>
                         </AnchorPane>
                      </content>
@@ -803,6 +816,12 @@
                               <AnchorPane layoutX="29.0" layoutY="55.0" prefHeight="350.0" prefWidth="350.0" style="-fx-background-radius: 30;" styleClass="box" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
                                  <children>
                                     <TextField fx:id="dptName" layoutX="-1.0" layoutY="81.0" prefHeight="25.0" prefWidth="223.0" AnchorPane.leftAnchor="20.0" />
+                                    <TextField fx:id="dptHOD" layoutX="13.0" layoutY="155.0" prefHeight="25.0" prefWidth="176.0" AnchorPane.leftAnchor="20.0" />
+                                    <Button layoutX="37.0" layoutY="237.0" mnemonicParsing="false" onAction="#onAddDepartment" prefHeight="44.0" prefWidth="81.0" styleClass="submitButton" text="Add" AnchorPane.leftAnchor="20.0">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Button>
                                     <Label layoutX="36.0" layoutY="59.0" text="Department Name:" textFill="WHITE" AnchorPane.leftAnchor="20.0">
                                        <font>
                                           <Font size="13.0" />
@@ -813,12 +832,6 @@
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="dptHOD" layoutX="13.0" layoutY="155.0" prefHeight="25.0" prefWidth="176.0" AnchorPane.leftAnchor="20.0" />
-                                    <Button layoutX="37.0" layoutY="237.0" mnemonicParsing="false" onAction="#onAddDepartment" prefHeight="44.0" prefWidth="81.0" styleClass="submitButton" text="Add" AnchorPane.leftAnchor="20.0">
-                                       <font>
-                                          <Font name="System Bold" size="15.0" />
-                                       </font>
-                                    </Button>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -832,6 +845,12 @@
                               <AnchorPane layoutX="35.0" layoutY="34.0" prefHeight="350.0" prefWidth="350.0" style="-fx-background-radius: 30;" styleClass="box" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="34.0">
                                  <children>
                                     <TextField fx:id="fName" layoutX="20.0" layoutY="81.0" prefHeight="25.0" prefWidth="223.0" AnchorPane.leftAnchor="20.0" />
+                                    <TextField fx:id="fDid" layoutX="20.0" layoutY="144.0" AnchorPane.leftAnchor="20.0" />
+                                    <Button layoutX="20.0" layoutY="222.0" mnemonicParsing="false" onAction="#onAddFaculty" prefHeight="44.0" prefWidth="81.0" styleClass="submitButton" text="Add" AnchorPane.leftAnchor="20.0">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Button>
                                     <Label layoutX="20.0" layoutY="55.0" text="Faculty Name:" textFill="WHITE" AnchorPane.leftAnchor="20.0">
                                        <font>
                                           <Font size="13.0" />
@@ -842,12 +861,6 @@
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="fDid" layoutX="20.0" layoutY="144.0" AnchorPane.leftAnchor="20.0" />
-                                    <Button layoutX="20.0" layoutY="222.0" mnemonicParsing="false" onAction="#onAddFaculty" prefHeight="44.0" prefWidth="81.0" styleClass="submitButton" text="Add" AnchorPane.leftAnchor="20.0">
-                                       <font>
-                                          <Font name="System Bold" size="15.0" />
-                                       </font>
-                                    </Button>
                                  </children>
                               </AnchorPane>
                            </children>
@@ -883,6 +896,9 @@
                               <AnchorPane layoutX="32.0" layoutY="41.0" prefHeight="378.0" prefWidth="363.0" style="-fx-background-radius: 30;" styleClass="box" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
                                  <children>
                                     <TextField fx:id="b_year" layoutX="-4.0" layoutY="71.0" prefHeight="25.0" prefWidth="223.0" AnchorPane.leftAnchor="20.0" />
+                                    <TextField fx:id="b_fId" layoutX="2.0" layoutY="137.0" prefHeight="25.0" prefWidth="176.0" AnchorPane.leftAnchor="20.0" />
+                                    <TextField fx:id="b_semester" layoutX="20.0" layoutY="210.0" prefHeight="25.0" prefWidth="176.0" AnchorPane.leftAnchor="20.0" />
+                                    <Button layoutX="21.0" layoutY="274.0" mnemonicParsing="false" onAction="#onAddBatch" prefHeight="44.0" prefWidth="137.0" styleClass="submitButton" text="Add Marks" AnchorPane.leftAnchor="20.0" />
                                     <Label layoutX="20.0" layoutY="52.0" text="Year:" textFill="WHITE" AnchorPane.leftAnchor="20.0">
                                        <font>
                                           <Font size="13.0" />
@@ -893,14 +909,11 @@
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="b_fId" layoutX="2.0" layoutY="137.0" prefHeight="25.0" prefWidth="176.0" AnchorPane.leftAnchor="20.0" />
                                     <Label layoutX="20.0" layoutY="189.0" text="Semester" textFill="WHITE" AnchorPane.leftAnchor="20.0">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="b_semester" layoutX="20.0" layoutY="210.0" prefHeight="25.0" prefWidth="176.0" AnchorPane.leftAnchor="20.0" />
-                                    <Button layoutX="21.0" layoutY="274.0" mnemonicParsing="false" onAction="#onAddBatch" prefHeight="44.0" prefWidth="137.0" styleClass="submitButton" text="Add Marks" AnchorPane.leftAnchor="20.0" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -954,12 +967,12 @@
                               <AnchorPane layoutX="32.0" layoutY="36.0" prefHeight="321.0" prefWidth="373.0" style="-fx-background-radius: 30;" styleClass="box">
                                  <children>
                                     <TextField fx:id="subjectName" layoutX="14.0" layoutY="82.0" prefHeight="25.0" prefWidth="223.0" AnchorPane.leftAnchor="20.0" />
+                                    <TextField fx:id="subSemester" layoutX="16.0" layoutY="161.0" prefHeight="25.0" prefWidth="176.0" AnchorPane.leftAnchor="20.0" />
                                     <Label layoutX="16.0" layoutY="48.0" text="Subject name:" textFill="WHITE" AnchorPane.leftAnchor="20.0">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="subSemester" layoutX="16.0" layoutY="161.0" prefHeight="25.0" prefWidth="176.0" AnchorPane.leftAnchor="20.0" />
                                     <Label layoutX="16.0" layoutY="132.0" text="Semester:" textFill="WHITE" AnchorPane.leftAnchor="20.0">
                                        <font>
                                           <Font size="13.0" />
@@ -1069,6 +1082,11 @@
                               <AnchorPane layoutX="16.0" layoutY="25.0" prefHeight="540.0" prefWidth="357.0" style="-fx-background-radius: 30;" styleClass="box" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
                                  <children>
                                     <TextField fx:id="mSubID" layoutX="14.0" layoutY="54.0" onKeyPressed="#onMarksSearchSubject" prefHeight="25.0" prefWidth="223.0" AnchorPane.leftAnchor="20.0" />
+                                    <ChoiceBox fx:id="mSemList" layoutX="20.0" layoutY="131.0" prefWidth="150.0" AnchorPane.leftAnchor="20.0" />
+                                    <TextField fx:id="mStdMarks" layoutX="20.0" layoutY="204.0" prefHeight="25.0" prefWidth="112.0" AnchorPane.leftAnchor="20.0" />
+                                    <TextField fx:id="mStdID" layoutX="20.0" layoutY="288.0" onKeyPressed="#onMSearchStudent" prefHeight="25.0" prefWidth="167.0" promptText="ID or Name to search" AnchorPane.leftAnchor="20.0" />
+                                    <ChoiceBox fx:id="mTermList" layoutX="20.0" layoutY="376.0" prefWidth="150.0" AnchorPane.leftAnchor="20.0" />
+                                    <Button layoutX="20.0" layoutY="456.0" mnemonicParsing="false" onAction="#onAddSubjectMarks" prefHeight="44.0" prefWidth="137.0" styleClass="submitButton" text="Add Marks" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" />
                                     <Label layoutX="14.0" layoutY="28.0" text="Subject ID:" textFill="WHITE" AnchorPane.leftAnchor="20.0">
                                        <font>
                                           <Font size="13.0" />
@@ -1079,14 +1097,11 @@
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <ChoiceBox fx:id="mSemList" layoutX="20.0" layoutY="131.0" prefWidth="150.0" AnchorPane.leftAnchor="20.0" />
-                                    <TextField fx:id="mStdMarks" layoutX="20.0" layoutY="204.0" prefHeight="25.0" prefWidth="112.0" AnchorPane.leftAnchor="20.0" />
                                     <Label layoutX="20.0" layoutY="178.0" text="Marks:" textFill="WHITE" AnchorPane.leftAnchor="20.0">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextField fx:id="mStdID" layoutX="20.0" layoutY="288.0" onKeyPressed="#onMSearchStudent" prefHeight="25.0" prefWidth="167.0" promptText="ID or Name to search" AnchorPane.leftAnchor="20.0" />
                                     <Label layoutX="20.0" layoutY="262.0" text="Student ID:" textFill="WHITE" AnchorPane.leftAnchor="20.0">
                                        <font>
                                           <Font size="13.0" />
@@ -1097,8 +1112,6 @@
                                           <Font size="13.0" />
                                        </font>
                                     </Label>
-                                    <ChoiceBox fx:id="mTermList" layoutX="20.0" layoutY="376.0" prefWidth="150.0" AnchorPane.leftAnchor="20.0" />
-                                    <Button layoutX="20.0" layoutY="456.0" mnemonicParsing="false" onAction="#onAddSubjectMarks" prefHeight="44.0" prefWidth="137.0" styleClass="submitButton" text="Add Marks" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -1169,6 +1182,7 @@
                            <children>
                               <AnchorPane prefHeight="483.0" prefWidth="797.0" style="-fx-background-radius: 30;" styleClass="box" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="30.0">
                                  <children>
+                                    <TextField fx:id="selectiveSemester" layoutX="20.0" layoutY="99.0" prefHeight="27.0" prefWidth="150.0" promptText="SEMESTER" AnchorPane.leftAnchor="20.0" />
                                     <TextField fx:id="selectiveBatch" layoutX="187.0" layoutY="99.0" prefHeight="27.0" prefWidth="150.0" promptText="BATCH" />
                                     <TextArea fx:id="selectiveField" layoutX="47.0" layoutY="149.0" prefHeight="291.0" prefWidth="781.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="149.0" />
                                     <Button fx:id="selectivebtn" layoutX="47.0" layoutY="428.0" mnemonicParsing="false" onAction="#onSelectiveannouncement" prefHeight="44.0" prefWidth="124.0" styleClass="submitButton" text="Announce" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
@@ -1183,7 +1197,6 @@
                                        </font>
                                     </Label>
                                     <Label layoutX="187.0" layoutY="72.0" prefHeight="27.0" prefWidth="62.0" text="Semester" textFill="#fcfcfc" />
-                                    <TextField fx:id="selectiveSemester" layoutX="20.0" layoutY="99.0" prefHeight="27.0" prefWidth="150.0" promptText="SEMESTER" AnchorPane.leftAnchor="20.0" />
                                  </children>
                               </AnchorPane>
                            </children>
@@ -1239,12 +1252,12 @@
                      <content>
                         <Pane prefHeight="200.0" prefWidth="200.0">
                            <children>
-                              <TextField fx:id="database" layoutX="44.0" layoutY="74.0" prefHeight="25.0" prefWidth="167.0" promptText="database" />
-                              <TextField fx:id="port" layoutX="44.0" layoutY="118.0" minHeight="28.0" prefHeight="28.0" prefWidth="81.0" promptText="port" />
-                              <TextField fx:id="dbuser" layoutX="306.0" layoutY="29.0" promptText="user" />
-                              <TextField fx:id="dbpass" layoutX="306.0" layoutY="74.0" promptText="password" />
-                              <Button fx:id="databaseSubmitBtn" layoutX="44.0" layoutY="181.0" mnemonicParsing="false" onAction="#onSubmitDB" prefHeight="35.0" prefWidth="79.0" styleClass="submitButton" text="Connect" />
                               <TextField fx:id="host" layoutX="44.0" layoutY="29.0" prefHeight="25.0" prefWidth="167.0" promptText="host" />
+                              <TextField fx:id="dbuser" layoutX="306.0" layoutY="29.0" promptText="user" />
+                              <TextField fx:id="database" layoutX="44.0" layoutY="74.0" prefHeight="25.0" prefWidth="167.0" promptText="database" />
+                              <TextField fx:id="dbpass" layoutX="306.0" layoutY="74.0" promptText="password" />
+                              <TextField fx:id="port" layoutX="44.0" layoutY="118.0" minHeight="28.0" prefHeight="28.0" prefWidth="81.0" promptText="port" />
+                              <Button fx:id="databaseSubmitBtn" layoutX="44.0" layoutY="181.0" mnemonicParsing="false" onAction="#onSubmitDB" prefHeight="35.0" prefWidth="79.0" styleClass="submitButton" text="Connect" />
                               <Label fx:id="databaseAlert" layoutX="44.0" layoutY="233.0" prefHeight="17.0" prefWidth="970.0" textFill="WHITE">
                                  <font>
                                     <Font size="14.0" />
