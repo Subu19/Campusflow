@@ -643,6 +643,13 @@ public class HelloController {
     @FXML
     private TextField subSemester;
     @FXML
+    private TextField s_Id;
+    @FXML
+    private TextField subjectName1;
+
+    @FXML
+    private TextField subSemester1;
+    @FXML
     private TabPane subjectTab;
 
     @FXML
@@ -677,15 +684,46 @@ public class HelloController {
     void onSubjects(ActionEvent event) throws SQLException {
         onMainButton(event);
         subjectTab.setVisible(true);
-        SubjectView subjectView= new SubjectView(subjectTable,sid,subject,semester);
+        subjectName.setText("");
+        subSemester.setText("");
+        s_Id.setText("");
+        subjectName1.setText("");
+        subSemester1.setText("");
+        SubjectView subjectView= new SubjectView(s_Id,subjectName1,subSemester1,subjectTable,sid,subject,semester);
     }
 
+    @FXML
+    void onEditSubject(ActionEvent event){
+
+        if (!subjectName1.getText().isEmpty() && !subSemester1.getText().isEmpty()) {
+            String push = Database.editSubject(s_Id.getText(),subjectName1.getText(), subSemester1.getText());
+            if (Objects.equals(push, "Success")) {
+                Alert.show(alertLabel, "Update Done!");
+                dptName.setText("");
+                dptHOD.setText("");
+            } else {
+                Alert.show(alertLabel, push);
+            }
+        } else {
+            Alert.show(alertLabel, "Fields are empty!");
+        }
+    }
 
     @FXML
-    void onEditBatch(ActionEvent event){}
-    @FXML
-    void onEditSubject(ActionEvent event){}
-    ////////////////////////////////// TeachersTAB//////////////////////////////////
+    void onDeleteSubject(ActionEvent event) throws SQLException {
+        String push = null;
+        if (!s_Id.getText().isEmpty()) {
+            push = Database.deleteSubject(s_Id.getText());
+            if (Objects.equals(push, "Success")) {
+                Alert.show(alertLabel, "Update Done!");
+            } else {
+                Alert.show(alertLabel, push);
+            }
+        }else{
+            Alert.show(alertLabel,"Empty is id!");
+        }
+    }
+        ////////////////////////////////// TeachersTAB//////////////////////////////////
 
     @FXML
     private TabPane teachersTab;
@@ -926,8 +964,6 @@ public class HelloController {
         }else{
             Alert.show(alertLabel,"Empty is id!");
         }
-
-
     }
 
 
@@ -1183,6 +1219,14 @@ public class HelloController {
     private TextField b_fId;
     @FXML
     private TextField b_semester;
+    @FXML
+    private TextField b_year1;
+    @FXML
+    private TextField b_fId1;
+    @FXML
+    private TextField b_semester1;
+    @FXML
+    private TextField b_Id;
 
     /////
     @FXML
@@ -1200,10 +1244,14 @@ public class HelloController {
 
     @FXML
     void onBatch(ActionEvent event) throws InterruptedException, SQLException {
+
         onMainButton(event);
         batchTab.setVisible(true);
-        BatchView batchView= new BatchView((TableView<Batch>) batchTable,batch_Id,b_Year,b_Faculty,b_Semester);
+        b_year1.setText("");
+        b_fId1.setText("");
+        b_semester1.setText("");
 
+        BatchView batchView= new BatchView(b_Id,b_year1,b_fId1,b_semester1, (TableView<Batch>) batchTable,batch_Id,b_Year,b_Faculty,b_Semester);
     }
 
     @FXML
@@ -1221,6 +1269,35 @@ public class HelloController {
         }
     }
 
+    @FXML
+    void onEditBatch(ActionEvent event) {
+        if (!b_year1.getText().isEmpty() && !b_fId1.getText().isEmpty() && !b_semester1.getText().isEmpty()) {
+            String push = Database.editBatch(b_Id.getText(),b_year1.getText(), b_fId1.getText(), b_semester1.getText());
+            if (Objects.equals(push, "Success")) {
+                Alert.show(alertLabel, "Update Done!");
+                b_year1.setText("");
+                b_fId1.setText("");
+                b_semester1.setText("");
+                b_Id.setText("");
+            } else {
+                Alert.show(alertLabel, push);
+            }
+        }
+    }
+    @FXML
+    void onDeleteBatch(ActionEvent event) throws SQLException {
+        String push = null;
+        if (!s_Id.getText().isEmpty()) {
+            push = Database.deleteBatch(s_Id.getText());
+            if (Objects.equals(push, "Success")) {
+                Alert.show(alertLabel, "Update Done!");
+            } else {
+                Alert.show(alertLabel, push);
+            }
+        }else{
+            Alert.show(alertLabel,"Empty is id!");
+        }
+    }
     ///////////////////////////// ATTENDENCE /////////////////////////
     @FXML
     private TableColumn<AttendenceStudent, String> aDateComumn;

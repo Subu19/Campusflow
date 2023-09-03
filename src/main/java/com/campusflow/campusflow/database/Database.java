@@ -690,7 +690,26 @@ public class Database {
         }
         return feedback;
     }
-
+    public static String deleteBatch(String text) throws SQLException {
+        String feedback = null;
+        if (connected) {
+            String sql = "Delete FROM batch WHERE bid = '" + text + "'";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.executeUpdate();
+            feedback = "Success";
+        }
+        return feedback;
+    }
+    public static String deleteSubject(String text) throws SQLException {
+        String feedback = null;
+        if (connected) {
+            String sql = "Delete FROM subjects WHERE subId = '" + text + "'";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.executeUpdate();
+            feedback = "Success";
+        }
+        return feedback;
+    }
 
     public static String updateStudent(String search, String firstname, String middlename, String lastname, String address,
                                        String contact, String email, String entrance,
@@ -736,6 +755,38 @@ public class Database {
             String sql = "UPDATE parents " +
                     "SET first_name = '" + firstName + "', middle_name = '" + middleName + "', last_name = '" + lastName + "', " +
                     "address = '" + address + "', contact = '" + contact + "', email = '" + email + "' WHERE pid = '" + text + "' or first_name= '" + text + "'";
+            feedback = "Success";
+
+            try (Statement statement = con.createStatement()) {
+                int rowsAffected = statement.executeUpdate(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return feedback;
+    }
+
+    public static String editBatch(String id,String text, String text1, String text2) {
+        String feedback = null;
+        if (connected) {
+            String sql = "UPDATE batch " +
+                    "SET year = '" + text + "', fid = '" + text1 + "', semester = '" + text2 + "' WHERE bid = '" + id + "'";
+            feedback = "Success";
+
+            try (Statement statement = con.createStatement()) {
+                int rowsAffected = statement.executeUpdate(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return feedback;
+    }
+
+    public static String editSubject(String text, String text1, String text2) {
+        String feedback = null;
+        if (connected) {
+            String sql = "UPDATE subjects " +
+                    "SET sub_name = '" + text1 + "', semester = '" + text2 + "' WHERE subId = '" + text + "'";
             feedback = "Success";
 
             try (Statement statement = con.createStatement()) {
