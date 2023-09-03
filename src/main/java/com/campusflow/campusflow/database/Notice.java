@@ -39,12 +39,12 @@ public class Notice {
         return emails;
     }
 
-    public static List<String> getStudentEmailsByBatchAndSemester(int batchId,String semester) {
+    public static List<String> getStudentEmailsByBatchAndSemester(int batchId) {
         List<String> emails = new ArrayList<>();
 
         if (connected) {
             try {
-                String sql = "SELECT email FROM `students` INNER JOIN batch on batch.bid = students.bid INNER JOIN faculty on faculty.fid = batch.fid WHERE bid = '" + batchId + "' and semester = '" + semester + "'";
+                String sql = "SELECT email FROM `students` INNER JOIN batch on batch.bid = students.bid WHERE batch.bid = " + batchId + "";
 
                 PreparedStatement statement = con.prepareStatement(sql);
                 ResultSet result = statement.executeQuery();

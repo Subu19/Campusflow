@@ -809,7 +809,7 @@
                            </children></AnchorPane>
                      </content>
                   </Tab>
-                  <Tab text="Add Department">
+                  <Tab text="Department">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -834,11 +834,21 @@
                                     </Label>
                                  </children>
                               </AnchorPane>
+                              <TableView fx:id="departmentTable" layoutX="461.0" layoutY="35.0" prefHeight="331.0" prefWidth="542.0">
+                                <columns>
+                                    <TableColumn fx:id="d_Id" prefWidth="75.0" text="Department ID" />
+                                  <TableColumn fx:id="d_name" prefWidth="75.0" text="Department Name" />
+                                  <TableColumn fx:id="d_hod" prefWidth="75.0" text="Department HOD" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
                            </children>
                         </AnchorPane>
                      </content>
                   </Tab>
-                  <Tab text="Add Faculty">
+                  <Tab text="Faculty">
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -863,6 +873,16 @@
                                     </Label>
                                  </children>
                               </AnchorPane>
+                              <TableView fx:id="facultyTable" layoutX="471.0" layoutY="45.0" prefHeight="331.0" prefWidth="542.0">
+                                 <columns>
+                                    <TableColumn fx:id="f_Id" prefWidth="75.0" text="Faculty ID" />
+                                    <TableColumn fx:id="f_name" prefWidth="75.0" text="Faculty Name" />
+                                    <TableColumn fx:id="f_did" prefWidth="75.0" text="Department Id" />
+                                 </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
                            </children>
                         </AnchorPane>
                      </content>
@@ -953,7 +973,7 @@
                   </Tab>
                </tabs>
             </TabPane>
-            <TabPane fx:id="subjectTab" layoutX="10.0" layoutY="10.0" prefHeight="593.0" prefWidth="998.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane fx:id="subjectTab" layoutX="10.0" layoutY="10.0" prefHeight="593.0" prefWidth="998.0" tabClosingPolicy="UNAVAILABLE" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <tabs>
                   <Tab text="Subjects">
                      <content>
@@ -1024,7 +1044,7 @@
                   </Tab>
                </tabs>
             </TabPane>
-            <TabPane fx:id="marksheetTab" layoutX="10.0" layoutY="10.0" prefHeight="593.0" prefWidth="998.0" tabClosingPolicy="UNAVAILABLE" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <TabPane fx:id="marksheetTab" layoutX="10.0" layoutY="10.0" prefHeight="593.0" prefWidth="998.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <tabs>
                   <Tab text="View Marks">
                      <content>
@@ -1188,21 +1208,19 @@
                            <children>
                               <AnchorPane prefHeight="483.0" prefWidth="797.0" style="-fx-background-radius: 30;" styleClass="box" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="100.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="30.0">
                                  <children>
-                                    <TextField fx:id="selectiveSemester" layoutX="20.0" layoutY="99.0" prefHeight="27.0" prefWidth="150.0" promptText="SEMESTER" AnchorPane.leftAnchor="20.0" />
-                                    <TextField fx:id="selectiveBatch" layoutX="187.0" layoutY="99.0" prefHeight="27.0" prefWidth="150.0" promptText="BATCH" />
+                                    <TextField fx:id="selectiveBatch" layoutX="70.0" layoutY="103.0" prefHeight="27.0" prefWidth="150.0" promptText="BATCH" />
                                     <TextArea fx:id="selectiveField" layoutX="47.0" layoutY="149.0" prefHeight="291.0" prefWidth="781.0" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="149.0" />
                                     <Button fx:id="selectivebtn" layoutX="47.0" layoutY="428.0" mnemonicParsing="false" onAction="#onSelectiveannouncement" prefHeight="44.0" prefWidth="124.0" styleClass="submitButton" text="Announce" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
                                        <font>
                                           <Font size="13.0" />
                                        </font>
                                     </Button>
-                                    <Label layoutX="20.0" layoutY="72.0" prefHeight="27.0" prefWidth="62.0" text="Batch" textFill="#f7f7f7" AnchorPane.leftAnchor="20.0" />
+                                    <Label layoutX="76.0" layoutY="70.0" prefHeight="27.0" prefWidth="62.0" text="Batch" textFill="#f7f7f7" AnchorPane.leftAnchor="76.0" />
                                     <Label fx:id="selectiveNotice" layoutX="24.0" layoutY="14.0" prefHeight="52.0" prefWidth="293.0" text="Notice to Selected Batch" textFill="WHITE" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
                                        <font>
                                           <Font name="Arial" size="23.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="187.0" layoutY="72.0" prefHeight="27.0" prefWidth="62.0" text="Semester" textFill="#fcfcfc" />
                                  </children>
                               </AnchorPane>
                            </children>

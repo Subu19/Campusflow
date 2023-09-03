@@ -981,7 +981,7 @@ public class HelloController {
     }
 
     @FXML
-    void onHome(ActionEvent event) throws InterruptedException {
+    void onHome(ActionEvent event) throws InterruptedException, SQLException {
         onMainButton(event);
         homeTab.setVisible(true);
         initDashboard();
@@ -990,6 +990,13 @@ public class HelloController {
         resultTerminals.getItems().addAll(terminals);
         resultSemester.getItems().clear();
         resultSemester.getItems().addAll(semesters);
+        dptHOD.setText("");
+        dptName.setText("");
+        fDid.setText("");
+        fName.setText("");
+        DepartmentView departmentView= new DepartmentView(dptHOD,dptName,departmentTable,d_Id,d_name,d_hod);
+        FacultyView facultyView = new FacultyView(fDid,fName,facultyTable,f_did,f_Id,f_name);
+
     }
     @FXML
     void onUpdateAttendenceraph(ActionEvent event) throws InterruptedException, SQLException {
@@ -1089,6 +1096,27 @@ public class HelloController {
         }
     }
 
+
+    /////////////////////////////////Department//////////////////////////
+    @FXML
+    private TableColumn<Department, Integer> d_Id;
+    @FXML
+    private TableColumn<Department, String> d_name;
+    @FXML
+    private TableColumn<Department, Integer> d_hod;
+
+    @FXML
+    private TableView<Department> departmentTable;
+
+    @FXML
+    private TableColumn<Faculty, Integer> f_Id;
+    @FXML
+    private TableColumn<Faculty, String> f_name;
+    @FXML
+    private TableColumn<Faculty, Integer> f_did;
+
+    @FXML
+    private TableView<Faculty> facultyTable;
     @FXML
     private TextField dptHOD;
 
@@ -1110,6 +1138,18 @@ public class HelloController {
             }
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+    ////////////////////////////Faculty////////////////////////////////
 
     @FXML
     private TextField fDid;
@@ -1436,19 +1476,43 @@ public class HelloController {
     }
 
     @FXML
-    void onSelectiveannouncement(ActionEvent e) {
+    void onSelectiveannouncement(ActionEvent event) {
+        String text = selectiveField.getText();
+        String subject = "Notice from Campus Flow";
         int batchId;
-        String semester;
         batchId = Integer.parseInt(selectiveBatch.getText());
-        semester = selectiveSemester.getText();
 
-        List<String> batchSemesterStudentEmails = Notice.getStudentEmailsByBatchAndSemester(Integer.parseInt(String.valueOf(batchId)),semester);
+        List<String> batchSemesterStudentEmails = Notice.getStudentEmailsByBatchAndSemester(Integer.parseInt(String.valueOf(batchId)));
 
         System.out.println("All Student Emails:");
         for (String email : batchSemesterStudentEmails) {
             System.out.println(email);
         }
+        Address[] toAddresses = new InternetAddress[batchSemesterStudentEmails.size()];
+        for (int i = 0; i < batchSemesterStudentEmails.size(); i++) {
+            try {
+                toAddresses[i] = new InternetAddress(batchSemesterStudentEmails.get(i));
+            } catch (AddressException e) {
+                e.printStackTrace();
+            }
+        }
 
+        showProgress(event);
+        Task<String> emailTask = new Task<String>() {
+            @Override
+            protected String call() throws Exception {
+                return EmailSender.sendEmail(toAddresses, subject, text);
+            }
+        };
+        emailTask.valueProperty().addListener((oberver,oldvalue,newvalue)->{
+            if(newvalue.equals("Done")){
+                hideProgress(event);
+                Alert.show(alertLabel,"Success");
+            }
+        });
+        Thread emailThread = new Thread(emailTask);
+        emailThread.setDaemon(true);
+        emailThread.start();
     }
 
     @FXML
@@ -1730,7 +1794,6 @@ public class HelloController {
         Button clickedButton = (Button) event.getSource();
         clickedButton.setStyle(
                 "-fx-background-color: linear-gradient(to right,#b625d6,#9157ec,#6773f8,#3987fa,#0997f4);-fx-font-weight: bold;-fx-text-fill: white;-fx-font-size: 20px;");
-
     }
 
 }

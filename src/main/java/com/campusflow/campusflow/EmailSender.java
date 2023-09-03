@@ -39,16 +39,17 @@ public class EmailSender {
         }
     }
 
-    public static void sendEmail(Address[] toAddresses, String subject, String text) {
+    public static String sendEmail(Address[] toAddresses, String subject, String text) {
+        String feedback;
         if(session == null){
             initialize();
             sendEmail(toAddresses,subject,text,null);
-
-
+            feedback ="Done";
         }else{
             sendEmail(toAddresses,subject,text,null);
-
+            feedback ="Done";
         }
+        return  feedback;
     }
 
     private  static class SendEmailThread implements Runnable{
