@@ -35,10 +35,6 @@ public class Tokens {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
-
         }
     }
-
-
 }

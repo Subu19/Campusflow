@@ -2,7 +2,6 @@ package com.campusflow.campusflow.database;
 
 import Encryption.Encryption;
 import com.campusflow.campusflow.EmailSender;
-import com.campusflow.campusflow.EntityClass.Student;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -147,7 +146,7 @@ public class Database {
                 //create table
                 System.out.println("Creating Table!");
                 try {
-                    String sql = "CREATE TABLE department(did int AUTO_INCREMENT PRIMARY KEY, name varchar(20), hod int)";
+                    String sql = "CREATE TABLE department(did int AUTO_INCREMENT PRIMARY KEY, name varchar(40), hod int)";
                     PreparedStatement statement = con.prepareStatement(sql);
                     statement.executeUpdate();
                     System.out.println("table created!");
@@ -794,6 +793,60 @@ public class Database {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+        return feedback;
+    }
+
+    public static String updateDepartment(String text,String text1, String text2) {
+        String feedback = null;
+        if (connected) {
+            String sql = "UPDATE department " +
+                    "SET name = '" + text1 + "', hod = '" + text2 + "' WHERE did = '" + text + "'";
+            feedback = "Success";
+
+            try (Statement statement = con.createStatement()) {
+                int rowsAffected = statement.executeUpdate(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return feedback;
+    }
+
+    public static String deleteDepartment(String text ) throws SQLException {
+        String feedback = null;
+        if (connected) {
+            String sql = "Delete FROM department WHERE did = '" + text + "'";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.executeUpdate();
+            feedback = "Success";
+        }
+        return feedback;
+    }
+
+    public static String updateFaculty(String text, String text1, String text2) {
+        String feedback = null;
+        if (connected) {
+            String sql = "UPDATE faculty " +
+                    "SET faculty_name = '" + text1 + "', did = '" + text2 + "' WHERE fid = '" + text + "'";
+            feedback = "Success";
+
+            try (Statement statement = con.createStatement()) {
+                int rowsAffected = statement.executeUpdate(sql);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return feedback;
+    }
+
+    public static String deleteFaculty(String text) throws SQLException {
+        String feedback = null;
+        if (connected) {
+            String sql = "Delete FROM faculty WHERE fid = '" + text + "'";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.executeUpdate();
+            feedback = "Success";
         }
         return feedback;
     }

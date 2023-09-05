@@ -50,7 +50,7 @@ public class TeacherView {
                 id = result.getInt("tid");
                 name = result.getString("first_name")+" "+result.getString("middle_name")+" "+result.getString("last_name");
                 address= result.getString("address");
-                contact = Math.toIntExact(result.getLong("contact"));
+                contact = result.getInt("contact");
                 email = result.getString("email");
                 faculty =result.getInt("fid");
                 subject = result.getInt("subjectId");

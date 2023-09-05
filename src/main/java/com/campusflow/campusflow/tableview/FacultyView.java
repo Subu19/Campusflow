@@ -1,7 +1,6 @@
 package com.campusflow.campusflow.tableview;
 
 import com.campusflow.campusflow.EntityClass.Faculty;
-import com.campusflow.campusflow.EntityClass.Student;
 import com.campusflow.campusflow.database.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,7 +46,7 @@ public class FacultyView {
 
         return FXCollections.observableArrayList(FacultyVector);
     }
-    public FacultyView(TextField f_field,TextField f_field1,TableView<Faculty> FacultyTable, TableColumn<Faculty, Integer> did, TableColumn<Faculty, Integer> fid, TableColumn<Faculty, String> faculty) throws SQLException{
+    public FacultyView(TextField f_field,TextField f_field1,TextField f_field2,TableView<Faculty> FacultyTable, TableColumn<Faculty, Integer> did, TableColumn<Faculty, Integer> fid, TableColumn<Faculty, String> faculty) throws SQLException{
         this.tableView = FacultyTable;
         this.did = did;
         this.fid = fid;
@@ -63,8 +62,10 @@ public class FacultyView {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     Faculty rowData = row.getItem();
+                    f_field.setText(rowData.getFid()+"");
                     f_field1.setText(rowData.getFaculty()+"");
-                    f_field.setText(rowData.getDid()+"");
+                    f_field2.setText(rowData.getDid()+"");
+
                 }
             });
             return row ;

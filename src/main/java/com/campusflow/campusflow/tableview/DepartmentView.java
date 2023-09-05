@@ -1,8 +1,6 @@
 package com.campusflow.campusflow.tableview;
 
-import com.campusflow.campusflow.EntityClass.Batch;
 import com.campusflow.campusflow.EntityClass.Department;
-import com.campusflow.campusflow.EntityClass.Faculty;
 import com.campusflow.campusflow.database.Database;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -46,7 +44,7 @@ public class DepartmentView {
 
         return FXCollections.observableArrayList(DepartmentVector);
     }
-    public DepartmentView(TextField f_field,TextField f_field1, TableView<Department> departmentTable, TableColumn<Department, Integer> did, TableColumn<Department, String> Department, TableColumn<Department, Integer> hod) throws SQLException{
+    public DepartmentView(TextField f_field,TextField f_field1,TextField f_field2, TableView<Department> departmentTable, TableColumn<Department, Integer> did, TableColumn<Department, String> Department, TableColumn<Department, Integer> hod) throws SQLException{
         this.tableView = departmentTable;
         this.did = did;
         this.hod = hod;
@@ -62,8 +60,9 @@ public class DepartmentView {
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     Department rowData = row.getItem();
-                    f_field1.setText(rowData.getDepartment()+"");
-                    f_field.setText(rowData.getHod()+"");
+                    f_field.setText(rowData.getDid()+"");
+                    f_field1.setText(rowData.getHod()+"");
+                    f_field2.setText(rowData.getDepartment()+"");
                 }
             });
             return row ;

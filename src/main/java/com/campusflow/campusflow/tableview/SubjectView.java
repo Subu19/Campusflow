@@ -1,5 +1,4 @@
 package com.campusflow.campusflow.tableview;
-import com.campusflow.campusflow.EntityClass.Batch;
 import com.campusflow.campusflow.EntityClass.Subject;
 import com.campusflow.campusflow.database.Database;
 import javafx.collections.FXCollections;

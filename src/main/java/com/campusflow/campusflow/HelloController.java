@@ -907,7 +907,7 @@ public class HelloController {
 
     @FXML
     void onAddTeacher(ActionEvent event) {
-        if (!t_FirstName.getText().isEmpty() && !t_MiddleName.getText().isEmpty() && !t_LastName.getText().isEmpty()
+        if (!t_FirstName.getText().isEmpty() && !t_LastName.getText().isEmpty()
                 && !t_Address.getText().isEmpty() && !t_Contact.getText().isEmpty()
                 && !t_Email.getText().isEmpty() && !t_Faculty.getText().isEmpty() && !t_Subject.getText().isEmpty()) {
             String push = Database.addTeacher(t_FirstName.getText(), t_MiddleName.getText(), t_LastName.getText(),
@@ -1026,13 +1026,17 @@ public class HelloController {
         resultTerminals.getItems().addAll(terminals);
         resultSemester.getItems().clear();
         resultSemester.getItems().addAll(semesters);
+        deptHOD.setText("");
+        deptName.setText("");
+        deptId.setText("");
         dptHOD.setText("");
         dptName.setText("");
+        fid.setText("");
         fDid.setText("");
         fName.setText("");
-        DepartmentView departmentView= new DepartmentView(dptHOD,dptName,departmentTable,d_Id,d_name,d_hod);
-        FacultyView facultyView = new FacultyView(fDid,fName,facultyTable,f_did,f_Id,f_name);
-
+        deptId.setText("");
+        DepartmentView departmentView= new DepartmentView(deptId,dptHOD,dptName,departmentTable,d_Id,d_name,d_hod);
+        FacultyView facultyView = new FacultyView(fid,fName,fDid,facultyTable,f_did,f_Id,f_name);
     }
     @FXML
     void onUpdateAttendenceraph(ActionEvent event) throws InterruptedException, SQLException {
@@ -1155,20 +1159,56 @@ public class HelloController {
     private TableView<Faculty> facultyTable;
     @FXML
     private TextField dptHOD;
+    @FXML
+    private TextField deptHOD;
+    @FXML
+    private TextField deptName;
 
 
     @FXML
     private TextField dptName;
+    @FXML
+    private TextField deptId;
 
     @FXML
     void onAddDepartment(ActionEvent event) {
         // if department values are valid try and save it in the database
+            if (!deptName.getText().isEmpty()) {
+                String push = Database.addDepartment(deptName.getText(), deptHOD.getText());
+                if (Objects.equals(push, "Success")) {
+                    Alert.show(alertLabel, "Update Done!");
+                    deptName.setText("");
+                    deptHOD.setText("");
+                } else {
+                    Alert.show(alertLabel, push);
+                }
+            }
+    }
+    @FXML
+    void onUpdateDepartment(ActionEvent event) {
         if (!dptName.getText().isEmpty()) {
-            String push = Database.addDepartment(dptName.getText(), dptHOD.getText());
+            String push = Database.updateDepartment(deptId.getText(),dptName.getText(), dptHOD.getText());
             if (Objects.equals(push, "Success")) {
                 Alert.show(alertLabel, "Update Done!");
                 dptName.setText("");
                 dptHOD.setText("");
+                deptId.setText("");
+
+            } else {
+                Alert.show(alertLabel, push);
+            }
+        }
+    }
+
+    @FXML
+    void onDeleteDepartment(ActionEvent event) throws SQLException {
+        if (!dptName.getText().isEmpty()) {
+            String push = Database.deleteDepartment(deptId.getText());
+            if (Objects.equals(push, "Success")) {
+                Alert.show(alertLabel, "Update Done!");
+                dptName.setText("");
+                dptHOD.setText("");
+                deptId.setText("");
             } else {
                 Alert.show(alertLabel, push);
             }
@@ -1177,31 +1217,57 @@ public class HelloController {
 
 
 
-
-
-
-
-
-
-
-
-    ////////////////////////////Faculty////////////////////////////////
+    //////////////////////////Faaculty////////////////////////////////
 
     @FXML
     private TextField fDid;
+    @FXML
+    private TextField fid;
 
     @FXML
     private TextField fName;
+    @FXML
+    private TextField facDid;
+
+    @FXML
+    private TextField facName;
 
     @FXML
     void onAddFaculty(ActionEvent event) {
         // if Faculty values are valid try and save it in the database
-        if (!fName.getText().isEmpty()) {
-            String push = Database.addFaculty(fName.getText(), fDid.getText());
+        if (!facName.getText().isEmpty()) {
+            String push = Database.addFaculty(facName.getText(), facDid.getText());
             if (Objects.equals(push, "Success")) {
                 Alert.show(alertLabel, "Update Done!");
-                fDid.setText("");
+                facName.setText("");
+                facDid.setText("");
+            } else {
+                Alert.show(alertLabel, push);
+            }
+        }
+    }
+    @FXML
+    void onUpdateFaculty(ActionEvent event) throws SQLException {
+        if (!fName.getText().isEmpty()) {
+            String push = Database.updateFaculty(fid.getText(),fName.getText(), fDid.getText());
+            if (Objects.equals(push, "Success")) {
+                Alert.show(alertLabel, "Update Done!");
                 fName.setText("");
+                fDid.setText("");
+                fid.setText("");
+            } else {
+                Alert.show(alertLabel, push);
+            }
+        }
+    }
+    @FXML
+    void onDeleteFaculty(ActionEvent event) throws SQLException {
+        if (!dptName.getText().isEmpty()) {
+            String push = Database.deleteFaculty(deptId.getText());
+            if (Objects.equals(push, "Success")) {
+                Alert.show(alertLabel, "Update Done!");
+                deptName.setText("");
+                deptHOD.setText("");
             } else {
                 Alert.show(alertLabel, push);
             }

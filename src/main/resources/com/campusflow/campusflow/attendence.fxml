@@ -10,7 +10,7 @@
 <StackPane prefHeight="358.0" prefWidth="661.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.campusflow.campusflow.AttendenceController">
    <children>
       <SwingNode fx:id="swingNode" />
-      <Label fx:id="text" alignment="TOP_LEFT" prefHeight="77.0" prefWidth="667.0" style="-fx-background-color: #ffffff;" text="Label" textFill="WHITE" wrapText="true" StackPane.alignment="BOTTOM_LEFT">
+      <Label fx:id="text" alignment="TOP_LEFT" prefHeight="77.0" prefWidth="667.0" style="-fx-background-color: #ffffff;" wrapText="true" StackPane.alignment="BOTTOM_LEFT">
          <font>
             <Font size="17.0" />
          </font>
