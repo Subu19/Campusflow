@@ -37,9 +37,6 @@ public class Database {
                 String checkAttendence = "SELECT * FROM `" + bid + "attendence` WHERE sid=" + sid + " AND date = '" + date + "';";
                 PreparedStatement checkStatement = con.prepareStatement(checkAttendence);
                 ResultSet result = checkStatement.executeQuery();
-                result.next();
-
-                System.out.println(result.getFetchSize());
                 if (result.next()) {
                     return "Your attendence has already been done; ID:" + sid;
 

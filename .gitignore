@@ -2,7 +2,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-
+/src/main/resources/config/config.json
+/src/main/resources/images/QR.png
 ### IntelliJ IDEA ###
 .idea/modules.xml
 .idea/jarRepositories.xml
@@ -36,4 +37,3 @@ build/
 
 ### Mac OS ###
 .DS_Store
-/src/main/resources/config/config.json
